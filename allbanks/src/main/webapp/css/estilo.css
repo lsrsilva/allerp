@@ -1,0 +1,213 @@
+@import url("https://fonts.googleapis.com/css?family=Oxygen|Ubuntu|Mukta");
+
+a:active{
+	text-decoration: none;
+}
+
+body{
+	background-color: #f9f9f9;
+	font-family: 'Ubuntu';
+}
+
+.br-top-none{
+	border-style: none, none, solid, none;
+}
+
+.btn-excel{
+	color: #fff;
+	background-color: #137a1c;
+	border-color: #137a1c;
+}
+
+.btn-pdf{
+	color: #fff;
+	background-color: #e81010;
+	border-color: #e81010;
+}
+
+.center-div-content{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index:-1;
+	
+}
+
+.centered-div{
+	padding-left: 0;
+	left: 10px;
+	transition: 0.7s;
+}
+
+.hidden{
+	display: none;
+}
+
+.div-azul{
+	overflow: auto;
+	background-color: #68c2e8;
+	height: 25px;
+}
+
+.ft-fam-ubuntu{
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.ft-fam-ubuntu-grey{
+	font-family: 'Ubuntu', sans-serif;
+	color: #bfbfbf;
+}
+
+.ft-fam-ubuntu-white{
+	font-family: 'Ubuntu', sans-serif;
+	color: #fff;
+}
+
+.ft-fam-oxygen{
+	font-family: 'Oxygen', sans-serif;
+	color: red;
+}
+
+.ft-fam-mukta{
+	font-family: 'Mukta', sans-serif;
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.icon-sidebar{
+	justify-content: center;
+	width: 50px;
+	height: auto;
+	padding-left: 10%;
+	padding-top: 6%;
+}
+
+.icons{
+	width: 20px;
+	height: auto;
+}
+
+.margins {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 0px;
+}
+
+.my-ml-5{
+	margin-left: 5px;
+}
+
+.my-ml-auto{
+	margin-left: auto;
+}
+
+.my-mr-5{
+	margin-rigth: 5px;
+}
+
+.my-mr-10{
+	margin-rigth: 10px;
+}
+
+.my-mx-5{
+	margin: 5px;
+}
+
+.my-mx{
+	margin: 3px;
+}
+
+.my-mr-auto{
+	margin-right: auto;
+}
+
+.nav-text {
+	position:relative;
+	display:table-cell;
+	vertical-align:middle;
+	width:190px;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.logo-size{
+	width: 40px;
+	height: auto;
+}
+
+.logo-circle{
+	border-radius: 50%;
+	background-color: #ededed;
+}
+
+.logo-circle-borded{
+	border-radius: 50%;
+	background-color: #fff;
+}
+
+.logo-sidebar{
+	width: 55px;
+	height: auto;
+	transition: 0.7s;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.mt-7{
+	margin-top: 7px;
+}
+
+.mb-1{
+	margin-bottom: 1.5px;
+}
+
+.td-55{
+	 width: 55px;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.text-center-15{
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.text-footer-white{
+	text-align: center;
+	color: white;
+}
+
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 60px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #ededed; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.7s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+#content{
+	margin-left: 60px;
+	transition: 0.7s;
+}
+
+#divLogo{
+	background-color: white;
+	height: 53px;
+}
+
+#text{
+	padding-top: 20px;;
+}

@@ -3,12 +3,16 @@ package br.com.allerp.allbanks.entity.conta;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 
+@Entity
+@Table
 public class Titular extends PessoaFisica {
 
 	private static final long serialVersionUID = -8605819128606661027L;

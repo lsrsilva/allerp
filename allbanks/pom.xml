@@ -161,6 +161,7 @@
 			<version>1.14.6</version>
 		</dependency>
 
+
 		<!-- SPRING FRAMEWORK MVC -->
 		<!-- spring beans spring-context spring-aop aopalliance spring-core commonslogging 
 			spring-expression spring-web -->
@@ -192,7 +193,7 @@
 		<!-- Spring Data <dependency> <groupId>org.springframework.data</groupId> 
 			<artifactId>spring-data-jpa</artifactId> <version>1.8.2.RELEASE</version> 
 			</dependency> -->
-			
+
 		<!-- Conection POOL: gerenciador de abertura e fechamento de conecções -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -215,7 +216,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
-		
+
 		<!-- Javax Validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>

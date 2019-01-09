@@ -11,7 +11,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="css/|icons/|icons/svg/|js/|logo/" kind="src" path="src/main/webapp"/>
 	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="test" value="true"/>
@@ -25,6 +24,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry excluding="css/|css/icons/|icons/|icons/svg/|js/|Login_v15/|Login_v15/css/|Login_v15/fonts/|Login_v15/fonts/poppins/|Login_v15/images/|Login_v15/images/icons/|Login_v15/js/|Login_v15/vendor/|Login_v15/vendor/animate/|Login_v15/vendor/animsition/css/|Login_v15/vendor/animsition/js/|Login_v15/vendor/bootstrap/css/|Login_v15/vendor/bootstrap/js/|Login_v15/vendor/countdowntime/|Login_v15/vendor/daterangepicker/|Login_v15/vendor/jquery/|Login_v15/vendor/select2/|logo/|login/|login/css/|login/fonts/|login/fonts/poppins/|login/images/|login/images/icons/|login/js/|login/vendor/|login/vendor/animate/|login/vendor/animsition/css/|login/vendor/animsition/js/|login/vendor/bootstrap/css/|login/vendor/bootstrap/js/|login/vendor/countdowntime/|login/vendor/daterangepicker/|login/vendor/jquery/|login/vendor/select2/" kind="src" path="src/main/webapp"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -33,7 +33,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>

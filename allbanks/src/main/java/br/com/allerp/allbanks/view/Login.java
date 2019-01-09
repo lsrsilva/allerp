@@ -42,17 +42,6 @@ public class Login extends WebPage {
 
 		});
 
-		form.add(new Link<Object>("btnCad") {
-
-			private static final long serialVersionUID = -8073860944878508482L;
-
-			@Override
-			public void onClick() {
-				// setResponsePage(CadastroPage.class);
-			}
-
-		});
-
 		add(form);
 	}
 

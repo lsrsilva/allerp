@@ -14,14 +14,14 @@ public class GenericEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long codigo;
 	
-	public Long getId() {
-		return id;
+	public Long getCodigo() {
+		return codigo;
 	}
 	
-	public void setId(Long id) {
-		this.id = id;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 }

@@ -1,33 +1,39 @@
 package br.com.allerp.allbanks.entity.conta;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.allerp.allbanks.entity.Endereco;
-import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
 @Table
-public class Banco extends GenericEntity {
+public class Banco implements Serializable {
 
 	private static final long serialVersionUID = -4966934917325692377L;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "banco_contas", joinColumns = @JoinColumn(name = "banco_cod"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
 	private List<Conta> conta;
+	
+	@ManyToMany(mappedBy = "banco")
+	private List<ListaContatos> listaCont;
 
-	@Column(nullable = false, unique = true, length = 5)
-	private Integer codCompensacao;
+	@Id
+	@Column(name = "cod_compensacao", nullable = false, unique = true, length = 5)
+	private String codCompensacao;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 65)
 	private String nomeBanco;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -41,11 +47,11 @@ public class Banco extends GenericEntity {
 		this.conta = conta;
 	}
 
-	public Integer getCodCompensacao() {
+	public String getCodCompensacao() {
 		return codCompensacao;
 	}
 
-	public void setCodCompensacao(Integer codCompensacao) {
+	public void setCodCompensacao(String codCompensacao) {
 		this.codCompensacao = codCompensacao;
 	}
 

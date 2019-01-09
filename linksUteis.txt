@@ -1,0 +1,17 @@
+@Transactional
+https://pt.stackoverflow.com/questions/96778/qual-a-finalidade-da-anotação-transactionalreadonly-false
+https://www.devmedia.com.br/conheca-o-spring-transactional-annotations/32472
+
+Hierarquia Hibernate
+https://www.devmedia.com.br/tipos-de-heranca-no-hibernate/28641
+
+Mapeamentos
+https://www.devmedia.com.br/hibernate-mapping-mapeando-relacionamentos-entre-entidades/29445
+
+OneToOne
+
+
+OneToMany e ManytoOne
+https://www.ibm.com/developerworks/community/blogs/fd26864d-cb41-49cf-b719-d89c6b072893/entry/como_criar_relacionamento_onetomany_com_hibernate?lang=en_us
+
+ManyToMany

@@ -1,10 +1,13 @@
 package br.com.allerp.allbanks.entity.conta;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,32 +20,35 @@ public abstract class Conta extends GenericEntity {
 
 	private static final long serialVersionUID = 1750152236850386281L;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 5)
 	private String agencia;
 
-	@Column(nullable = false, unique = true)
-	private String numConta;
+	@Column(nullable = false, unique = true, length = 10)
+	private Integer numConta;
 
-	@Column(length = 1, nullable = false)
+	@Column(nullable = false, length = 1)
 	private Character status;
 
 	@ManyToOne
-	@JoinColumn(name = "banco_cod")
+	@JoinColumn(name = "banco_cod", referencedColumnName = "cod_compensacao")
 	private Banco banco;
 
 	@ManyToOne
-	@JoinColumn(name = "tit_cod")
-	private Titular titular;
+	@JoinColumn(name = "tit_cod", referencedColumnName = "codigo")
+	private Titular<?> titular;
+	
+	@ManyToMany(mappedBy = "ctContato")
+	private List<ListaContatos>listaCont;
 
 	public Conta() {
 		status = 'A';
 	}
 
-	public Titular getTitular() {
+	public Titular<?> getTitular() {
 		return titular;
 	}
 
-	public void setTitular(Titular titular) {
+	public void setTitular(Titular<?> titular) {
 		this.titular = titular;
 	}
 
@@ -54,11 +60,11 @@ public abstract class Conta extends GenericEntity {
 		this.agencia = agencia;
 	}
 
-	public String getNumConta() {
+	public Integer getNumConta() {
 		return numConta;
 	}
 
-	public void setNumConta(String numConta) {
+	public void setNumConta(Integer numConta) {
 		this.numConta = numConta;
 	}
 

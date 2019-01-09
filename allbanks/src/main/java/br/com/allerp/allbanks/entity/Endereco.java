@@ -1,7 +1,5 @@
 package br.com.allerp.allbanks.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,46 +8,43 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.classmate.GenericType;
+
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 
 @Entity
 @Table
-public class Endereco implements Serializable {
+public class Endereco extends GenericEntity {
 
 	private static final long serialVersionUID = -1484560609846703833L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_end")
-	private Long idEnd;
-
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String bairro;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String rua;
 
-	@Column
+	@Column(length = 150)
 	private String complemento;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 8)
 	private String cep;
 
-	@Column
+	@Column(length = 50)
 	private String cidade;
 
-	@Column
+	@Column(length = 2)
 	private String uf;
 
-	@Column
+	@Column(length = 30)
 	private String pais;
 
-	@Column
+	@Column(length = 11)
 	private Integer num;
 	
 	@OneToOne(mappedBy = "endereco")
-	private Pessoa pessoa;
+	private Pessoa<?> pessoa;
 	
 	@OneToOne(mappedBy = "endereco")
 	private Banco banco;

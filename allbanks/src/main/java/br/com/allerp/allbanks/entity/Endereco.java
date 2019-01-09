@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 
 @Entity
@@ -49,6 +50,9 @@ public class Endereco implements Serializable {
 	
 	@OneToOne(mappedBy = "endereco")
 	private Pessoa pessoa;
+	
+	@OneToOne(mappedBy = "endereco")
+	private Banco banco;
 
 	public String getBairro() {
 		return bairro;

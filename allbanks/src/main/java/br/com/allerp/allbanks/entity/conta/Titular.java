@@ -9,11 +9,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
+import br.com.allerp.allbanks.entity.user.User;
 
 @Entity
 @Table
-public class Titular extends PessoaFisica {
+public class Titular<T>	extends User<T>{
 
 	private static final long serialVersionUID = -8605819128606661027L;
 

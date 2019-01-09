@@ -15,7 +15,7 @@ import br.com.allerp.allbanks.entity.enums.Perfis;
 @Table
 // Esta anotação identifica que a estratégia de herança será feita através de chave estrangeira
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User extends GenericEntity {
+public class User<T> extends GenericEntity {
 
 	private static final long serialVersionUID = -3417915934417211134L;
 

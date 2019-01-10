@@ -2,17 +2,25 @@ package br.com.allerp.allbanks.entity.pessoa;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ForeignKey;
+
+import br.com.allerp.allbanks.entity.conta.Titular;
+
 @Entity
 @Table
+@ForeignKey(name = "FK_PES_COD")
 @PrimaryKeyJoinColumn(name = "pf_cod", referencedColumnName = "codigo")
-public class PessoaFisica extends Pessoa<PessoaFisica> {
+public class PessoaFisica extends Pessoa {
 
 	private static final long serialVersionUID = 1479524506413698898L;
 
@@ -34,6 +42,11 @@ public class PessoaFisica extends Pessoa<PessoaFisica> {
 
 	@Column(nullable = true)
 	private Character sexo;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tit_cod", referencedColumnName = "codigo", unique = true)
+	@ForeignKey(name = "FK_TITU_PF")
+	private Titular titular;
 
 	public String getCelular() {
 		return celular;

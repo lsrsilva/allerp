@@ -17,7 +17,7 @@ import br.com.allerp.allbanks.entity.user.User;
 @Entity
 @Table
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa<T> extends User<T> {
+public abstract class Pessoa extends User {
 
 	private static final long serialVersionUID = 4325236325700108451L;
 

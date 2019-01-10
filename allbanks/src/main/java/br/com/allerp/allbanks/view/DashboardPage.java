@@ -17,7 +17,7 @@ public class DashboardPage extends SecuredBasePage {
 			public void onClick(AjaxRequestTarget target) {
 				getSessao().invalidate();
 				getSessao().onInvalidate();
-				setResponsePage(Login.class);
+				setResponsePage(LoginPage.class);
 			}
 			
 		});

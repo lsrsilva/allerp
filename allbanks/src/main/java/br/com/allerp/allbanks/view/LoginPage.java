@@ -10,16 +10,20 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
+import br.com.allerp.allbanks.service.conta.ContaService;
 
-public class Login extends SecuredBasePage {
+public class LoginPage extends SecuredBasePage {
 
 	private static final long serialVersionUID = 2219243357019506101L;
 	
 	@SpringBean(name = "userService")
 	private UserService userService;
-	public Login() {
+	
+	@SpringBean(name = "contaService")
+	ContaService conta;
+	public LoginPage() {
 
-		final User<?> user = new User<>();
+		final User user = new User();
 		
 		CompoundPropertyModel<?> userModel = new CompoundPropertyModel<>(user);
 		

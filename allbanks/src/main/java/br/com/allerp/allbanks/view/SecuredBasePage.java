@@ -17,7 +17,7 @@ public class SecuredBasePage extends WebPage {
 	protected void verifyAccess() {
 		// Redirect to Login page on invalid access.
 		if (!isLogedIn()) {
-			throw new RestartResponseAtInterceptPageException(Login.class);
+			throw new RestartResponseAtInterceptPageException(LoginPage.class);
 		}
 	}
 

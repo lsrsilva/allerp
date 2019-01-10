@@ -2,13 +2,8 @@ package br.com.allerp.allbanks.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.classmate.GenericType;
 
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.pessoa.Pessoa;
@@ -44,7 +39,7 @@ public class Endereco extends GenericEntity {
 	private Integer num;
 	
 	@OneToOne(mappedBy = "endereco")
-	private Pessoa<?> pessoa;
+	private Pessoa pessoa;
 	
 	@OneToOne(mappedBy = "endereco")
 	private Banco banco;

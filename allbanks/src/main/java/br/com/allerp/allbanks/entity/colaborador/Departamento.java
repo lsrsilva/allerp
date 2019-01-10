@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
@@ -21,9 +23,12 @@ public class Departamento extends GenericEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "dpto_funcs", joinColumns = @JoinColumn(name = "dpto_cod"), inverseJoinColumns = @JoinColumn(name = "func_cod"))
+	@ForeignKey(name = "FK_DPTO", inverseName = "FK_FUNC")
 	private List<Funcionario> funcionarios;
 
-	@OneToOne(mappedBy = "dpto")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ger_cod", referencedColumnName = "pf_cod")
+	@ForeignKey(name = "FK_GER_DPTO")
 	private Gerente gerente;
 
 	@Column(nullable = false, length = 15)

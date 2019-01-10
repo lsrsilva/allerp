@@ -1,5 +1,6 @@
 package br.com.allerp.allbanks.entity.conta;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 import br.com.allerp.allbanks.entity.GenericEntity;
 
@@ -28,27 +31,34 @@ public abstract class Conta extends GenericEntity {
 
 	@Column(nullable = false, length = 1)
 	private Character status;
+	
+	@Column(nullable = false, precision = 20, scale = 2)
+	private BigDecimal saldo;
+	
+	private ExtratoBancario extrato;
 
 	@ManyToOne
 	@JoinColumn(name = "banco_cod", referencedColumnName = "cod_compensacao")
+	@ForeignKey(name = "FK_CT_BC")
 	private Banco banco;
 
 	@ManyToOne
 	@JoinColumn(name = "tit_cod", referencedColumnName = "codigo")
-	private Titular<?> titular;
-	
+	@ForeignKey(name = "FK_CT_TIT")
+	private Titular titular;
+
 	@ManyToMany(mappedBy = "ctContato")
-	private List<ListaContatos>listaCont;
+	private List<ListaContatos> listaCont;
 
 	public Conta() {
 		status = 'A';
 	}
 
-	public Titular<?> getTitular() {
+	public Titular getTitular() {
 		return titular;
 	}
 
-	public void setTitular(Titular<?> titular) {
+	public void setTitular(Titular titular) {
 		this.titular = titular;
 	}
 
@@ -82,6 +92,22 @@ public abstract class Conta extends GenericEntity {
 
 	public void setStatus(Character status) {
 		this.status = status;
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
+	}
+
+	public ExtratoBancario getExtrato() {
+		return extrato;
+	}
+
+	public void setExtrato(ExtratoBancario extrato) {
+		this.extrato = extrato;
 	}
 
 }

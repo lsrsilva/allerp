@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import com.googlecode.genericdao.dao.hibernate.GenericDAOImpl;
 import com.googlecode.genericdao.search.Search;
 
+@Repository
 public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<Entity, Serializable> {
 
+	private Class<Entity> entityClass;
+	
+	public GenericDao(Class<Entity> entityClass) {
+		this.entityClass = entityClass;
+	}
+	
+	public Class<Entity> getEntityClass(){
+		return entityClass;
+	}
+	
 	@Override
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);

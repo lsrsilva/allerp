@@ -10,7 +10,7 @@ public class AllbanksSession extends WebSession {
 
 	private static final long serialVersionUID = -6443766019723662073L;
 
-	private User<?> user;
+	private User user;
 
 	public AllbanksSession(Request request) {
 		super(request);
@@ -20,11 +20,11 @@ public class AllbanksSession extends WebSession {
 		return (AllbanksSession) Session.get();
 	}
 
-	public synchronized User<?> getUser() {
+	public synchronized User getUser() {
 		return user;
 	}
 
-	public synchronized void setUser(User<?> user) {
+	public synchronized void setUser(User user) {
 		this.user = user;
 	}
 

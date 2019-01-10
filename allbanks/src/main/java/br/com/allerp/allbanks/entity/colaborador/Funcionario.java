@@ -11,20 +11,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 
 @Entity
 @Table
+@ForeignKey(name = "FK_FUNC_PF")
 public class Funcionario extends PessoaFisica {
 
 	private static final long serialVersionUID = -7294170664540633593L;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "func_dep", joinColumns = @JoinColumn(name = "func_cod"), inverseJoinColumns = @JoinColumn(name = "dep_cod"))
+	@JoinTable(name = "func_dpndnt", joinColumns = @JoinColumn(name = "func_cod"), inverseJoinColumns = @JoinColumn(name = "dpndnt_cod"))
+	@ForeignKey(name = "FK_FUNC_COD", inverseName = "FK_DEPENDENTE")
 	private List<Dependente> dependente;
 
 	@ManyToOne
 	@JoinColumn(name = "dpto_cod", referencedColumnName = "codigo")
+	@ForeignKey(name = "FK_FUNC_DPTO")
 	private Departamento departamento;
 
 	@Column(nullable = false, precision = 7, scale = 2)

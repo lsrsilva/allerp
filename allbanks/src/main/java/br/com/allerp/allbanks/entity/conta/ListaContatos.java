@@ -10,6 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ForeignKey;
+
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
@@ -19,11 +21,13 @@ public class ListaContatos extends GenericEntity {
 	private static final long serialVersionUID = 7292792173768982050L;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "listacontatos", joinColumns=@JoinColumn(name = "list_ct_id"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
+	@JoinTable(name = "list_ct_bc", joinColumns = @JoinColumn(name = "list_ct_id"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
+	@ForeignKey(name = "FK_LIST_CT", inverseName = "FK_CT_CONTATO")
 	private List<Conta> ctContato;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "listacontatos", joinColumns=@JoinColumn(name = "list_ct_id"), inverseJoinColumns = @JoinColumn(name = "banco_cod"))
+	@JoinTable(name = "list_ct_bc", joinColumns = @JoinColumn(name = "list_ct_id"), inverseJoinColumns = @JoinColumn(name = "banco_cod"))
+	@ForeignKey(name = "FK_LIST_CT", inverseName = "FK_BC_CONTATO")
 	private List<Banco> banco;
 
 	@Column(nullable = false, length = 200)

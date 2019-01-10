@@ -10,20 +10,20 @@ import org.apache.wicket.request.mapper.parameter.UrlPathPageParametersEncoder;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import br.com.allerp.allbanks.view.DashboardPage;
-import br.com.allerp.allbanks.view.Login;
+import br.com.allerp.allbanks.view.LoginPage;
 
 public class AllbanksApplication extends WebApplication {
 
 	@Override
 	public Class<? extends Page> getHomePage() {
-		return Login.class;
+		return LoginPage.class;
 	}
 	
 	@Override
 	protected void init() {
 		super.init();
 		
-		mount(new MountedMapper("/login", Login.class, new UrlPathPageParametersEncoder()));
+		mount(new MountedMapper("/login", LoginPage.class, new UrlPathPageParametersEncoder()));
 		mount(new MountedMapper("/dashboard", DashboardPage.class, new UrlPathPageParametersEncoder()));
 		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));

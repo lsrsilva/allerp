@@ -30,6 +30,9 @@
   				<li class="nav-item">
     				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/agencia.png"> Agência</a>
+				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
 				</li>
@@ -42,29 +45,51 @@
 			</ul>
 
 			<div class="tab-content">
-			    <div id="userCad" class="tab-pane active"><br>
+			    <div wicket:id="divUser" id="userCad" class="tab-pane active"><br>
 			    	
 			    </div>
-			    <div id="funcCad" class="tab-pane fade"><br>
-			    	<h3>Menu 1</h3>
-			    	<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
+			    	
 			    </div>
-			  	<div id="bancoCad" class="tab-pane fade"><br>
-			    	<h3>Menu 2</h3>
-			    	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+			  	<div wicket:id="divAg" id="cadMdFunc" class="tab-pane fade"><br>
+			    	<table class="table table-hover table-sm br-top-none">
+			    		
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">Código Agência</th>
+								<th scope="col">Nome Banco</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvAg" class="table-bordered text-center">
+								<td wicket:id="codAg"></td>
+								<td wicket:id="codBanco"></td>
+								<td wicket:id="nomeBanco"></td>
+								<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    		
+			    	</table>
 			  	</div>
-			  	<div id="contaCad" class="tab-pane fade"><br>
-			    	<h3>Conta</h3>
-			    	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+			  	<div wicket:id="divBc" id="agCad" class="tab-pane fade"><br>
+			    	
 			  	</div>
-			  	<div id="titularCad" class="tab-pane fade"><br>
-			    	<h3>Titular</h3>
-			    	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
+			    	
+			  	</div>
+			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
+			    	
 			  	</div>
 
 			  </div>
 		</div>
 	</div>
+	
+	<div wicket:id="cadMdUser"></div>
+	<div wicket:id="cadMdFunc"></div>
+	<div wicket:id="cadMdAg"></div>
+	<div wicket:id="cadMdCt"></div>
+	<div wicket:id="cadMdTit"></div>
 
 </body>
 </html>

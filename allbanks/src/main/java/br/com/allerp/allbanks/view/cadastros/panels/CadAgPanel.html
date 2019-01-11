@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<wicket:panel>
+		<form wicket:id="formCadAg">
+			
+			<div class="form-row my-mx-5">
+				<div class=" col-md-6">
+					<label wicket:for="banco"  class="control-label-md">Banco</label><br>
+					<select wicket:id="banco" class="form-control custom-select"></select>
+				</div>
+				<div class=" col-md-6">
+					<label wicket:for="codAg" class="control-label-md">Agência</label>
+					<input wicket:id="codAg" class="form-control" type="number"
+						placeholder="00.000-00" />
+				</div>
+			</div>
+			
+			<div class="form-group d-flex justify-content-end">
+				<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+<!-- 				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button> -->
+			</div>
+			
+		</form>
+	</wicket:panel>
+</body>
+</html>

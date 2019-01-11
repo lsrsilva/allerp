@@ -1,0 +1,99 @@
+<wicket:panel>
+	<div class="my-container ft-fm-ubuntu">
+		<form wicket:id="cadForm">
+			<div wicket:id="tipoPessoa"  class="my-ml-5">
+				<input type="radio" class="mr-2" />
+			</div>
+
+			<div wicket:id="divPF" class="my-ml-5 my-mr-5">
+				
+				<div class="row">
+					<input wicket:id="nome" class="form-control col-md-3 my-mx-5" type="text" placeholder = "Nome completo" />
+					<input wicket:id="rg" class="form-control col-md-3 my-mx-5" type="text" placeholder = "RG" />
+					<input wicket:id="cpf" class="form-control col-md-3 my-mx-5" type="text" placeholder = "CPF" />
+					<input wicket:id="celular" class="form-control col-md-3 my-mx-5" type="text" placeholder = "Celular" />
+					<input wicket:id="dtNasc" class="form-control col-md-2 my-mx-5" type="text" placeholder = "Data de Nascimento" />
+					
+					<!-- <div wicket:id="divDrop" class="form-group col-md-3 my-mx-5">
+						<select wicket:id="perfis" class="custom-select"></select>
+					</div> -->
+					<div class="my-form-group" style="margin: 10px 0px 0px -20px;">
+						<div wicket:id="sexo" class="custom-control custom-radio custom-control-inline">
+							<label class="custom-control-label">Sexo</label>
+							<input class="custom-control-input my-mx-5" type="radio" style="margin: 5px;" />
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		<!-- 	
+			<div wicket:id="divPJ"  class="my-ml-5">
+				<input wicket:id="cnpj" type="text" placeholder = "CNPJ" />
+				<input wicket:id="razaoSocial" type="text" placeholder = "Razão Social" />
+			</div> -->
+	
+			<div wicket:id="divComum" class="my-ml-5">
+				<div class="row">
+					<input wicket:id="userAccess" class="form-control col-md-3 my-mx-5" type="text" placeholder = "Acesso" />
+					<input wicket:id="email" class="form-control col-md-3 my-mx-5" type="email" placeholder = "E-mail" />
+					<input wicket:id="psw" class="form-control col-md-3 my-mx-5" type="password" placeholder = "Senha" />
+					<input wicket:id="telefone" class="form-control col-md-2 my-mx-5"	 type="text" placeholder = "Telefone" />
+				</div>
+				<fieldset >
+					<legend>Endereço</legend>
+					<div class="form-row">
+						<div class="form-group col-3">
+							<label wicket:for="cep"
+								class="control-label-md my-ml-auto">CEP</label> <input
+								wicket:id="cep" class="form-control my-ml-auto"
+								type="text" placeholder="00.000-00" />
+						</div>
+						<div class="form-group col-md-4">
+							<label wicket:for="rua" class="control-label">Rua</label>
+							<input wicket:id="rua" class="form-control my-mr-auto" type="text" placeholder="Digite o nome de sua rua" />
+						</div>
+						<div class="form-group col-md-5">
+							<label wicket:for="bairro" class="control-label">Bairro</label>
+							<input wicket:id="bairro" class="form-control my-mr-auto" type="text" placeholder="Digite o nome de sua rua" />
+						</div>
+						<div class="form-group col-md-4">
+							<label wicket:for="complemento"
+								class="control-label-md my-ml-auto">Complemento</label> <input
+								wicket:id="complemento" class="form-control my-ml-auto"
+								type="text" placeholder="Bairro, quadra, lote e/ou referência" />
+						</div>
+						<div class="form-group col-md-2">
+							<label wicket:for="num"
+								class="control-label-md my-ml-auto">Número</label> <input
+								wicket:id="num" class="form-control my-ml-auto"
+								type="number" placeholder="0" />
+						</div>
+						<div class="form-group col-md-2">
+							<label wicket:for="pais"
+								class="control-label-md my-ml-auto">País</label> <input
+								wicket:id="pais" class="form-control my-ml-auto"
+								type="text" placeholder="Selecione um país" />
+						</div>
+						<div class="form-group col-md-2">
+							<label wicket:for="uf"
+								class="control-label-md my-ml-auto">UF</label> <input
+								wicket:id="uf" class="form-control my-ml-auto"
+								type="text" placeholder="UF" />
+						</div>
+						<div class="form-group col-2">
+							<label wicket:for="cidade"
+								class="control-label-md my-ml-auto">Cidade</label> <input
+								wicket:id="cidade" class="form-control my-ml-auto"
+								type="text" placeholder="Cidade" />
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="form-group d-flex justify-content-end">
+				<button wicket:id="btnCad" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</wicket:panel>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<title wicket:id="title">Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/popper.js/1.14.6/umd/popper.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/sidebar.js"></script>
+<script type="text/javascript" src="./js/jqueryfunc.js"></script>
+
+<link rel="stylesheet"
+	href="webjars/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="./css/mybootstrap.css">
+<link rel="stylesheet" type="text/css" href="./css/estilo.css">
+<link rel="stylesheet" type="text/css"
+	href="./css/fa-icons/css/all.min.css">
+<link rel="shortcut icon" href="logo/logo-coruja-symbol.png"
+	type="image/x-icon" />
+</head>
+<body>
+	<div>
+		<nav id="mySidebar" class="sidebar">
+			<div id="divLogo">
+				<a href="#" onclick="openNav()"> <img id="logo"
+					src="logo/logo-coruja-symbol.png" class="logo-sidebar">
+				</a>
+			</div>
+			<div id="divIcons">
+			
+				<div class="dropdown">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Dropdown link
+					</a>
+				
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<div>
+							<a wicket:id="listUser"> 
+								<span id="icon-plus"><img src="./icons/svg/add-user.svg" class="icon-sidebar" /></span>
+							</a>
+						</div>
+						<div>
+							<a><span id="icon-plus"><img src="./icons/svg/folder.svg"
+									class="icon-sidebar" /></span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<!-- Page Content -->
+	<div id="content">
+		<nav class="navbar navbar-light bg-light">
+			<div class="container-fluid"></div>
+		</nav>
+		<div id="main">
+			<wicket:child />
+		</div>
+	</div>
+</body>
+</html>

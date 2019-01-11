@@ -14,6 +14,10 @@ public class GenericService<Entity> {
 
 	private GenericDao<Entity, Long> dao;
 
+	public void setDao(GenericDao<Entity, Long> dao) {
+		this.dao = dao;
+	}
+
 	public void saveOrUpdate(Entity entity) {
 		dao.saveOrUpdate(entity);
 	}

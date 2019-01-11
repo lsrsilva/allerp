@@ -76,6 +76,16 @@
 
 	<tx:annotation-driven
 		transaction-manager="transactionManager" proxy-target-class="true" />
+		
+	<!--======================================== GENÉRICO ======================================== -->
+	<bean id="dao" class="br.com.allerp.allbanks.dao.GenericDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="service"
+		class="br.com.allerp.allbanks.service.GenericService">
+		<property name="dao" ref="dao"></property>
+	</bean>
 
 	<!--======================================== USUÁRIO ======================================== -->
 	<bean id="userDao" class="br.com.allerp.allbanks.dao.UserDao">
@@ -95,5 +105,25 @@
 	<bean id="contaService"
 		class="br.com.allerp.allbanks.service.conta.ContaService">
 		<property name="contaDao" ref="contaDao"></property>
+	</bean>
+	
+	<!--======================================== BANCO ======================================== -->
+	<bean id="bancoDao" class="br.com.allerp.allbanks.dao.conta.BancoDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="bancoService"
+		class="br.com.allerp.allbanks.service.conta.BancoService">
+		<property name="bancoDao" ref="bancoDao"></property>
+	</bean>
+	
+	<!--======================================== Agencia ======================================== -->
+	<bean id="agenciaDao" class="br.com.allerp.allbanks.dao.conta.AgenciaDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="agenciaService"
+		class="br.com.allerp.allbanks.service.conta.AgenciaService">
+		<property name="agenciaDao" ref="agenciaDao"></property>
 	</bean>
 </beans>

@@ -11,12 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
-
-import br.com.allerp.allbanks.entity.Endereco;
 
 @Entity
 @Table
@@ -31,17 +28,16 @@ public class Banco implements Serializable {
 
 	@ManyToMany(mappedBy = "banco")
 	private List<ListaContatos> listaCont;
+	
+	@OneToMany(mappedBy = "banco")
+	private List<Agencia> agencia;
 
 	@Id
 	@Column(name = "cod_compensacao", nullable = false, unique = true, length = 5)
 	private String codCompensacao;
 
-	@Column(nullable = false, unique = true, length = 65)
-	private String nomeBanco;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@ForeignKey(name = "FK_BC_END")
-	private Endereco endereco;
+	@Column(nullable = false, length = 65)
+	private String nome;
 
 	public List<Conta> getConta() {
 		return conta;
@@ -59,20 +55,12 @@ public class Banco implements Serializable {
 		this.codCompensacao = codCompensacao;
 	}
 
-	public String getNomeBanco() {
-		return nomeBanco;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeBanco(String nomeBanco) {
-		this.nomeBanco = nomeBanco;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }

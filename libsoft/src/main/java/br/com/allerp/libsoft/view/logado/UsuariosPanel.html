@@ -1,0 +1,49 @@
+<wicket:extend>
+
+	<div wicket:id="searchPanel"></div>
+
+	<div id="listUsers" class="my-mx-5 ft-fm-ubuntu-black">
+		<button wicket:id="cad" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle" data-toggle="modal" data-target="#cadUser">
+			<span class="ft-fam-ubuntu-white">&nbsp;Novo usuário</span>
+		</button>
+		
+		<!-- Modal de Cadastro de Usuário -->
+		<div wicket:id="cadModal"></div>
+		
+		<!-- Modal de Exclusão de Usuário -->
+		<div wicket:id="excModal"></div>
+		
+		<div wicket:id="usersContainer">
+			<table class="table table-hover table-sm br-top-none">
+				<tbody>
+					<tr class="tr text-center">
+						<th scope="col">Nome</th>
+						<th scope="col">CPF</th>
+						<th scope="col">E-mail</th>
+						<th scope="col">Acesso do Usuário</th>
+						<th scope="col" colspan="2">Ações</th>
+					</tr>
+					<tr wicket:id="userList" class="table-bordered text-center">
+						<td wicket:id="nome"></td>
+						<td wicket:id="cpf"></td>
+						<td wicket:id="email"></td>
+						<td wicket:id="userAccess"></td>
+						<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+						<td class="td-55" style="border-left: none;"><a  wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="d-flex justify-content-end">
+		<button wicket:id="btnPDF" class="btn btn-pdf mb-1 far fa-file-pdf my-mx-5" type="button">
+			<span class="ft-fam-ubuntu-white">&nbsp;Gerar PDF</span>
+		</button>
+		
+		<button wicket:id="btnExcel" class="btn btn-excel mb-1 far fa-file-excel my-mx-5" type="button">
+			<span class="ft-fam-ubuntu-white">&nbsp;Gerar Excel</span>
+		</button>
+	</div>
+
+</wicket:extend>

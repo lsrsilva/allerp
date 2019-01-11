@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:wicket="https://wicket.apache.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>LibSoft - Login</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<link type="text/css" rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+		<link rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<link type="text/css" rel="stylesheet" href="css/estilo.css">
+		<link type="text/css" rel="stylesheet" href="css/mybootstrap.css">
+		
+		<link rel="shortcut icon" href="logo/logo-coruja-symbol.png" type="image/x-icon" />
+	</head>
+	<body>
+		
+		<div class="div-azul"></div>
+	
+		<div class="container center-div-content col-sm-8 col-md-4 col-lg-6 col-12">
+			<form wicket:id="formLogin">
+				
+				<a wicket:id="homeLink">
+					<img class="img-fluid mx-auto d-block" src="logo/logo-coruja.png">
+				</a>
+			
+				<h2 class="display-4 text-center-15 ft-fam-ubuntu-grey">Login</h2>
+				
+				<div class="form-group">
+					<input wicket:id="userAccess" type="text" class="form-control" placeholder="Seu email ou username" autofocus="autofocus">
+				</div>
+				<div class="form-group">
+					<input wicket:id="psw" type="password" class="form-control" placeholder="Sua senha">
+				</div>
+				<div class="form-group d-flex justify-content-end">
+					<input wicket:id="btnLogin" type="submit" class="btn btn-success" value="Login">
+					<button wicket:id="btnCad" type="submit" class="btn btn-primary my-ml-5">Adquirir Licença</button>
+				</div>
+			</form>
+		</div>
+		
+		<div wicket:id="footer"></div>
+	</body>
+</html>

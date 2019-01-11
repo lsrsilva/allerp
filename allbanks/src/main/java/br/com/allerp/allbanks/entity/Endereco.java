@@ -13,7 +13,7 @@ import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 public class Endereco extends GenericEntity {
 
 	private static final long serialVersionUID = -1484560609846703833L;
-	
+
 	@Column(nullable = false, length = 60)
 	private String bairro;
 
@@ -37,12 +37,6 @@ public class Endereco extends GenericEntity {
 
 	@Column(length = 11)
 	private Integer num;
-	
-	@OneToOne(mappedBy = "endereco")
-	private Pessoa pessoa;
-	
-	@OneToOne(mappedBy = "endereco")
-	private Banco banco;
 
 	public String getBairro() {
 		return bairro;

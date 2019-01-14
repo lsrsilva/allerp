@@ -37,7 +37,7 @@ public class PessoaFisica extends Pessoa {
 	@Column(nullable = false, length = 200)
 	private String nome;
 
-	@Column(nullable = false, length = 8)
+	@Column(nullable = false, length = 20)
 	private String rg;
 
 	@Column(nullable = true)

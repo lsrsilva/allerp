@@ -35,6 +35,9 @@ public class Funcionario extends PessoaFisica {
 
 	@Column(nullable = false, length = 20)
 	private String formacao;
+	
+	@Column(nullable = false, length = 20)
+	private String funcao;
 
 	public List<Dependente> getDependente() {
 		return dependente;
@@ -66,6 +69,14 @@ public class Funcionario extends PessoaFisica {
 
 	public void setFormacao(String formacao) {
 		this.formacao = formacao;
+	}
+
+	public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String funcao) {
+		this.funcao = funcao;
 	}
 
 }

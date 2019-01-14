@@ -15,11 +15,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 import br.com.allerp.allbanks.entity.GenericEntity;
+import br.com.allerp.allbanks.entity.enums.Contas;
 
 @Entity
 @Table(name = "CONTA")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Conta extends GenericEntity {
+public class Conta extends GenericEntity {
 
 	private static final long serialVersionUID = 1750152236850386281L;
 
@@ -33,8 +34,11 @@ public abstract class Conta extends GenericEntity {
 	private Character status;
 	
 	@Column(nullable = false, precision = 20, scale = 2)
-	private BigDecimal saldo;
+	private BigDecimal saldo = BigDecimal.ZERO;
 	
+	/*
+	 * @Column(nullable = false) private Contas tipo;
+	 */
 	private ExtratoBancario extrato;
 
 	@ManyToOne
@@ -86,8 +90,12 @@ public abstract class Conta extends GenericEntity {
 		this.banco = banco;
 	}
 
-	public Character getStatus() {
-		return status;
+	public String getStatus() {
+		if(status == 'A') {
+			return "Ativa";
+		} else {
+			return "Inativa";
+		}
 	}
 
 	public void setStatus(Character status) {

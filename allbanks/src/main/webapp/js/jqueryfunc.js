@@ -9,8 +9,9 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("input.cpf").mask("999.999.999-99");
+	$(".cpf").mask("999.999.999-99");
 	$("input.cnpj").mask("99.999.999/9999-99");
+	$("input.data").mask("99/99/99");
 	$("input.telefone").mask("(999) 9999-9999");
 	$("input.celular").mask("(999) 99999-9999");
 });

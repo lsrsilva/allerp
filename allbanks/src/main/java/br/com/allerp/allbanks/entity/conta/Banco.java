@@ -28,7 +28,7 @@ public class Banco implements Serializable {
 
 	@ManyToMany(mappedBy = "banco")
 	private List<ListaContatos> listaCont;
-	
+
 	@OneToMany(mappedBy = "banco")
 	private List<Agencia> agencia;
 

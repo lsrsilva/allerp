@@ -117,7 +117,7 @@
 		<property name="bancoDao" ref="bancoDao"></property>
 	</bean>
 	
-	<!--======================================== Agencia ======================================== -->
+	<!--======================================== AGÊNCIA ======================================== -->
 	<bean id="agenciaDao" class="br.com.allerp.allbanks.dao.conta.AgenciaDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -126,4 +126,25 @@
 		class="br.com.allerp.allbanks.service.conta.AgenciaService">
 		<property name="agenciaDao" ref="agenciaDao"></property>
 	</bean>
+	
+	<!--====================================== TITULAR ====================================== -->
+	<bean id="titularDao" class="br.com.allerp.allbanks.dao.conta.TitularDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="titularService"
+		class="br.com.allerp.allbanks.service.conta.TitularService">
+		<property name="titularDao" ref="titularDao"></property>
+	</bean>
+
+	<!--====================================== FUNCIONÁRIO ====================================== -->
+	<bean id="funcDao" class="br.com.allerp.allbanks.dao.colaborador.FuncionarioDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="funcService"
+		class="br.com.allerp.allbanks.service.colaborador.FuncionarioService">
+		<property name="funcDao" ref="funcDao"></property>
+	</bean>
+	
 </beans>

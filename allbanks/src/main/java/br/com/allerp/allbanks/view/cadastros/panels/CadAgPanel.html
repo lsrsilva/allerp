@@ -5,9 +5,9 @@
 </head>
 <body>
 	<wicket:panel>
-		<form wicket:id="formCadAg">
+		<form wicket:id="formCadAg" class="form-horizontal">
 			
-			<div class="form-row my-mx-5">
+			<div class="form-group my-mx-5">
 				<div class=" col-md-6">
 					<label wicket:for="banco"  class="control-label-md">Banco</label><br>
 					<select wicket:id="banco" class="form-control custom-select"></select>
@@ -19,9 +19,9 @@
 				</div>
 			</div>
 			
-			<div class="form-group d-flex justify-content-end">
+			<div class="d-flex justify-content-end">
 				<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
-<!-- 				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button> -->
+ 				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button>
 			</div>
 			
 		</form>

@@ -8,6 +8,7 @@
 <script src="webjars/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="js/jquery-mask-min.js"></script>
+<script type="text/javascript" src="js/jqueryfunc.js"></script>
 
 <link type="text/css" rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
 
@@ -32,11 +33,11 @@
   				<li class="nav-item">
     				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
-				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/svg/agencia.svg"> Agências</a>
-				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/svg/agencia.svg"> Agências</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" data-toggle="tab" href="#contaCad" aria-controls="contaCad" aria-selected="false"><img class="icons" alt="Conta" src="icons/svg/conta.svg"> Contas</a>
@@ -50,7 +51,7 @@
 			   
 			    <div wicket:id="divUser" id="userCad" class="tab-pane active"><br>
 			    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
-						<span class="ft-fam-ubuntu-white">&nbsp;Novo usuário</span>
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo usuário</span>
 					</button>
 					
 			    	<table class="table table-hover table-sm br-top-none">
@@ -73,11 +74,54 @@
 			    </div>
 			    
 			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
-			    	
+			    	<button wicket:id="btnAddFunc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo funcionário</span>
+					</button>
+					
+			    	<table class="table table-hover table-sm br-top-none">
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">Nome</th>
+								<th scope="col">RG</th>
+								<th scope="col">CPF</th>
+								<th scope="col">Função</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvFunc" class="table-bordered text-center">
+								<td wicket:id="nome"></td>
+								<td wicket:id="rg"></td>
+								<td wicket:id="cpf"></td>
+								<td wicket:id="funcao"></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
 			    </div>
+			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
+			    	<button wicket:id="btnAddBc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Banco</span>
+					</button>
+					
+			    	<table class="table table-hover table-sm br-top-none">
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">Código de Compensação</th>
+								<th scope="col">Nome Banco</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvBc" class="table-bordered text-center">
+								<td wicket:id="codCompensacao"></td>
+								<td wicket:id="nome"></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
+			  	</div>
 			  	<div wicket:id="divAg" id="agCad" class="tab-pane fade"><br>
 				  	<button wicket:id="btnAddAg" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
-						<span class="ft-fam-ubuntu-white">&nbsp;Novo usuário</span>
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Agência</span>
 					</button>
 					
 			    	<table class="table table-hover table-sm br-top-none">
@@ -100,14 +144,33 @@
 			    	
 			    	<!-- <div wicket:id="notFound"></div> -->
 			  	</div>
-			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
-			    	
-			  	</div>
 			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
-			    	
+			    	<button wicket:id="btnAddCt" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Conta</span>
+					</button>
+					
+			    	<table class="table table-hover table-sm br-top-none">
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">Código Agência</th>
+								<th scope="col">Código Banco</th>
+								<th scope="col">Nome Banco</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvCt" class="table-bordered text-center">
+								<td wicket:id="agencia"></td>
+								<td wicket:id="numConta"></td>
+								<td wicket:id="status"></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
 			  	</div>
 			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
-			    	
+			    	<button wicket:id="btnAddTit" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Titular</span>
+					</button>
 			  	</div>
 
 			  </div>

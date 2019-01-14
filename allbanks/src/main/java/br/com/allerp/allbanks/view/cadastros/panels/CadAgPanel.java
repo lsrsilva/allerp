@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
@@ -25,11 +26,11 @@ public class CadAgPanel extends Util<Agencia> {
 	
 	private List<String> bancos = bancoService.listBcNames();
 
-	public CadAgPanel(String id) {
-		this(id, new Agencia());
+	public CadAgPanel(String id, ModalWindow modal) {
+		this(id, new Agencia(), modal);
 	}
 
-	public CadAgPanel(String id, Agencia agencia) {
+	public CadAgPanel(String id, Agencia agencia, ModalWindow modal) {
 		super(id);
 
 		CompoundPropertyModel<Agencia> modelCadAg = new CompoundPropertyModel<Agencia>(agencia);
@@ -38,8 +39,6 @@ public class CadAgPanel extends Util<Agencia> {
 
 		NumberTextField<Integer> codAg = new NumberTextField<Integer>("codAg");
 		DropDownChoice<String> banco = new DropDownChoice<String>("banco", bancos);
-		
-		formCadAg.add(codAg, banco);
 		
 		agAux = agencia;
 		formCadAg.add(new AjaxButton("salvar") {
@@ -58,6 +57,8 @@ public class CadAgPanel extends Util<Agencia> {
 			}
 			
 		});
+		
+		formCadAg.add(codAg, banco, btnCan("btnCanc", agencia, modal));
 		add(formCadAg);
 
 	}

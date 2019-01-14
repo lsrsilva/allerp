@@ -2,6 +2,7 @@ package br.com.allerp.allbanks.view.cadastros.panels;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -17,11 +18,11 @@ public class CadUserPanel extends Util<User> {
 
 	private User userAux;
 
-	public CadUserPanel(String id) {
-		this(id, new User());
+	public CadUserPanel(String id, ModalWindow modal) {
+		this(id, new User(), modal);
 	}
 
-	public CadUserPanel(String id, User user) {
+	public CadUserPanel(String id, User user, ModalWindow modal) {
 		super(id);
 
 		CompoundPropertyModel<User> modelCadAg = new CompoundPropertyModel<User>(user);
@@ -31,8 +32,6 @@ public class CadUserPanel extends Util<User> {
 		TextField<String> userAccess = new TextField<String>("userAccess");
 		EmailTextField email = new EmailTextField("email");
 		PasswordTextField psw = new PasswordTextField("psw");
-
-		formCadUs.add(userAccess, email, psw);
 
 		userAux = user;
 		formCadUs.add(new AjaxButton("salvar") {
@@ -51,6 +50,9 @@ public class CadUserPanel extends Util<User> {
 			}
 
 		});
+
+		formCadUs.add(userAccess, email, psw, btnCan("btnCanc", user, modal));
+
 		add(formCadUs);
 
 	}

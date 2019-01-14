@@ -22,8 +22,19 @@ import br.com.allerp.allbanks.view.cadastros.panels.ExcluirPanel;
 
 public class Util<T> extends Panel {
 	
+	private T objeto;
+	
 	public Util(String id) {
+		this(id, null);
+	}
+	
+	public Util(String id, T objeto) {
 		super(id);
+		this.objeto = objeto;
+	}
+	
+	public T getObjeto() {
+		return objeto;
 	}
 	
 	private static final long serialVersionUID = 1L;

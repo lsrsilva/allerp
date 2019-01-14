@@ -17,7 +17,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
-@Table
+@Table(name = "CONTA")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Conta extends GenericEntity {
 

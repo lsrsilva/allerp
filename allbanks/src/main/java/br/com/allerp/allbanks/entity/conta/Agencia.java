@@ -14,7 +14,7 @@ import br.com.allerp.allbanks.entity.Endereco;
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
-@Table
+@Table(name = "AGENCIA")
 public class Agencia extends GenericEntity {
 
 	private static final long serialVersionUID = 8177936448973490472L;

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table
+@Table(name = "BANCO")
 public class Banco implements Serializable {
 
 	private static final long serialVersionUID = -4966934917325692377L;

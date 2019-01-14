@@ -16,7 +16,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 
 @Entity
-@Table
+@Table(name = "FUNCIONARIO")
 @ForeignKey(name = "FK_FUNC_PF")
 public class Funcionario extends PessoaFisica {
 

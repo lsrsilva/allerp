@@ -9,7 +9,7 @@ import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 
 @Entity
-@Table
+@Table(name = "ENDERECO")
 public class Endereco extends GenericEntity {
 
 	private static final long serialVersionUID = -1484560609846703833L;

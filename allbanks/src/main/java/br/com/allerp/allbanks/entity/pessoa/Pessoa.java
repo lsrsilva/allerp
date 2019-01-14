@@ -15,7 +15,7 @@ import br.com.allerp.allbanks.entity.Endereco;
 import br.com.allerp.allbanks.entity.user.User;
 
 @Entity
-@Table
+@Table(name = "PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pessoa extends User {
 

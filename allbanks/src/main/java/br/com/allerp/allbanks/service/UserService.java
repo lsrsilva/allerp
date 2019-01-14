@@ -12,6 +12,7 @@ public class UserService extends GenericService<User> {
 	private UserDao userDao;
 
 	public void setUserDao(UserDao userDao) {
+		super.setDao(userDao);
 		this.userDao = userDao;
 	}
 

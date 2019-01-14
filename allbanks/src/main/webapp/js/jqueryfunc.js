@@ -1,3 +1,4 @@
+// Se a página já estiver carregada ele executa os scripts
 $(document).ready(function() {
 	$(".somenteNumero").bind("keypress", function(e) {
 		var key = (window.event) ? event.keyCode : e.which;
@@ -7,4 +8,9 @@ $(document).ready(function() {
 			return (key == 8 || key == 0) ? true : false;
 		}
 	});
+	
+	$("input.cpf").mask("999.999.999-99");
+	$("input.cnpj").mask("99.999.999/9999-99");
+	$("input.telefone").mask("(999) 9999-9999");
+	$("input.celular").mask("(999) 99999-9999");
 });

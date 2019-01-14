@@ -13,7 +13,7 @@ import br.com.allerp.allbanks.entity.enums.Dependencias;
 import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 
 @Entity
-@Table
+@Table(name = "DEPENDENTE")
 @ForeignKey(name = "FK_DPNDNT_PF")
 public class Dependente extends PessoaFisica {
 

@@ -17,7 +17,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.conta.Titular;
 
 @Entity
-@Table
+@Table(name = "PF")
 @ForeignKey(name = "FK_PES_COD")
 @PrimaryKeyJoinColumn(name = "pf_cod", referencedColumnName = "codigo")
 public class PessoaFisica extends Pessoa {

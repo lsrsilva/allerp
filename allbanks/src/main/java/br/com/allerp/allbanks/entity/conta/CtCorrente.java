@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table
+@Table(name = "CT_CORRENTE")
 @PrimaryKeyJoinColumn(name = "ctcrr_cod", referencedColumnName = "codigo")
 @ForeignKey(name = "FK_CRR_CT")
 public class CtCorrente extends Conta {

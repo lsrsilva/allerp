@@ -16,7 +16,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
-@Table
+@Table(name = "DEPARTAMENTO")
 public class Departamento extends GenericEntity {
 
 	private static final long serialVersionUID = 7100555135714225709L;

@@ -7,6 +7,8 @@
 <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
 <script src="webjars/popper.js/1.14.6/umd/popper.min.js"></script>
 <script src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="js/jquery-mask-min.js"></script>
+
 <link type="text/css" rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
 
 <link type="text/css" rel="stylesheet" href="css/estilo.css">
@@ -25,13 +27,13 @@
 		<div class="div-cad">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#userCad" role="tab" aria-controls="userCad" aria-selected="true"><img class="icons" alt="Usuário" src="icons/svg/user.svg"> Usuários</a>
+					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true"><img class="icons" alt="Usuário" src="icons/svg/user.svg"> Usuários</a>
 				</li>
   				<li class="nav-item">
     				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/agencia.png"> Agência</a>
+					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/svg/agencia.svg"> Agências</a>
 				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
@@ -45,18 +47,44 @@
 			</ul>
 
 			<div class="tab-content">
+			   
 			    <div wicket:id="divUser" id="userCad" class="tab-pane active"><br>
-			    	
+			    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white">&nbsp;Novo usuário</span>
+					</button>
+					
+			    	<table class="table table-hover table-sm br-top-none">
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">E-mail</th>
+								<th scope="col">Acesso</th>
+								<th scope="col">Perfil</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvUser" class="table-bordered text-center">
+								<td wicket:id="email"></td>
+								<td wicket:id="userAccess"></td>
+								<td wicket:id="perfil"></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
 			    </div>
+			    
 			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
 			    	
 			    </div>
-			  	<div wicket:id="divAg" id="cadMdFunc" class="tab-pane fade"><br>
+			  	<div wicket:id="divAg" id="agCad" class="tab-pane fade"><br>
+				  	<button wicket:id="btnAddAg" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white">&nbsp;Novo usuário</span>
+					</button>
+					
 			    	<table class="table table-hover table-sm br-top-none">
-			    		
 			    		<tbody>
 			    			<tr class="tr text-center">
 								<th scope="col">Código Agência</th>
+								<th scope="col">Código Banco</th>
 								<th scope="col">Nome Banco</th>
 								<th scope="col" colspan="2">Ações</th>
 							</tr>
@@ -64,14 +92,15 @@
 								<td wicket:id="codAg"></td>
 								<td wicket:id="codBanco"></td>
 								<td wicket:id="nomeBanco"></td>
-								<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
-								<td class="td-55" style="border-left: none;"><a  wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
 							</tr>
 			    		</tbody>
-			    		
 			    	</table>
+			    	
+			    	<!-- <div wicket:id="notFound"></div> -->
 			  	</div>
-			  	<div wicket:id="divBc" id="agCad" class="tab-pane fade"><br>
+			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
 			    	
 			  	</div>
 			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
@@ -87,6 +116,7 @@
 	
 	<div wicket:id="cadMdUser"></div>
 	<div wicket:id="cadMdFunc"></div>
+	<div wicket:id="cadMdBc"></div>
 	<div wicket:id="cadMdAg"></div>
 	<div wicket:id="cadMdCt"></div>
 	<div wicket:id="cadMdTit"></div>

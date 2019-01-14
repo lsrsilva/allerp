@@ -17,7 +17,7 @@ import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 import br.com.allerp.allbanks.entity.pessoa.PessoaJuridica;
 
 @Entity
-@Table
+@Table(name = "TITULAR")
 public class Titular extends GenericEntity {
 
 	private static final long serialVersionUID = -8605819128606661027L;

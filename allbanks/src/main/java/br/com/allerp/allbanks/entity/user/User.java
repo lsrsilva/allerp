@@ -12,7 +12,7 @@ import br.com.allerp.allbanks.entity.GenericEntity;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 
 @Entity
-@Table
+@Table(name = "USER")
 // Esta anotação identifica que a estratégia de herança será feita através de chave estrangeira
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends GenericEntity {
@@ -28,7 +28,7 @@ public class User extends GenericEntity {
 	@Column(nullable = false, unique = true)
 	private String userAccess;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Column(nullable = false)
 	private Perfis perfil;
 
 	// -----------------------
@@ -57,8 +57,8 @@ public class User extends GenericEntity {
 		this.userAccess = userAccess;
 	}
 
-	public Perfis getPerfil() {
-		return perfil;
+	public String getPerfil() {
+		return perfil.toString();
 	}
 
 	protected void setPerfil(Perfis perfil) {

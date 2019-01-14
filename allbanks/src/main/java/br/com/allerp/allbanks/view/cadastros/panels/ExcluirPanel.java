@@ -15,11 +15,11 @@ public class ExcluirPanel<T> extends Util<T> {
 	@SpringBean(name = "service")
 	private GenericService<T> service;
 	
-	public ExcluirPanel(String id, final T object) {
+	public ExcluirPanel(String id, final T object, String titulo, String message) {
 		super(id);
-		add(new Label("confirma", "Excluir usuário"));
+		add(new Label("confirma", "Excluir " + titulo + "!"));
 
-		add(new Label("exMsg", "Esta ação não poderá ser desfeita. Prosseguir?"));
+		add(new Label("exMsg", message));
 
 		add(new AjaxLink<T>("btn-confirma") {
 			private static final long serialVersionUID = -6737235094619280702L;

@@ -15,7 +15,7 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
-@Table
+@Table(name = "LISTA_CONTATOS")
 public class ListaContatos extends GenericEntity {
 
 	private static final long serialVersionUID = 7292792173768982050L;

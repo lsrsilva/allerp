@@ -51,7 +51,7 @@ public class CadBancoPanel extends Util<Banco> {
 
 		});
 
-		formCadBc.add(codCompensacao, codAg, nome, btnCan(id, banco));
+		formCadBc.add(codCompensacao, codAg, nome, btnCan(id, banco, null));
 
 		add(formCadBc);
 	}

@@ -18,7 +18,7 @@ public class BancoDao extends GenericDao<Banco, Long> {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<String> listBcNames() {
-		setHsql("SELECT b.nome FROM banco b");
+		setHsql("SELECT b.nome FROM BANCO b");
 		setSqlQuery(getSession().createSQLQuery(getHsql()));
 		return getSqlQuery().list();
 	}

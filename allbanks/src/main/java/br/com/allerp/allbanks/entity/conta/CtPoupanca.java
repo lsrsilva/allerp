@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table
+@Table(name = "CT_POUPANCA")
 @PrimaryKeyJoinColumn(name = "ctpoup_cod", referencedColumnName = "codigo")
 @ForeignKey(name="FK_POUP_CT")
 public class CtPoupanca extends Conta {

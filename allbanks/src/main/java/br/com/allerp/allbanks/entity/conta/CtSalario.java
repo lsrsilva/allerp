@@ -5,7 +5,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "CT_SALARIO")
 @PrimaryKeyJoinColumn(name = "ctsal_cod", referencedColumnName = "codigo")
 public class CtSalario extends Conta {
 

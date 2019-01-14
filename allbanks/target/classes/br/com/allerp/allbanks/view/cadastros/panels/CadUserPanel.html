@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<wicket:panel>
+		<form wicket:id="formCadUs">
+			
+			<div class="form-row my-mx-5">
+				<div class=" col-md-6">
+					<label wicket:for="userAccess" class="control-label-md">Acesso</label>
+					<input wicket:id="userAccess" class="form-control" type="text"
+						placeholder="example@example.com" />
+				</div>
+				<div class=" col-md-6">
+					<label wicket:for="email" class="control-label-md">E-mail</label>
+					<input wicket:id="email" class="form-control" type="email"
+						placeholder="example@example.com" />
+				</div>
+				<div class=" col-md-6">
+					<label wicket:for="psw" class="control-label-md">Senha</label>
+					<input wicket:id="psw" class="form-control" type="password"/>
+				</div>
+			</div>
+			
+			<div class="form-group d-flex justify-content-end">
+				<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+<!-- 				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button> -->
+			</div>
+			
+		</form>
+	</wicket:panel>
+</body>
+</html>

@@ -50,6 +50,8 @@ public class CadFuncPanel extends Util<Funcionario> {
 		TextField<String> celular = new TextField<String>("celular");
 		TextField<String> telefone = new TextField<String>("telefone");
 		TextField<String> funcao = new TextField<String>("funcao");
+		TextField<String> formacao = new TextField<String>("formacao");
+		TextField<String> salario = new TextField<String>("salario");
 		
 		// Adicionar Departamento
 
@@ -72,7 +74,7 @@ public class CadFuncPanel extends Util<Funcionario> {
 
 		});
 
-		formCadFunc.add(nome, rg, cpf, dtNasc, celular, telefone, funcao, btnCan("btnCanc", funcionario, modal));
+		formCadFunc.add(nome, rg, cpf, dtNasc, celular, telefone, funcao, formacao, salario, btnCan("btnCanc", funcionario, modal));
 
 		add(formCadFunc);
 	}

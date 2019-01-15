@@ -42,7 +42,7 @@ public class Conta extends GenericEntity {
 	private ExtratoBancario extrato;
 
 	@ManyToOne
-	@JoinColumn(name = "banco_cod", referencedColumnName = "cod_compensacao")
+	@JoinColumn(name = "banco_cod", referencedColumnName = "codigo")
 	@ForeignKey(name = "FK_CT_BC")
 	private Banco banco;
 

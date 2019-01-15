@@ -23,7 +23,7 @@ public class CadAgPanel extends Util<Agencia> {
 
 	@SpringBean(name = "bancoService")
 	private BancoService bancoService;
-	
+
 	private List<String> bancos = bancoService.listBcNames();
 
 	public CadAgPanel(String id, ModalWindow modal) {
@@ -39,25 +39,25 @@ public class CadAgPanel extends Util<Agencia> {
 
 		NumberTextField<Integer> codAg = new NumberTextField<Integer>("codAg");
 		DropDownChoice<String> banco = new DropDownChoice<String>("banco", bancos);
-		
+
 		agAux = agencia;
 		formCadAg.add(new AjaxButton("salvar") {
 
 			private static final long serialVersionUID = -7557597292953590474L;
-			
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				atualizaAoModificar(target, agAux);
-				
+
 				agAux = new Agencia();
 				formCadAg.clearInput();
 				formCadAg.modelChanged();
 				formCadAg.setModelObject(agAux);
 				target.add(formCadAg);
 			}
-			
+
 		});
-		
+
 		formCadAg.add(codAg, banco, btnCan("btnCanc", agencia, modal));
 		add(formCadAg);
 

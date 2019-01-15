@@ -25,10 +25,11 @@ public class User extends GenericEntity {
 	@Column(nullable = false)
 	private String psw;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 50)
 	private String userAccess;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 20)
+	@Enumerated(EnumType.STRING)
 	private Perfis perfil;
 
 	// -----------------------
@@ -57,8 +58,8 @@ public class User extends GenericEntity {
 		this.userAccess = userAccess;
 	}
 
-	public String getPerfil() {
-		return perfil.toString();
+	public Perfis getPerfil() {
+		return perfil;
 	}
 
 	protected void setPerfil(Perfis perfil) {

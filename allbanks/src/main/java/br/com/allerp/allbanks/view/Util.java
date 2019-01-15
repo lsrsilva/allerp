@@ -94,7 +94,7 @@ public class Util<T> extends Panel {
 	}
 
 	public static <T> LoadableDetachableModel<List<T>> addLoadable(final List<T> listAtualizar) {
-		return new LoadableDetachableModel<List<T>>() {
+		return new LoadableDetachableModel<List<T>>(listAtualizar) {
 
 			private static final long serialVersionUID = 8071851812481107692L;
 

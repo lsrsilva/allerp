@@ -186,6 +186,10 @@ body{
 	color: white;
 }
 
+.teste{
+	display: block;
+}
+
 .sidebar {
     height: 100%; /* 100% Full-height */
     width: 60px; /* 0 width - change this with JavaScript */

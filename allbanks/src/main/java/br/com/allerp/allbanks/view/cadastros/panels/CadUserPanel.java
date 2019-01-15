@@ -1,14 +1,19 @@
 package br.com.allerp.allbanks.view.cadastros.panels;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 
+import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.view.Util;
 
@@ -17,6 +22,8 @@ public class CadUserPanel extends Util<User> {
 	private static final long serialVersionUID = -449253488613140249L;
 
 	private User userAux;
+	
+	private List<Perfis> perfis = Arrays.asList(Perfis.values());
 
 	public CadUserPanel(String id, ModalWindow modal) {
 		this(id, new User(), modal);
@@ -30,6 +37,7 @@ public class CadUserPanel extends Util<User> {
 		final Form<User> formCadUs = new Form<User>("formCadUs", modelCadAg);
 
 		TextField<String> userAccess = new TextField<String>("userAccess");
+		DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis);
 		EmailTextField email = new EmailTextField("email");
 		PasswordTextField psw = new PasswordTextField("psw");
 
@@ -51,7 +59,7 @@ public class CadUserPanel extends Util<User> {
 
 		});
 
-		formCadUs.add(userAccess, email, psw, btnCan("btnCanc", user, modal));
+		formCadUs.add(userAccess, email, psw, perfil, btnCan("btnCanc", user, modal));
 
 		add(formCadUs);
 

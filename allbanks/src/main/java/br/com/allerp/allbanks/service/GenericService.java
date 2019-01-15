@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.genericdao.search.Search;
 
@@ -30,6 +31,7 @@ public class GenericService<Entity> {
 		dao.deleteById(id);
 	}
 
+	@Transactional
 	public void delete(Entity entity) {
 		dao.remove(entity);
 	}

@@ -34,12 +34,12 @@ public class Titular extends GenericEntity {
 
 	@OneToOne(mappedBy = "titular")
 	private PessoaJuridica pj;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "end_codigo")
 	@ForeignKey(name = "FK_PESS_END")
 	private Endereco endereco;
-	
+
 	@Column(nullable = false)
 	private String tipoPessoa;
 
@@ -50,11 +50,11 @@ public class Titular extends GenericEntity {
 	public void setPf(PessoaFisica pf) {
 		this.pf = pf;
 	}
-	
+
 	public PessoaJuridica getPj() {
 		return pj;
 	}
-	
+
 	public void setPj(PessoaJuridica pj) {
 		this.pj = pj;
 	}
@@ -62,9 +62,9 @@ public class Titular extends GenericEntity {
 	public String getTipoPessoa() {
 		return tipoPessoa;
 	}
-	
+
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-	
+
 }

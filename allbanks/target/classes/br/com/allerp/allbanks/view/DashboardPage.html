@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<title wicket:id="title">Title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script src="webjars/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="js/jquery-mask-min.js"></script>
+	<script type="text/javascript" src="js/jqueryfunc.js"></script>
+	
+	<link type="text/css" rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+	
+	<link type="text/css" rel="stylesheet" href="css/estilo.css">
+	<link type="text/css" rel="stylesheet" href="css/cadastro.css">
+	<link type="text/css" rel="stylesheet" href="css/mybootstrap.css">
+	
+	<link rel="shortcut icon" href="logo/predio.png" type="image/x-icon" />
 </head>
 <body>
-	<wicket:extend>
-		<a wicket:id="logout">Logout</a>
-	</wicket:extend>
+	<a wicket:id="logout">Logout</a>
+	<a wicket:id="cadastros">Cadastros</a>
+	<wicket:child/>
+	
+	
 </body>
 </html>

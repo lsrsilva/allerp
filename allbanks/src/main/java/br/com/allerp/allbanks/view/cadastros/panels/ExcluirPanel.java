@@ -41,4 +41,8 @@ public class ExcluirPanel<T> extends Util<T> {
 			}
 		});
 	}
+	
+	public void setService(GenericService<T> service) {
+		this.service = service;
+	}
 }

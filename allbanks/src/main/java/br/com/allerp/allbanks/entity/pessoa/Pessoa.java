@@ -6,12 +6,12 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
-import br.com.allerp.allbanks.entity.user.User;
+import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
 @Table(name = "PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pessoa extends User {
+public abstract class Pessoa extends GenericEntity {
 
 	private static final long serialVersionUID = 4325236325700108451L;
 	

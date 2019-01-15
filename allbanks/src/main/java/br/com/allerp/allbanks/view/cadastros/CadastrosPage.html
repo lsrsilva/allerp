@@ -1,0 +1,198 @@
+<wicket:extend>
+
+	<a wicket:id="dashboard"></a>
+	
+	<div class="div-main">
+		<div class="div-header">
+			<h2 class="text-center"><img class="icon" alt="empregado" src="icons/folder.png">Cadastros</h2>
+		</div>
+
+		<div class="div-cad">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true" onclick="trocaClasse('#userCad');"><img class="icons" alt="Usuário" src="icons/svg/user.svg"> Usuários</a>
+				</li>
+  				<li class="nav-item">
+    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" onclick="trocaClasse('#funcCad');"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
+  				</li>
+			 	<li class="nav-item">
+				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#agCad" aria-controls="agCad" aria-selected="false"><img class="icons" alt="Agencia" src="icons/svg/agencia.svg"> Agências</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#contaCad" aria-controls="contaCad" aria-selected="false"><img class="icons" alt="Conta" src="icons/svg/conta.svg"> Contas</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#titularCad" aria-controls="contaCad" aria-selected="false"><img class="icons" alt="Conta" src="icons/titular.png"> Titular</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+			   
+			  <div wicket:id="divUser" id="userCad" class="tab-pane active"><br>
+			    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo usuário</span>
+					</button>
+					
+			    	<table class="table table-hover table-sm br-top-none">
+			    		<thead>
+			    			<tr class="tr text-center">
+								<th scope="col">E-mail</th>
+								<th scope="col">Acesso</th>
+								<th scope="col">Perfil</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr wicket:id="lvUser" class="table-bordered text-center">
+								<td wicket:id="email"></td>
+								<td wicket:id="userAccess"></td>
+								<td wicket:id="perfil"></td>
+								<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+						</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		    
+		    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
+		    	<button wicket:id="btnAddFunc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo funcionário</span>
+				</button>
+				
+		    	<table class="table table-hover table-sm br-top-none">
+		    		<thead>
+		    			<tr class="tr text-center">
+							<th scope="col">Nome</th>
+							<th scope="col">RG</th>
+							<th scope="col">CPF</th>
+							<th scope="col">Função</th>
+							<th scope="col" colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="lvFunc" class="table-bordered text-center">
+							<td wicket:id="nome"></td>
+							<td wicket:id="rg"></td>
+							<td wicket:id="cpf"></td>
+							<td wicket:id="funcao"></td>
+							<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+						</tr>
+		    		</tbody>
+		    	</table>
+		    </div>
+		  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
+		    	<button wicket:id="btnAddBc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Banco</span>
+				</button>
+				
+		    	<table class="table table-hover table-sm br-top-none">
+		    		<thead>
+		    			<tr class="tr text-center">
+							<th scope="col">Código de Compensação</th>
+							<th scope="col">Nome Banco</th>
+							<th scope="col" colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="lvBc" class="table-bordered text-center">
+							<td wicket:id="codCompensacao"></td>
+							<td wicket:id="nomeBanco"></td>
+							<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+						</tr>
+		    		</tbody>
+		    	</table>
+		  	</div>
+		  	<div wicket:id="divAg" id="agCad" class="tab-pane fade"><br>
+			  	<button wicket:id="btnAddAg" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Agência</span>
+				</button>
+				
+		    	<table class="table table-hover table-sm br-top-none">
+		    		<thead>
+		    			<tr class="tr text-center">
+							<th scope="col">Código Agência</th>
+							<th scope="col">Código Banco</th>
+							<th scope="col">Nome Banco</th>
+							<th scope="col" colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="lvAg" class="table-bordered text-center">
+							<td wicket:id="codAg"></td>
+							<td wicket:id="codBanco"></td>
+							<td wicket:id="nomeBanco"></td>
+							<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+						</tr>
+		    		</tbody>
+		    	</table>
+		    	
+		    	<!-- <div wicket:id="notFound"></div> -->
+		  	</div>
+		  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
+		    	<button wicket:id="btnAddCt" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Conta</span>
+				</button>
+				
+		    	<table class="table table-hover table-sm br-top-none">
+		    		<thead>
+		    			<tr class="tr text-center">
+							<th scope="col">Código Agência</th>
+							<th scope="col">Código Banco</th>
+							<th scope="col">Nome Banco</th>
+							<th scope="col" colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="lvCt" class="table-bordered text-center">
+							<td wicket:id="agencia"></td>
+							<td wicket:id="numConta"></td>
+							<td wicket:id="status"></td>
+							<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+						</tr>
+		    		</tbody>
+		    	</table>
+		  	</div>
+		  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
+		    	<button wicket:id="btnAddTit" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Titular</span>
+				</button>
+				
+				<table class="table table-hover table-sm br-top-none">
+		    		<thead>
+		    			<tr class="tr text-center">
+							<th scope="col">Nome / Razão Social</th>
+							<th scope="col">CPF / CNPJ</th>
+							<th scope="col" colspan="2">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr wicket:id="lvTit" class="table-bordered text-center">
+							<td wicket:id="nomeRzSocial"></td>
+							<td wicket:id="cpfCnpj"></td>
+							<td class="td-55" style="border-right: none;"><a wicket:id="edit"><img width="20" src="./icons/svg/pen.svg"/></a></td>
+							<td class="td-55" style="border-left: none;"><a wicket:id="delete"><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
+			  	</div>
+
+			  </div>
+		</div>
+	</div>
+	
+	<div wicket:id="cadMdUser"></div>
+	<div wicket:id="cadMdFunc"></div>
+	<div wicket:id="cadMdBc"></div>
+	<div wicket:id="cadMdAg"></div>
+	<div wicket:id="cadMdCt"></div>
+	<div wicket:id="cadMdTit"></div>
+	<div wicket:id="excModal"></div>
+
+</wicket:extend>

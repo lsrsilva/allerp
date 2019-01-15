@@ -23,7 +23,7 @@ public class Agencia extends GenericEntity {
 	private Integer codAg;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_banco", referencedColumnName = "cod_compensacao")
+	@JoinColumn(name = "id_banco", referencedColumnName = "codigo")
 	@ForeignKey(name = "FK_BC_AG")
 	private Banco banco;
 	/*

@@ -2,11 +2,7 @@ package br.com.allerp.allbanks.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import br.com.allerp.allbanks.entity.conta.Banco;
-import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 
 @Entity
 @Table(name = "ENDERECO")

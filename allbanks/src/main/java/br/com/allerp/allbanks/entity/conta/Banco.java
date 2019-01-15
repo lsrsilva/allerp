@@ -1,12 +1,10 @@
 package br.com.allerp.allbanks.entity.conta;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -15,9 +13,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
+import br.com.allerp.allbanks.entity.GenericEntity;
+
 @Entity
 @Table(name = "BANCO")
-public class Banco implements Serializable {
+public class Banco extends GenericEntity {
 
 	private static final long serialVersionUID = -4966934917325692377L;
 
@@ -32,7 +32,6 @@ public class Banco implements Serializable {
 	@OneToMany(mappedBy = "banco")
 	private List<Agencia> agencia;
 
-	@Id
 	@Column(name = "cod_compensacao", nullable = false, unique = true, length = 5)
 	private String codCompensacao;
 

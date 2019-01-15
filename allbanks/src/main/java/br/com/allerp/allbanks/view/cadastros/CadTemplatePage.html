@@ -171,6 +171,22 @@
 			    	<button wicket:id="btnAddTit" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Titular</span>
 					</button>
+					
+					<table class="table table-hover table-sm br-top-none">
+			    		<tbody>
+			    			<tr class="tr text-center">
+								<th scope="col">Nome / Razão Social</th>
+								<th scope="col">CPF / CNPJ</th>
+								<th scope="col" colspan="2">Ações</th>
+							</tr>
+							<tr wicket:id="lvTit" class="table-bordered text-center">
+								<td wicket:id="nomeRzSocial"></td>
+								<td wicket:id="cpfCnpj"></td>
+								<td class="td-55" style="border-right: none;"><a ><img width="20" src="./icons/svg/pen.svg"/></a></td>
+								<td class="td-55" style="border-left: none;"><a  ><img width="20" src="./icons/svg/trash.svg"/></a></td>
+							</tr>
+			    		</tbody>
+			    	</table>
 			  	</div>
 
 			  </div>

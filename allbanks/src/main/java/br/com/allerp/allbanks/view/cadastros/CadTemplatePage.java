@@ -590,7 +590,7 @@ public class CadTemplatePage extends WebPage {
 						cadMdCt.show(target);
 					}
 
-				}, new AjaxLink<Banco>("delete") {
+				}, new AjaxLink<Conta>("delete") {
 
 					private static final long serialVersionUID = -984734035789687817L;
 
@@ -633,7 +633,7 @@ public class CadTemplatePage extends WebPage {
 
 	private void listViewTitular() {
 		
-		divTit.add(new AjaxLink<Conta>("btnAddTit") {
+		divTit.add(new AjaxLink<Titular>("btnAddTit") {
 
 			private static final long serialVersionUID = 2044861581184497470L;
 
@@ -645,6 +645,7 @@ public class CadTemplatePage extends WebPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Titular object) {
+						object.setTipoPessoa(getSelectedPes());
 						titularService.saveOrUpdate(object);
 
 						cadMdTit.close(target);
@@ -655,7 +656,84 @@ public class CadTemplatePage extends WebPage {
 			}
 
 		});
+		LoadableDetachableModel<List<Titular>> loader = Util.addLoadable(listTit);
 		
+		ListView<Titular> lvTit = new ListView<Titular>("lvTit", loader) {
+
+			private static final long serialVersionUID = 7253438382745424326L;
+
+			@Override
+			protected void populateItem(ListItem<Titular> item) {
+
+				final Titular titular = (Titular) item.getModelObject();
+				if(titular.getTipoPessoa() == "Pessoa Física") {
+					item.add(new Label("nomeRzSocial", titular.getPf().getNome()),
+							new Label("cpfCnpj", titular.getPf().getCpf()));
+				} else {
+					item.add(new Label("nomeRzSocial", titular.getPj().getRazaoSocial()),
+							new Label("cpfCnpj", titular.getPj().getCnpj()));
+				}
+				item.add(new AjaxLink<Titular>("edit") {
+
+					private static final long serialVersionUID = -984734035789687817L;
+
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						CadTitularPanel editForm = new CadTitularPanel(cadMdTit.getContentId(), titular, cadMdTit) {
+
+							private static final long serialVersionUID = -2360017131168195435L;
+
+							@Override
+							public void atualizaAoModificar(AjaxRequestTarget target, Titular object) {
+								titularService.update(object);
+								cadMdCt.close(target);
+								target.add(divTit);
+							}
+
+						};
+
+						cadMdTit.setContent(editForm);
+						cadMdTit.show(target);
+					}
+
+				}, new AjaxLink<Titular>("delete") {
+
+					private static final long serialVersionUID = -984734035789687817L;
+
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						// verificar a questão da tipagem
+						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
+						// agencia.getCodigo() + "?", excModal, divAg, target);
+						ExcluirPanel<Titular> excPanel = new ExcluirPanel<Titular>(excModal.getContentId(), titular, "titular",
+								"Excluir o titular " + titular.getPf().getNome() + "?") {
+
+							private static final long serialVersionUID = -2564309581427741392L;
+
+							@Override
+							public void atualizaAoModificar(AjaxRequestTarget target, Titular object) {
+								excModal.close(target);
+								target.add(divTit);
+							}
+
+						};
+
+						excModal.setContent(excPanel);
+						excModal.show(target);
+					};
+
+				});
+
+			}
+		};
+
+		/*
+		 * if(listAg == null) { divAg.add(new Label("notFound",
+		 * "Nenhum resultado Encontrado")); } else { divAg.add(new Label("notFound",
+		 * "")); }
+		 */
+
+		divTit.add(lvTit);
 		add(divTit, cadMdTit);
 	}
 

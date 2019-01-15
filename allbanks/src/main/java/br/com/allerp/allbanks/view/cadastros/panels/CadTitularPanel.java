@@ -11,6 +11,7 @@ import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -76,22 +77,6 @@ public class CadTitularPanel extends Util<Titular> {
 				target.add(formCadTit);
 			}
 		});
-		
-//			TextField<String> rua = Util.textField("rua");
-//			rua.setRequired(true);
-//			TextField<String> bairro = Util.textField("bairro");
-//			bairro.setRequired(true);
-//			TextField<String> complemento = Util.textField("complemento");
-//			NumberTextField<Integer> num = Util.numberTextField("num");
-//			num.setRequired(true);
-//			TextField<String> pais = Util.textField("pais");
-//			pais.setRequired(true);
-//			TextField<String> uf = Util.textField("uf");
-//			uf.setRequired(true);
-//			TextField<String> cidade = Util.textField("cidade");
-//			cidade.setRequired(true);
-//			TextField<String> cep = Util.textField("cep");
-//			cep.setRequired(true);
 
 		titularAux = titular;
 		formCadTit.add(new AjaxButton("salvar") {
@@ -111,7 +96,7 @@ public class CadTitularPanel extends Util<Titular> {
 
 		});
 
-		formCadTit.add(radioTipoPes, formPf(), formPj(), btnCan("btnCanc", titular, modal));
+		formCadTit.add(radioTipoPes, formPf(), formPj(), divEnd(), btnCan("btnCanc", titular, modal));
 		add(formCadTit);
 
 	}
@@ -155,6 +140,35 @@ public class CadTitularPanel extends Util<Titular> {
 
 		return divPj;
 
+	}
+	
+	private WebMarkupContainer divEnd() {
+		WebMarkupContainer divEnd = new WebMarkupContainer("divEnd");
+		
+		TextField<String> rua = Util.textField("endereco.rua");
+		rua.setRequired(true);
+		TextField<String> bairro = Util.textField("endereco.bairro");
+		bairro.setRequired(true);
+		TextField<String> complemento = Util.textField("endereco.complemento");
+		NumberTextField<Integer> num = Util.numberTextField("endereco.num");
+		num.setRequired(true);
+		TextField<String> pais = Util.textField("endereco.pais");
+		pais.setRequired(true);
+		TextField<String> uf = Util.textField("endereco.uf");
+		uf.setRequired(true);
+		TextField<String> cidade = Util.textField("endereco.cidade");
+		cidade.setRequired(true);
+		TextField<String> cep = Util.textField("endereco.cep");
+		cep.setRequired(true);
+		
+		divEnd.add(rua, bairro, complemento, num, pais, uf, cidade, cep);
+		
+		return divEnd;
+		
+	}
+	
+	public String getSelectedPes() {
+		return selectedPes;
 	}
 
 }

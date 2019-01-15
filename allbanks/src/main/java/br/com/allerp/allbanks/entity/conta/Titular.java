@@ -3,6 +3,7 @@ package br.com.allerp.allbanks.entity.conta;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
+import br.com.allerp.allbanks.entity.Endereco;
 import br.com.allerp.allbanks.entity.GenericEntity;
 import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
 import br.com.allerp.allbanks.entity.pessoa.PessoaJuridica;
@@ -32,6 +34,14 @@ public class Titular extends GenericEntity {
 
 	@OneToOne(mappedBy = "titular")
 	private PessoaJuridica pj;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "end_codigo")
+	@ForeignKey(name = "FK_PESS_END")
+	private Endereco endereco;
+	
+	@Column(nullable = false)
+	private String tipoPessoa;
 
 	public PessoaFisica getPf() {
 		return pf;
@@ -49,4 +59,12 @@ public class Titular extends GenericEntity {
 		this.pj = pj;
 	}
 
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+	
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+	
 }

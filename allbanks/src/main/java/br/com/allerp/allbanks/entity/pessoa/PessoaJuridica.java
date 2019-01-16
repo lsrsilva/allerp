@@ -29,10 +29,10 @@ public class PessoaJuridica extends Pessoa {
 	@Column(nullable = false, length = 200)
 	private String ie;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	/*@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tit_cod", referencedColumnName = "codigo", unique = true)
 	@ForeignKey(name = "FK_TITU_PJ")
-	private Titular titular;
+	private Titular titular;*/
 
 	public String getCnpj() {
 		return cnpj;

@@ -5,13 +5,16 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.conta.Agencia;
+import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.service.conta.BancoService;
 import br.com.allerp.allbanks.view.Util;
 
@@ -24,7 +27,7 @@ public class CadAgPanel extends Util<Agencia> {
 	@SpringBean(name = "bancoService")
 	private BancoService bancoService;
 
-	private List<String> bancos = bancoService.listBcNames();
+	private List<Banco> bancos = bancoService.findAll();
 
 	public CadAgPanel(String id, ModalWindow modal) {
 		this(id, new Agencia(), modal);
@@ -38,7 +41,10 @@ public class CadAgPanel extends Util<Agencia> {
 		final Form<Agencia> formCadAg = new Form<Agencia>("formCadAg", modelCadAg);
 
 		NumberTextField<Integer> codAg = new NumberTextField<Integer>("codAg");
-		DropDownChoice<String> banco = new DropDownChoice<String>("banco", bancos);
+		ChoiceRenderer<Banco> bcRender = new ChoiceRenderer<Banco>("nome");
+
+		final DropDownChoice<Banco> nomeBanco = new DropDownChoice<Banco>("banco",
+				new PropertyModel<Banco>(agencia, "banco"), bancos, bcRender);
 
 		agAux = agencia;
 		formCadAg.add(new AjaxButton("salvar") {
@@ -58,7 +64,7 @@ public class CadAgPanel extends Util<Agencia> {
 
 		});
 
-		formCadAg.add(codAg, banco, btnCan("btnCanc", agencia, modal));
+		formCadAg.add(codAg, nomeBanco, btnCan("btnCanc", agencia, modal));
 		add(formCadAg);
 
 	}

@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -33,11 +32,11 @@ public class CadTitularPanel extends Util<Titular> {
 
 	private String selectedPes = LIST_PES.get(0);
 
-	public CadTitularPanel(String id, ModalWindow modal) {
-		this(id, new Titular(), modal);
+	public CadTitularPanel(String id) {
+		this(id, new Titular());
 	}
-
-	public CadTitularPanel(String id, Titular titular, ModalWindow modal) {
+	
+	public CadTitularPanel(String id, Titular titular) {
 		super(id);
 
 		CompoundPropertyModel<Titular> modelCadTit = new CompoundPropertyModel<Titular>(titular);
@@ -96,17 +95,17 @@ public class CadTitularPanel extends Util<Titular> {
 
 		});
 
-		formCadTit.add(radioTipoPes, formPf(), formPj(), divEnd(), btnCan("btnCanc", titular, modal));
+		formCadTit.add(radioTipoPes, formPf(), formPj(), divEnd());
 		add(formCadTit);
 
 	}
 
 	private WebMarkupContainer formPf() {
 
-		TextField<String> nome = new TextField<String>("pf.nome");
-		TextField<String> rg = new TextField<String>("pf.rg");
-		TextField<String> cpf = new TextField<String>("pf.cpf");
-		DateTextField dtNasc = new DateTextField("pf.dtNasc");
+		TextField<String> nome = new TextField<String>("nome");
+		TextField<String> rg = new TextField<String>("rg");
+		TextField<String> cpfCnpj = new TextField<String>("cpfCnpj");
+		DateTextField dtNasc = new DateTextField("dtNasc");
 		DatePicker datePicker = new DatePicker() {
 
 			private static final long serialVersionUID = -3701264872352758583L;
@@ -121,10 +120,10 @@ public class CadTitularPanel extends Util<Titular> {
 		datePicker.setAutoHide(true);
 		dtNasc.setMarkupId("dtNasc");
 		dtNasc.add(datePicker);
-		TextField<String> celular = new TextField<String>("pf.celular");
-		TextField<String> telefone = new TextField<String>("pf.telefone");
+		TextField<String> celular = new TextField<String>("celular");
+		TextField<String> telefone = new TextField<String>("telefone");
 
-		divPf.add(nome, rg, cpf, celular, telefone, dtNasc);
+		divPf.add(nome, rg, cpfCnpj, celular, telefone, dtNasc);
 
 		return divPf;
 
@@ -132,11 +131,12 @@ public class CadTitularPanel extends Util<Titular> {
 
 	private WebMarkupContainer formPj() {
 
-		TextField<String> razaoSocial = new TextField<String>("pj.razaoSocial");
-		TextField<String> cnpj = new TextField<String>("pj.cnpj");
-		TextField<String> ie = new TextField<String>("pj.ie");
+		TextField<String> nome = new TextField<String>("nome");
+		TextField<String> cpfCnpj = new TextField<String>("cpfCnpj");
+		TextField<String> ie = new TextField<String>("ie");
+		TextField<String> telefone = new TextField<String>("telefone");
 
-		divPj.add(razaoSocial, cnpj, ie);
+		divPj.add(nome, cpfCnpj, ie, telefone);
 
 		return divPj;
 

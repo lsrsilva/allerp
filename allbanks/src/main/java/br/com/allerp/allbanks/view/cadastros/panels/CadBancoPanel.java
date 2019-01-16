@@ -53,7 +53,8 @@ public class CadBancoPanel extends Util<Banco> {
 
 		add(formCadBc);
 	}
-
+	/*
+	Botão para cadastrar agência no modal do banco
 	private AjaxButton btnCadAg() {
 		return new AjaxButton("btnCadAg") {
 
@@ -65,6 +66,6 @@ public class CadBancoPanel extends Util<Banco> {
 			}
 
 		};
-	}
+	}*/
 
 }

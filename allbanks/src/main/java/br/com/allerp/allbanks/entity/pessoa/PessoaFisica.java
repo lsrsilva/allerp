@@ -43,10 +43,11 @@ public class PessoaFisica extends Pessoa {
 	@Column(nullable = true)
 	private Character sexo;
 	
+	/*
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tit_cod", referencedColumnName = "codigo", unique = true)
+	@JoinColumn(name = "tit_cod", referencedColumnName = "tit_cod", unique = true)
 	@ForeignKey(name = "FK_TITU_PF")
-	private Titular titular;
+	private Titular titular;*/
 
 	public String getCelular() {
 		return celular;

@@ -1,5 +1,6 @@
 package br.com.allerp.allbanks.entity.conta;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,18 +10,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ForeignKey;
 
 import br.com.allerp.allbanks.entity.Endereco;
-import br.com.allerp.allbanks.entity.GenericEntity;
-import br.com.allerp.allbanks.entity.pessoa.PessoaFisica;
-import br.com.allerp.allbanks.entity.pessoa.PessoaJuridica;
+import br.com.allerp.allbanks.entity.pessoa.Pessoa;
 
 @Entity
 @Table(name = "TITULAR")
-public class Titular extends GenericEntity {
+@ForeignKey(name = "FK_PES_COD")
+@PrimaryKeyJoinColumn(name = "tit_cod", referencedColumnName = "codigo")
+public class Titular extends Pessoa {
 
 	private static final long serialVersionUID = -8605819128606661027L;
 
@@ -29,11 +33,24 @@ public class Titular extends GenericEntity {
 	@ForeignKey(name = "FK_TIT_COD", inverseName = "FK_CT_COD")
 	private List<Conta> conta;
 
-	@OneToOne(mappedBy = "titular")
-	private PessoaFisica pf;
+	@Column(length = 200)
+	private String ie;
+	
+	@Column
+	private String celular;
 
-	@OneToOne(mappedBy = "titular")
-	private PessoaJuridica pj;
+	@Column( length = 14)
+	private String cpfCnpj;
+
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date dtNasc;
+
+	@Column(nullable = false, length = 200)
+	private String nome;
+
+	@Column(length = 20)
+	private String rg;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "end_codigo")
@@ -43,28 +60,60 @@ public class Titular extends GenericEntity {
 	@Column(nullable = false)
 	private String tipoPessoa;
 
-	public PessoaFisica getPf() {
-		return pf;
-	}
-
-	public void setPf(PessoaFisica pf) {
-		this.pf = pf;
-	}
-
-	public PessoaJuridica getPj() {
-		return pj;
-	}
-
-	public void setPj(PessoaJuridica pj) {
-		this.pj = pj;
-	}
-
 	public String getTipoPessoa() {
 		return tipoPessoa;
 	}
 
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+	
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String razaoSocial) {
+		this.nome = razaoSocial;
+	}
+
+	public String getIe() {
+		return ie;
+	}
+
+	public void setIe(String ie) {
+		this.ie = ie;
+	}
+	
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public Date getDtNasc() {
+		return dtNasc;
+	}
+
+	public void setDtNasc(Date dtNasc) {
+		this.dtNasc = dtNasc;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
 }

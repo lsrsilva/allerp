@@ -9,7 +9,8 @@ public enum Contas {
 	UNIVERSITARIA("Universitária"),
 	DIGITAL("Digital"),
 	CORRENTE("Corrente"),
-	POUPANCA("Poupança");
+	POUPANCA("Poupança"),
+	SALARIO("Salário");
 	
 	private String text;
 	

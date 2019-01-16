@@ -19,7 +19,16 @@ public class DashboardPage extends SecuredBasePage {
 		title = "Dashboard";
 		add(new Label("title", new PropertyModel<>(this, "title")));
 		
-		add(new AjaxLink<Object>("logout") {
+		add(new Link<Object>("home") {
+
+			private static final long serialVersionUID = 1288650964782456928L;
+
+			@Override
+			public void onClick() {
+				setResponsePage(DashboardPage.class);
+			}
+			
+		}, new AjaxLink<Object>("logout") {
 
 			private static final long serialVersionUID = 1288650964782456928L;
 

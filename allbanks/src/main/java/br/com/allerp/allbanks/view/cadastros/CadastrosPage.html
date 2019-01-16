@@ -10,10 +10,10 @@
 		<div class="div-cad">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true" onclick="trocaClasse('#userCad');"><img class="icons" alt="Usuário" src="icons/svg/user.svg"> Usuários</a>
+					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true"><img class="icons" alt="Usuário" src="icons/svg/user2.svg"> Usuários</a>
 				</li>
   				<li class="nav-item">
-    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" onclick="trocaClasse('#funcCad');"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
+    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" ><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
@@ -31,7 +31,7 @@
 
 			<div class="tab-content">
 			   
-			  <div wicket:id="divUser" id="userCad" class="tab-pane active"><br>
+			  <div wicket:id="divUser" id="userCad" class="tab-pane fade show active troca"><br>
 			    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo usuário</span>
 					</button>
@@ -57,7 +57,7 @@
 		    	</table>
 		    </div>
 		    
-		    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
+		    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade troca"><br>
 		    	<button wicket:id="btnAddFunc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo funcionário</span>
 				</button>
@@ -84,7 +84,7 @@
 		    		</tbody>
 		    	</table>
 		    </div>
-		  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
+		  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade troca"><br>
 		    	<button wicket:id="btnAddBc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Banco</span>
 				</button>
@@ -107,7 +107,7 @@
 		    		</tbody>
 		    	</table>
 		  	</div>
-		  	<div wicket:id="divAg" id="agCad" class="tab-pane fade"><br>
+		  	<div wicket:id="divAg" id="agCad" class="tab-pane fade troca"><br>
 			  	<button wicket:id="btnAddAg" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Agência</span>
 				</button>
@@ -134,7 +134,7 @@
 		    	
 		    	<!-- <div wicket:id="notFound"></div> -->
 		  	</div>
-		  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
+		  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade troca"><br>
 		    	<button wicket:id="btnAddCt" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Conta</span>
 				</button>
@@ -143,8 +143,8 @@
 		    		<thead>
 		    			<tr class="tr text-center">
 							<th scope="col">Código Agência</th>
-							<th scope="col">Código Banco</th>
-							<th scope="col">Nome Banco</th>
+							<th scope="col">Número da Conta</th>
+							<th scope="col">Status</th>
 							<th scope="col" colspan="2">Ações</th>
 						</tr>
 					</thead>
@@ -159,11 +159,7 @@
 		    		</tbody>
 		    	</table>
 		  	</div>
-		  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
-		    	<button wicket:id="btnAddTit" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
-					<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Titular</span>
-				</button>
-				
+		  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade troca"><br>
 				<table class="table table-hover table-sm br-top-none">
 		    		<thead>
 		    			<tr class="tr text-center">

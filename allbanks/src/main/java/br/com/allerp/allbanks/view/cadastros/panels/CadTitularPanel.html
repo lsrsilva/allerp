@@ -1,101 +1,97 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
-	<wicket:panel>
-		<form wicket:id="formCadTit" class="form-horizontal">
-			<div wicket:id="tipoPessoa"  class="my-ml-5">
-				<input id="tipoPessoa" type="radio" class="mr-2" />
+<wicket:panel>
+	<form wicket:id="formCadTit" class="form-horizontal">
+		<div wicket:id="tipoPessoa"  class="my-ml-5">
+			<input id="tipoPessoa" type="radio" class="mr-2" />
+		</div>
+		<div wicket:id="divPf" class="form-row my-mx-5">
+			<div class=" col-md-6">
+				<label wicket:for="nome" class="control-label-md">Nome</label>
+				<input wicket:id="nome" class="form-control" type="text"/>
 			</div>
-			<div wicket:id="divPf" class="form-row my-mx-5">
-				<div class=" col-md-6">
-					<label wicket:for="pf.nome" class="control-label-md">Nome</label>
-					<input wicket:id="pf.nome" class="form-control" type="text"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pf.rg" class="control-label-md">RG</label>
-					<input wicket:id="pf.rg" class="form-control" type="text" maxlength="20"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pf.cpf" class="control-label-md">CPF</label>
-					<input wicket:id="pf.cpf" class="form-control cpf" type="text" maxlength="14"/>
-				</div>
-				<div class="col-md-5">
-					<label wicket:for="pf.dtNasc" class="control-label-md">Data de Nascimento</label>
-					<input wicket:id="pf.dtNasc" class="form-control data my-mx-5" type="text"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pf.celular" class="control-label-md">Celular</label>
-					<input wicket:id="pf.celular" class="form-control celular" type="text"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pf.telefone" class="control-label-md">Telefone</label>
-					<input wicket:id="pf.telefone" class="form-control telefone" type="text"/>
-				</div>
+			<div class="col-md-6">
+				<label wicket:for="rg" class="control-label-md">RG</label>
+				<input wicket:id="rg" class="form-control" type="text" maxlength="20"/>
 			</div>
-			<div wicket:id="divPj" class="form-row my-mx-5">
-				<div class=" col-md-6">
-					<label wicket:for="pj.razaoSocial" class="control-label-md">Razão Social</label>
-					<input wicket:id="pj.razaoSocial" class="form-control" type="text"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pj.cnpj" class="control-label-md">CNPJ</label>
-					<input wicket:id="pj.cnpj" class="form-control" type="text" maxlength="20"/>
-				</div>
-				<div class="col-md-6">
-					<label wicket:for="pj.ie" class="control-label-md">Inscrição Estadual</label>
-					<input wicket:id="pj.ie" class="form-control cpf" type="text"/>
-				</div>
+			<div class="col-md-6">
+				<label wicket:for="cpfCnpj" class="control-label-md">CPF</label>
+				<input wicket:id="cpfCnpj" class="form-control cpf" type="text" maxlength="14"/>
 			</div>
-			
-			<div wicket:id="divEnd" class="my-mx-5">
-				<fieldset >
-					<legend>Endereço</legend>
-					<div class="form-row">
-						<div class="form-group col-3">
-							<label wicket:for="endereco.cep" class="control-label-md my-ml-auto">CEP</label>
-							<input wicket:id="endereco.cep" class="form-control my-ml-auto" type="text" placeholder="00.000-00" />
-						</div>
-						<div class="form-group col-md-4">
-							<label wicket:for="endereco.rua" class="control-label">Rua</label>
-							<input wicket:id="endereco.rua" class="form-control my-mr-auto" type="text" placeholder="Digite o nome de sua rua" />
-						</div>
-						<div class="form-group col-md-5">
-							<label wicket:for="endereco.bairro" class="control-label">Bairro</label>
-							<input wicket:id="endereco.bairro" class="form-control my-mr-auto" type="text" placeholder="Digite o nome de sua rua" />
-						</div>
-						<div class="form-group col-md-4">
-							<label wicket:for="endereco.complemento" class="control-label-md my-ml-auto">Complemento</label>
-							<input wicket:id="endereco.complemento" class="form-control my-ml-auto" type="text" placeholder="Bairro, quadra, lote e/ou referência" />
-						</div>
-						<div class="form-group col-md-2">
-							<label wicket:for="endereco.num" class="control-label-md my-ml-auto">Número</label>
-							<input wicket:id="endereco.num" class="form-control my-ml-auto" type="number" placeholder="0" />
-						</div>
-						<div class="form-group col-md-2">
-							<label wicket:for="endereco.pais" class="control-label-md my-ml-auto">País</label>
-							<input wicket:id="endereco.pais" class="form-control my-ml-auto" type="text" placeholder="Selecione um país" />
-						</div>
-						<div class="form-group col-md-2">
-							<label wicket:for="endereco.uf" class="control-label-md my-ml-auto">UF</label>
-							<input wicket:id="endereco.uf" class="form-control my-ml-auto" type="text" placeholder="UF" />
-						</div>
-						<div class="form-group col-2">
-							<label wicket:for="endereco.cidade" class="control-label-md my-ml-auto">Cidade</label>
-							<input wicket:id="endereco.cidade" class="form-control my-ml-auto" type="text" placeholder="Cidade" />
-						</div>
+			<div class="col-md-5">
+				<label wicket:for="dtNasc" class="control-label-md">Data de Nascimento</label>
+				<input wicket:id="dtNasc" class="form-control data my-mx-5" type="text"/>
+			</div>
+			<div class="col-md-6">
+				<label wicket:for="celular" class="control-label-md">Celular</label>
+				<input wicket:id="celular" class="form-control celular" type="text"/>
+			</div>
+			<div class="col-md-6">
+				<label wicket:for="telefone" class="control-label-md">Telefone</label>
+				<input wicket:id="telefone" class="form-control telefone" type="text"/>
+			</div>
+		</div>
+		<div wicket:id="divPj" class="form-row my-mx-5">
+			<div class=" col-md-6">
+				<label wicket:for="nome" class="control-label-md">Razão Social</label>
+				<input wicket:id="nome" class="form-control" type="text"/>
+			</div>
+			<div class="col-md-6">
+				<label wicket:for="cpfCnpj" class="control-label-md">CNPJ</label>
+				<input wicket:id="cpfCnpj" class="form-control" type="text" maxlength="20"/>
+			</div>
+			<div class="col-md-6">
+				<label wicket:for="ie" class="control-label-md">Inscrição Estadual</label>
+				<input wicket:id="ie" class="form-control cpf" type="text"/>
+			</div>
+			<div class="col-md-6">
+				<label wicket:for="telefone" class="control-label-md">Telefone</label>
+				<input wicket:id="telefone" class="form-control telefone" type="text"/>
+			</div>
+		</div>
+		
+		<div wicket:id="divEnd" class="my-mx-5">
+			<fieldset >
+				<legend>Endereço</legend>
+				<div class="form-row">
+					<div class="form-group col-3">
+						<label wicket:for="endereco.cep" class="control-label-md my-ml-auto">CEP</label>
+						<input wicket:id="endereco.cep" class="form-control my-ml-auto" type="text" id="cep" value="" onblur="pesquisacep(this.value);" placeholder="00.000-00" />
 					</div>
-				</fieldset>
-			</div>
-			
-			<div class="d-flex justify-content-end">
-				<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
- 				<button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button>
-			</div>
-			
-		</form>
-	</wicket:panel>
-</body>
-</html>
+					<div class="form-group col-md-4">
+						<label wicket:for="endereco.rua" class="control-label">Rua</label>
+						<input wicket:id="endereco.rua" class="form-control my-mr-auto" type="text" id="rua" value="" placeholder="Digite o nome de sua rua" />
+					</div>
+					<div class="form-group col-md-5">
+						<label wicket:for="endereco.bairro" class="control-label">Bairro</label>
+						<input wicket:id="endereco.bairro" class="form-control my-mr-auto" type="text" id="bairro" value="" placeholder="Digite o nome de sua rua" />
+					</div>
+					<div class="form-group col-md-4">
+						<label wicket:for="endereco.complemento" class="control-label-md my-ml-auto">Complemento</label>
+						<input wicket:id="endereco.complemento" class="form-control my-ml-auto" type="text" placeholder="Bairro, quadra, lote e/ou referência" />
+					</div>
+					<div class="form-group col-md-2">
+						<label wicket:for="endereco.num" class="control-label-md my-ml-auto">Número</label>
+						<input wicket:id="endereco.num" class="form-control my-ml-auto" type="number" placeholder="0" />
+					</div>
+					<div class="form-group col-md-2">
+						<label wicket:for="endereco.pais" class="control-label-md my-ml-auto">País</label>
+						<input wicket:id="endereco.pais" class="form-control my-ml-auto" type="text" placeholder="Selecione um país" />
+					</div>
+					<div class="form-group col-md-2">
+						<label wicket:for="endereco.uf" class="control-label-md my-ml-auto">UF</label>
+						<input wicket:id="endereco.uf" class="form-control my-ml-auto" type="text" id="uf" value="" placeholder="UF" />
+					</div>
+					<div class="form-group col-2">
+						<label wicket:for="endereco.cidade" class="control-label-md my-ml-auto">Cidade</label>
+						<input wicket:id="endereco.cidade" class="form-control my-ml-auto" type="text" id="cidade" value="" placeholder="Cidade" />
+					</div>
+				</div>
+			</fieldset>
+		</div>
+		
+		<div class="d-flex justify-content-end">
+			<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+				<!-- <button wicket:id="btnCanc" type="submit" class="btn btn-danger my-mx-5">Cancelar</button> -->
+		</div>
+		
+	</form>
+</wicket:panel>

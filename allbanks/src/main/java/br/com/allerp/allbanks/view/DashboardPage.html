@@ -19,10 +19,38 @@
 	<link rel="shortcut icon" href="logo/predio.png" type="image/x-icon" />
 </head>
 <body>
-	<a wicket:id="logout">Logout</a>
-	<a wicket:id="cadastros">Cadastros</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#"><img alt="AllBanks" class="logo-circle logo-size" src="logo/predio.png"/></a>
+	  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#perfil" aria-controls="perfilt" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	  	</button>
+	  	
+	  	<div class="collapse navbar-collapse d-flex" id="perfil">
+		    <ul class="navbar-nav mr-auto">
+		      	<li class="nav-item">
+		        	
+		      	</li>
+		      	<li class="nav-item">
+		        	<a wicket:id="cadastros" class="nav-link">Cadastros</a>
+		      	</li>
+		    </ul>
+		    <ul class="navbar-nav">
+		      	<li class="nav-item dropdown">
+		        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          		<img class="icons-40 br-radio-4" style="padding: 3px;" alt="Perfil" src="icons/svg/user.svg">
+		        	</a>
+		        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          		<a class="dropdown-item" href="#">Perfil do Usuário</a>
+		          		<a class="dropdown-item" href="#">Another action</a>
+		          		<div class="dropdown-divider"></div>
+		          		<a wicket:id="logout" class="dropdown-item">Logout</a>
+		        	</div>
+		      	</li>
+		    </ul>
+		</div>
+		
+	</nav>
+	
 	<wicket:child/>
-	
-	
 </body>
 </html>

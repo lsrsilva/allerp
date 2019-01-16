@@ -15,12 +15,3 @@ $(document).ready(function() {
 	$("input.telefone").mask("(999) 9999-9999");
 	$("input.celular").mask("(999) 99999-9999");
 });
-
-function mudaClasse(id) {
-	var i;
-	var x = document.getElementsByClassName("teste");
-	for (i = 0; i < x.length; i++) {
-		x[i].style.display = "none";
-	}
-	document.getElementById(aba).style.display = "block";
-}

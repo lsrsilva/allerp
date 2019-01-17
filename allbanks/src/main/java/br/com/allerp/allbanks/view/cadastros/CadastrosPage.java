@@ -1,15 +1,23 @@
 package br.com.allerp.allbanks.view.cadastros;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.colaborador.Funcionario;
@@ -17,6 +25,7 @@ import br.com.allerp.allbanks.entity.conta.Agencia;
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Titular;
+import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.colaborador.FuncionarioService;
@@ -86,15 +95,15 @@ public class CadastrosPage extends DashboardPage {
 	// ----------------------------------------------------------------------//
 
 	public CadastrosPage() {
-		
-		if(!getSessao().getUser().getPerfil().toString().equals("Gerente")) {
+
+		if (!getSessao().getUser().getPerfil().toString().equals("Gerente")) {
 			setResponsePage(DashboardPage.class);
 		}
 
 		setTitle("Cadastros");
-		
+
 		add(Util.link("dashboard", DashboardPage.class));
-		
+
 		cadMdUser = new ModalWindow("cadMdUser");
 		cadMdFunc = new ModalWindow("cadMdFunc");
 		cadMdAg = new ModalWindow("cadMdAg");
@@ -130,6 +139,57 @@ public class CadastrosPage extends DashboardPage {
 		listViewConta();
 		listViewTitular();
 
+//		add(new AjaxLink<Object>("abaUser") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				target.add(divUser);
+//			}
+//		}, new AjaxLink<Object>("abaFunc") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				//listViewFunc();
+//				target.add(divFunc);
+//			}
+//		}, new AjaxLink<Object>("abaBanco") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				target.add(divBc);
+//			}
+//		}, new AjaxLink<Object>("abaAg") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				target.add(divAg);
+//			}
+//		},new AjaxLink<Object>("abaConta") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				target.add(divCt);
+//			}
+//		},new AjaxLink<Object>("abaTit") {
+//			
+//			private static final long serialVersionUID = 4409560948251289852L;
+//			
+//			@Override
+//			public void onClick(AjaxRequestTarget target) {
+//				target.add(divTit);
+//			}
+//		});
+
 		add(excModal);
 	}
 
@@ -139,6 +199,39 @@ public class CadastrosPage extends DashboardPage {
 		 * final WebMarkupContainer divUser = new WebMarkupContainer("divUser"); final
 		 * ModalWindow cadMdUser = new ModalWindow("cadMdUser");
 		 */
+		final User user = new User();
+		CompoundPropertyModel<User> formModel = new CompoundPropertyModel<User>(user);
+		final Form<User> searchUser = new Form<User>("searchUser", formModel);
+
+		final TextField<String> userAccess = new TextField<String>("userAccess");
+		ChoiceRenderer<Perfis> perfilRender = new ChoiceRenderer<Perfis>("text");
+		final DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil",
+				new PropertyModel<Perfis>(user, "perfil"), Arrays.asList(Perfis.values()), perfilRender);
+
+		searchUser.add(userAccess, perfil);
+
+		searchUser.add(new AjaxButton("btnSearchUs") {
+
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+
+				if (userAccess != null && perfil != null || user.getUserAccess().equals("")
+						|| user.getPerfil().toString().equals("")) {
+					if (userAccess.getValue().equals("") && perfil.getValue().equals("")) {
+						listUser = userService.findAll();
+					} else {
+						listUser = userService.search(user.getUserAccess(), user.getPerfil());
+					}
+				}
+
+				target.add(divUser, searchUser);
+			}
+
+		});
+
+		divUser.add(searchUser);
 
 		divUser.add(new AjaxLink<User>("btnAddUser") {
 
@@ -154,13 +247,13 @@ public class CadastrosPage extends DashboardPage {
 					public void atualizaAoModificar(AjaxRequestTarget target, User object) {
 						userService.saveOrUpdate(object);
 						listUser = userService.findAll();
-						//divUser.setVisible(true);
+						// divUser.setVisible(true);
 						divUser.setVisibilityAllowed(true);
 						target.add(divUser);
 						cadMdUser.close(target);
 					}
 				};
-				cadMdUser.setContent(userPanel);
+				cadMdUser.setContent(userPanel).setOutputMarkupId(true);
 				cadMdUser.show(target);
 			}
 
@@ -207,7 +300,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 
-						cadMdUser.setContent(editForm);
+						cadMdUser.setContent(editForm).setOutputMarkupId(true);
 						cadMdUser.show(target);
 					}
 
@@ -235,7 +328,7 @@ public class CadastrosPage extends DashboardPage {
 						};
 
 						excPanel.setService(userService);
-						excModal.setContent(excPanel);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
 						excModal.show(target);
 					};
 
@@ -251,6 +344,37 @@ public class CadastrosPage extends DashboardPage {
 	}
 
 	private void listViewFunc() {
+
+		final Funcionario func = new Funcionario();
+		CompoundPropertyModel<Funcionario> formModel = new CompoundPropertyModel<Funcionario>(func);
+		final Form<Funcionario> searchFunc = new Form<Funcionario>("searchFunc", formModel);
+
+		final TextField<String> nome = new TextField<String>("nome");
+		final TextField<String> cpf = new TextField<String>("cpf");
+		final TextField<String> funcao = new TextField<String>("funcao");
+
+		searchFunc.add(nome, cpf, funcao);
+
+		searchFunc.add(new AjaxButton("btnSearchFunc") {
+
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				if (nome != null && cpf != null && funcao != null || func.getNome().equals("")
+						|| func.getCpf().equals("") || func.getFuncao().equals("")) {
+					if (nome.getValue().equals("") && cpf.getValue().equals("") && funcao.getValue().equals("")) {
+						listFunc = funcService.findAll();
+					}
+					listFunc = funcService.search(func.getNome(), func.getCpf(), func.getFuncao());
+				}
+				target.add(divFunc);
+			}
+
+		});
+
+		divFunc.add(searchFunc);
+
 		divFunc.add(new AjaxLink<Funcionario>("btnAddFunc") {
 
 			private static final long serialVersionUID = 2044861581184497470L;
@@ -270,7 +394,7 @@ public class CadastrosPage extends DashboardPage {
 						cadMdFunc.close(target);
 					}
 				};
-				cadMdFunc.setContent(funcPanel);
+				cadMdFunc.setContent(funcPanel).setOutputMarkupId(true);
 				cadMdFunc.show(target);
 			}
 
@@ -317,7 +441,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 
-						cadMdFunc.setContent(editForm);
+						cadMdFunc.setContent(editForm).setOutputMarkupId(true);
 						cadMdFunc.show(target);
 					}
 
@@ -339,13 +463,13 @@ public class CadastrosPage extends DashboardPage {
 							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario object) {
 								excModal.close(target);
 								listFunc = funcService.findAll();
-								
+
 								target.add(divAg);
 							}
 
 						};
 						excPanel.setService(funcService);
-						excModal.setContent(excPanel);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
 						excModal.show(target);
 					};
 
@@ -363,8 +487,154 @@ public class CadastrosPage extends DashboardPage {
 		divFunc.add(lvFunc);
 		add(divFunc, cadMdFunc);
 	}
+	
+	private void listViewBanco() {
+		divBc.add(new AjaxLink<Banco>("btnAddBc") {
 
+			private static final long serialVersionUID = 2044861581184497470L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				CadBancoPanel bcPanel = new CadBancoPanel(cadMdBc.getContentId(), cadMdBc) {
+
+					private static final long serialVersionUID = 6411274232083887033L;
+
+					@Override
+					public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
+						bancoService.saveOrUpdate(object);
+						listBc = bancoService.findAll();
+						target.add(divBc, divAg);
+						cadMdBc.close(target);
+					}
+				};
+
+				cadMdBc.setContent(bcPanel).setOutputMarkupId(true);
+				cadMdBc.show(target);
+			}
+
+		});
+
+		LoadableDetachableModel<List<Banco>> loader = new LoadableDetachableModel<List<Banco>>(listBc) {
+
+			private static final long serialVersionUID = 8750330117036998650L;
+
+			@Override
+			protected List<Banco> load() {
+				return listBc;
+			}
+		};
+
+		ListView<Banco> lvBc = new ListView<Banco>("lvBc", loader) {
+
+			private static final long serialVersionUID = 7253438382745424326L;
+
+			@Override
+			protected void populateItem(final ListItem<Banco> item) {
+
+				final Banco banco = item.getModelObject();
+
+				item.add(new Label("codCompensacao", banco.getCodCompensacao()),
+						new Label("nomeBanco", banco.getNome()));
+				item.add(new AjaxLink<Banco>("edit") {
+
+					private static final long serialVersionUID = -984734035789687817L;
+
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						CadBancoPanel editForm = new CadBancoPanel(cadMdBc.getContentId(), banco, cadMdBc) {
+
+							private static final long serialVersionUID = -2360017131168195435L;
+
+							@Override
+							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
+								bancoService.saveOrUpdate(object);
+								cadMdBc.close(target);
+								target.add(divBc);
+							}
+
+						};
+
+						cadMdBc.setContent(editForm).setOutputMarkupId(true);
+						cadMdBc.show(target);
+					}
+
+				}, new AjaxLink<Banco>("delete") {
+
+					private static final long serialVersionUID = -984734035789687817L;
+
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						// verificar a questão da tipagem
+						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
+						// agencia.getCodigo() + "?", excModal, divAg, target);
+						ExcluirPanel<Banco> excPanel = new ExcluirPanel<Banco>(excModal.getContentId(), banco, "banco",
+								"Excluir o banco " + banco.getCodCompensacao() + "?") {
+
+							private static final long serialVersionUID = -2564309581427741392L;
+
+							@Override
+							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
+								excModal.close(target);
+								listBc = bancoService.findAll();
+								target.add(divBc);
+							}
+
+						};
+						excPanel.setService(bancoService);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
+						excModal.show(target);
+					};
+
+				});
+
+			}
+		};
+		divBc.setOutputMarkupId(true);
+		divBc.add(lvBc);
+
+		add(divBc, cadMdBc);
+	}
+	
 	private void listViewAg() {
+
+		final Agencia agencia = new Agencia();
+		
+		CompoundPropertyModel<Agencia> formModel = new CompoundPropertyModel<Agencia>(agencia);
+		final Form<Agencia> searchAg = new Form<Agencia>("searchAg", formModel);
+
+		final TextField<String> codAg = new TextField<String>("codAg");
+		ChoiceRenderer<Banco> bcCodRender = new ChoiceRenderer<Banco>("codCompensacao");
+		final DropDownChoice<Banco> dropCodBc = new DropDownChoice<Banco>("banco",
+				new PropertyModel<Banco>(agencia, "banco"), listBc, bcCodRender);
+		ChoiceRenderer<Banco> bcNmRender = new ChoiceRenderer<Banco>("nome");
+		final DropDownChoice<Banco> dropNmBc = new DropDownChoice<Banco>("banco.nome",
+				new PropertyModel<Banco>(agencia, "banco"), listBc, bcNmRender);
+
+		searchAg.add(codAg, dropCodBc, dropNmBc);
+
+		searchAg.add(new AjaxButton("btnSearchAg") {
+
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+
+				if (codAg != null && dropCodBc != null && dropNmBc != null || agencia.getCodAg() == 0
+						|| agencia.getBanco().getCodCompensacao().equals("")
+						|| agencia.getBanco().getNome().equals("")) {
+					if (codAg.getValue().equals("") && dropCodBc.getValue().equals("") && dropNmBc.getValue().equals("")) {
+						listAg = agenciaService.findAll();
+					} else {
+						listAg = agenciaService.search(agencia.getCodAg(), agencia.getBanco().getCodCompensacao(), agencia.getBanco().getNome());
+					}
+				}
+
+				target.add(divAg, searchAg);
+			}
+
+		});
+
+		divAg.add(searchAg);
 
 		divAg.add(new AjaxLink<Agencia>("btnAddAg") {
 
@@ -378,7 +648,7 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Agencia object) {
-						
+
 						agenciaService.saveOrUpdate(object);
 						listAg = agenciaService.findAll();
 
@@ -386,7 +656,7 @@ public class CadastrosPage extends DashboardPage {
 						target.add(divAg);
 					}
 				};
-				cadMdAg.setContent(agPanel);
+				cadMdAg.setContent(agPanel).setOutputMarkupId(true);
 				cadMdAg.show(target);
 			}
 
@@ -433,7 +703,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 
-						cadMdAg.setContent(editForm);
+						cadMdAg.setContent(editForm).setOutputMarkupId(true);
 						cadMdAg.show(target);
 					}
 
@@ -460,7 +730,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 						excPanel.setService(agenciaService);
-						excModal.setContent(excPanel);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
 						excModal.show(target);
 					};
 
@@ -480,113 +750,6 @@ public class CadastrosPage extends DashboardPage {
 
 	}
 
-	private void listViewBanco() {
-		divBc.add(new AjaxLink<Banco>("btnAddBc") {
-
-			private static final long serialVersionUID = 2044861581184497470L;
-			
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				CadBancoPanel bcPanel = new CadBancoPanel(cadMdBc.getContentId(), cadMdBc) {
-
-					private static final long serialVersionUID = 6411274232083887033L;
-
-					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
-						bancoService.saveOrUpdate(object);
-						listBc = bancoService.findAll();
-						target.add(divBc);
-						cadMdBc.close(target);
-					}
-				};
-				
-				cadMdBc.setContent(bcPanel);
-				cadMdBc.show(target);
-			}
-
-		});
-
-		LoadableDetachableModel<List<Banco>> loader = new LoadableDetachableModel<List<Banco>>(listBc) {
-
-			private static final long serialVersionUID = 8750330117036998650L;
-
-			@Override
-			protected List<Banco> load() {
-				return listBc;
-			}
-		};
-
-		ListView<Banco> lvBc = new ListView<Banco>("lvBc", loader) {
-
-			private static final long serialVersionUID = 7253438382745424326L;
-
-			@Override
-			protected void populateItem(final ListItem<Banco> item) {
-
-				final Banco banco = item.getModelObject();
-
-				item.add(new Label("codCompensacao", banco.getCodCompensacao()),
-						new Label("nomeBanco", banco.getNome()));
-				item.add(new AjaxLink<Banco>("edit") {
-
-					private static final long serialVersionUID = -984734035789687817L;
-
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						CadBancoPanel editForm = new CadBancoPanel(cadMdBc.getContentId(), banco, cadMdBc) {
-
-							private static final long serialVersionUID = -2360017131168195435L;
-
-							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
-								bancoService.saveOrUpdate(object);
-								cadMdBc.close(target);
-								target.add(divBc);
-							}
-
-						};
-
-						cadMdBc.setContent(editForm);
-						cadMdBc.show(target);
-					}
-
-				}, new AjaxLink<Banco>("delete") {
-
-					private static final long serialVersionUID = -984734035789687817L;
-
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						// verificar a questão da tipagem
-						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
-						// agencia.getCodigo() + "?", excModal, divAg, target);
-						ExcluirPanel<Banco> excPanel = new ExcluirPanel<Banco>(excModal.getContentId(), banco, "banco",
-								"Excluir o banco " + banco.getCodCompensacao() + "?") {
-
-							private static final long serialVersionUID = -2564309581427741392L;
-
-							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
-								excModal.close(target);
-								listBc = bancoService.findAll();
-								target.add(divBc);
-							}
-
-						};
-						excPanel.setService(bancoService);
-						excModal.setContent(excPanel);
-						excModal.show(target);
-					};
-
-				});
-
-			}
-		};
-		divBc.setOutputMarkupId(true);
-		divBc.add(lvBc);
-
-		add(divBc, cadMdBc);
-	}
-
 	private void listViewConta() {
 		divCt.add(new AjaxLink<Conta>("btnAddCt") {
 
@@ -601,19 +764,31 @@ public class CadastrosPage extends DashboardPage {
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
 						contaService.saveOrUpdate(object);
+						listTit = titularService.findAll();
 						listCt = contaService.findAll();
 
 						cadMdCt.close(target);
-						target.add(divCt);
+						target.add(divCt, divTit);
 					}
 				};
-				cadMdCt.setContent(ctPanel);
+				cadMdCt.setContent(ctPanel).setOutputMarkupId(true);
 				cadMdCt.show(target);
 			}
 
 		});
 
-		LoadableDetachableModel<List<Conta>> loader = Util.addLoadable(listCt);
+		LoadableDetachableModel<List<Conta>> loader = new LoadableDetachableModel<List<Conta>>(listCt) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 4390746698318909640L;
+
+			@Override
+			protected List<Conta> load() {
+				return listCt;
+			}
+		};
 
 		ListView<Conta> lvCt = new ListView<Conta>("lvCt", loader) {
 
@@ -622,22 +797,24 @@ public class CadastrosPage extends DashboardPage {
 			@Override
 			protected void populateItem(ListItem<Conta> item) {
 
-				final Conta conta = (Conta) item.getModelObject();
+				final Conta conta = item.getModelObject();
+				final Titular titular = conta.getTitular();
 
-				item.add(new Label("agencia", conta.getAgencia().getCodAg()), new Label("numConta", conta.getNumConta()),
-						new Label("status", conta.getStatus()));
+				item.add(new Label("agencia", conta.getAgencia().getCodAg()),
+						new Label("numConta", conta.getNumConta()), new Label("status", conta.getStatus()));
 				item.add(new AjaxLink<Conta>("edit") {
 
 					private static final long serialVersionUID = -984734035789687817L;
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, cadMdCt) {
+						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, titular, cadMdCt) {
 
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
+								titularService.saveOrUpdate(object.getTitular());
 								contaService.saveOrUpdate(object);
 								cadMdCt.close(target);
 								target.add(divCt);
@@ -645,7 +822,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 
-						cadMdCt.setContent(editForm);
+						cadMdCt.setContent(editForm).setOutputMarkupId(true);
 						cadMdCt.show(target);
 					}
 
@@ -666,13 +843,15 @@ public class CadastrosPage extends DashboardPage {
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
 								excModal.close(target);
+								listTit = titularService.findAll();
 								listCt = contaService.findAll();
-								target.add(divCt);
+
+								target.add(divCt, divTit);
 							}
 
 						};
 						excPanel.setService(contaService);
-						excModal.setContent(excPanel);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
 						excModal.show(target);
 					};
 
@@ -693,7 +872,18 @@ public class CadastrosPage extends DashboardPage {
 
 	private void listViewTitular() {
 
-		LoadableDetachableModel<List<Titular>> loader = Util.addLoadable(listTit);
+		LoadableDetachableModel<List<Titular>> loader = new LoadableDetachableModel<List<Titular>>(listTit) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4653797931296348739L;
+
+			@Override
+			protected List<Titular> load() {
+				return listTit;
+			}
+		};
 
 		ListView<Titular> lvTit = new ListView<Titular>("lvTit", loader) {
 
@@ -703,8 +893,7 @@ public class CadastrosPage extends DashboardPage {
 			protected void populateItem(ListItem<Titular> item) {
 
 				final Titular titular = item.getModelObject();
-				item.add(new Label("nomeRzSocial", titular.getNome()),
-						new Label("cpfCnpj", titular.getCpfCnpj()));
+				item.add(new Label("nomeRzSocial", titular.getNome()), new Label("cpfCnpj", titular.getCpfCnpj()));
 				item.add(new AjaxLink<Titular>("edit") {
 
 					private static final long serialVersionUID = -984734035789687817L;
@@ -724,7 +913,7 @@ public class CadastrosPage extends DashboardPage {
 
 						};
 
-						cadMdTit.setContent(editForm);
+						cadMdTit.setContent(editForm).setOutputMarkupId(true);
 						cadMdTit.show(target);
 					}
 
@@ -752,7 +941,7 @@ public class CadastrosPage extends DashboardPage {
 						};
 
 						excPanel.setService(titularService);
-						excModal.setContent(excPanel);
+						excModal.setContent(excPanel).setOutputMarkupId(true);
 						excModal.show(target);
 					};
 

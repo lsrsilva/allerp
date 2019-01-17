@@ -16,13 +16,16 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.view.Util;
+import wicket.contrib.input.events.EventType;
+import wicket.contrib.input.events.InputBehavior;
+import wicket.contrib.input.events.key.KeyType;
 
 public class CadUserPanel extends Util<User> {
 
 	private static final long serialVersionUID = -449253488613140249L;
 
 	private User userAux;
-	
+
 	private List<Perfis> perfis = Arrays.asList(Perfis.values());
 
 	public CadUserPanel(String id, ModalWindow modal) {
@@ -59,7 +62,8 @@ public class CadUserPanel extends Util<User> {
 
 		});
 
-		formCadUs.add(userAccess, email, psw, perfil, btnCan("btnCanc", user, modal));
+		formCadUs.add(userAccess, email, psw, perfil,
+				btnCan("btnCanc", modal));
 
 		add(formCadUs);
 

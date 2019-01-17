@@ -57,7 +57,7 @@ public class Conta extends GenericEntity {
 	@ForeignKey(name = "FK_CT_BC")
 	private Banco banco;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tit_cod", referencedColumnName = "tit_cod")
 	@ForeignKey(name = "FK_CT_TIT")
 	private Titular titular;

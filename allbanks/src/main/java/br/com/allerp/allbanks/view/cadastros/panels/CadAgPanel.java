@@ -41,8 +41,8 @@ public class CadAgPanel extends Util<Agencia> {
 		final Form<Agencia> formCadAg = new Form<Agencia>("formCadAg", modelCadAg);
 
 		NumberTextField<Integer> codAg = new NumberTextField<Integer>("codAg");
-		ChoiceRenderer<Banco> bcRender = new ChoiceRenderer<Banco>("nome");
 
+		ChoiceRenderer<Banco> bcRender = new ChoiceRenderer<Banco>("nome");
 		final DropDownChoice<Banco> nomeBanco = new DropDownChoice<Banco>("banco",
 				new PropertyModel<Banco>(agencia, "banco"), bancos, bcRender);
 
@@ -64,7 +64,7 @@ public class CadAgPanel extends Util<Agencia> {
 
 		});
 
-		formCadAg.add(codAg, nomeBanco, btnCan("btnCanc", agencia, modal));
+		formCadAg.add(codAg, nomeBanco, btnCan("btnCanc", modal));
 		add(formCadAg);
 
 	}

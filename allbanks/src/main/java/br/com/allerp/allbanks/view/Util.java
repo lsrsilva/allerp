@@ -19,6 +19,9 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.component.IRequestablePage;
 
 import br.com.allerp.allbanks.view.cadastros.panels.ExcluirPanel;
+import wicket.contrib.input.events.EventType;
+import wicket.contrib.input.events.InputBehavior;
+import wicket.contrib.input.events.key.KeyType;
 
 public class Util<T> extends Panel {
 	
@@ -80,17 +83,19 @@ public class Util<T> extends Panel {
 
 	}
 
-	public AjaxButton btnCan(String id, final T object, final ModalWindow modal) {
-		return new AjaxButton(id) {
+	public AjaxLink<Object> btnCan(String id, final ModalWindow modal) {
+		AjaxLink<Object> btnCan =  new AjaxLink<Object>(id) {
 			private static final long serialVersionUID = 6032897730453499590L;
 
 			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				atualizaAoModificar(target, object);
+			public void onClick(AjaxRequestTarget target) {
 				modal.close(target);
 			}
 
 		};
+		btnCan.setOutputMarkupId(true);
+		btnCan.add(new InputBehavior(new KeyType[] { KeyType.Escape }, EventType.click));
+		return btnCan;
 	}
 
 	public static <T> LoadableDetachableModel<List<T>> addLoadable(final List<T> listAtualizar) {

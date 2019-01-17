@@ -126,6 +126,12 @@
 			<artifactId>wicket-auth-roles</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.wicketstuff</groupId>
+			<artifactId>wicketstuff-input-events</artifactId>
+			<version>6.30.0</version>
+		</dependency>
 
 		<!-- JUNIT DEPENDENCY FOR TESTING hamcrest-core -->
 		<dependency>

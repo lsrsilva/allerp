@@ -28,9 +28,8 @@ public class Titular extends Pessoa {
 
 	private static final long serialVersionUID = -8605819128606661027L;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "tit_ct", joinColumns = @JoinColumn(name = "tit_cod"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
-	@ForeignKey(name = "FK_TIT_COD", inverseName = "FK_CT_COD")
+	@OneToMany(mappedBy="titular")
+	@Column(nullable = false)
 	private List<Conta> conta;
 
 	@Column(length = 200)

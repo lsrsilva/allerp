@@ -29,7 +29,7 @@ public class User extends GenericEntity {
 	private String userAccess;
 
 	@Column(nullable = false, length = 20)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Perfis perfil;
 
 	// -----------------------

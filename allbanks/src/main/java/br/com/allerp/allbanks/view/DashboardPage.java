@@ -42,6 +42,7 @@ public class DashboardPage extends SecuredBasePage {
 		});
 		
 		Link<Object> cadastros = Util.link("cadastros", CadastrosPage.class);
+		add(Util.link("outro", DashboardPage.class));
 		
 		if(getUserPerfil().equals("Gerente")) {
 			cadastros.setVisible(true);

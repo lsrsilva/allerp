@@ -9,6 +9,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.view.Util;
+import wicket.contrib.input.events.EventType;
+import wicket.contrib.input.events.InputBehavior;
+import wicket.contrib.input.events.key.KeyType;
 
 public class CadBancoPanel extends Util<Banco> {
 
@@ -49,7 +52,7 @@ public class CadBancoPanel extends Util<Banco> {
 
 		});
 
-		formCadBc.add(codCompensacao, nome, btnCan("btnCanc", banco, modal));
+		formCadBc.add(codCompensacao, nome, btnCan("btnCanc", modal));
 
 		add(formCadBc);
 	}

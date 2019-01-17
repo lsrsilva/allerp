@@ -74,7 +74,7 @@ public class CadFuncPanel extends Util<Funcionario> {
 
 		});
 
-		formCadFunc.add(nome, rg, cpf, dtNasc, celular, telefone, funcao, formacao, salario, btnCan("btnCanc", funcionario, modal));
+		formCadFunc.add(nome, rg, cpf, dtNasc, celular, telefone, funcao, formacao, salario, btnCan("btnCanc", modal));
 
 		add(formCadFunc);
 	}

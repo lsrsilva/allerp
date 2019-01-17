@@ -39,10 +39,9 @@ public class GenericService<Entity> {
 	@SuppressWarnings("unchecked")
 	public void update(Entity... entities) {
 		dao.update(entities);
-	}
-
-	public List<Entity> search(Search search) {
-		return dao.search(search);
-	}
+	}/*
+		 * 
+		 * public List<Entity> search(Search search) { return dao.search(search); }
+		 */
 
 }

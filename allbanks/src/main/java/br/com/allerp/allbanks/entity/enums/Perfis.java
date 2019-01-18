@@ -2,8 +2,8 @@ package br.com.allerp.allbanks.entity.enums;
 
 public enum Perfis {
 	
-	FUNCIONARIO("Funcionário"),
 	GERENTE("Gerente"),
+	FUNCIONARIO("Funcionário"),
 	TITULAR("Titular");
 	
 	private final String text;

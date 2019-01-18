@@ -13,12 +13,12 @@ public class DashboardPage extends SecuredBasePage {
 	private static final long serialVersionUID = -4712703917780323193L;
 
 	private String title;
-	
+
 	public DashboardPage() {
-		
+
 		title = "Dashboard";
 		add(new Label("title", new PropertyModel<>(this, "title")));
-		
+
 		add(new Link<Object>("home") {
 
 			private static final long serialVersionUID = 1288650964782456928L;
@@ -27,7 +27,7 @@ public class DashboardPage extends SecuredBasePage {
 			public void onClick() {
 				setResponsePage(DashboardPage.class);
 			}
-			
+
 		}, new AjaxLink<Object>("logout") {
 
 			private static final long serialVersionUID = 1288650964782456928L;
@@ -40,17 +40,20 @@ public class DashboardPage extends SecuredBasePage {
 			}
 
 		});
-		
+
 		Link<Object> cadastros = Util.link("cadastros", CadastrosPage.class);
-		add(Util.link("outro", DashboardPage.class));
-		
-		if(getUserPerfil().equals("Gerente")) {
+		cadastros.setVisible(false);
+		Link<Object> transacao = Util.link("transacao", this.getClass());
+		transacao.setVisible(false);
+
+		if (getUserPerfil("Gerente")) {
 			cadastros.setVisible(true);
+		} else if (getUserPerfil("Titular")) {
+			transacao.setVisible(true);
 		} else {
-			cadastros.setVisible(false);
 		}
-		
-		add(cadastros);
+
+		add(cadastros, transacao);
 
 	}
 
@@ -61,9 +64,9 @@ public class DashboardPage extends SecuredBasePage {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	public String getUserPerfil() {
-		return getSessao().getUser().getPerfil().toString();
+
+	public boolean getUserPerfil(String perfil) {
+		return getSessao().getUser().getPerfil().toString().equals(perfil);
 	}
 
 }

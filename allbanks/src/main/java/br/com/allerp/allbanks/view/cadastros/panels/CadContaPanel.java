@@ -142,7 +142,7 @@ public class CadContaPanel extends Util<Conta> {
 		});
 
 		divTitCt.add(radioTipoPes, formPf(), formPj(), divEnd());
-		formCadCt.add(divTitCt, btnCan("btnCanc", modal));
+		formCadCt.add(divTitCt);
 		add(formCadCt);
 
 	}
@@ -159,7 +159,7 @@ public class CadContaPanel extends Util<Conta> {
 
 			@Override
 			protected String getIconStyle() {
-				return "cursor: pointer; border: none; margin-top: 15px;";
+				return "cursor: pointer; border: none;";
 			}
 
 		};

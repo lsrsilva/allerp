@@ -21,6 +21,7 @@ public class AgenciaService extends GenericService<Agencia> {
 
 	public void setAgenciaDao(AgenciaDao agenciaDao) {
 		super.setDao(agenciaDao);
+		this.agenciaDao = agenciaDao;
 	}
 
 	/**
@@ -32,10 +33,8 @@ public class AgenciaService extends GenericService<Agencia> {
 	 */
 	public List<Agencia> search(Integer codAg, String codBc, String nomeBc) {
 		search = new Search(Agencia.class);
-		
-		search.addFetch("banco");
-		
-		filter = Filter.or(Filter.equal("codAg", codAg), Filter.ilike("banco.cod_compensacao", "%" + codBc + "%"),
+
+		filter = Filter.or(Filter.equal("codAg", codAg), Filter.ilike("banco.codCompensacao", "%" + codBc + "%"),
 				Filter.ilike("banco.nome", "%" + nomeBc + "%"));
 
 		search.addFilter(filter);

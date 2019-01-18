@@ -19,7 +19,7 @@ public class Endereco extends GenericEntity {
 	@Column(length = 150)
 	private String complemento;
 
-	@Column(nullable = false, length = 8)
+	@Column(nullable = false, length = 11)
 	private String cep;
 
 	@Column(length = 50)

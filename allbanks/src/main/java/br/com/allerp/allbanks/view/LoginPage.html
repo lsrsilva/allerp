@@ -41,6 +41,8 @@
 						Sign In
 					</span>
 				</div>
+				
+				<div wicket:id="feedback" class="feedback d-flex justfy-content-center"></div>
 
 				<form wicket:id="formLogin" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
@@ -51,7 +53,7 @@
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input wicket:id="psw" class="input100" type="password" name="pass" placeholder="Enter password">
+						<input wicket:id="psw" class="input100" type="password" name="pass" required placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -80,6 +82,8 @@
 		</div>
 	</div>
 
+
+	<script type="text/js" src="webjars/bootstrap/4.1.3/css/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->

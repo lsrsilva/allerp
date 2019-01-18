@@ -8,7 +8,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -40,7 +40,7 @@ public class CadAgPanel extends Util<Agencia> {
 
 		final Form<Agencia> formCadAg = new Form<Agencia>("formCadAg", modelCadAg);
 
-		NumberTextField<Integer> codAg = new NumberTextField<Integer>("codAg");
+		TextField<Integer> codAg = new TextField<Integer>("codAg");
 
 		ChoiceRenderer<Banco> bcRender = new ChoiceRenderer<Banco>("nome");
 		final DropDownChoice<Banco> nomeBanco = new DropDownChoice<Banco>("banco",

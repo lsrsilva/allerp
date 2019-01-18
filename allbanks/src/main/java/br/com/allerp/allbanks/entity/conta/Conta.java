@@ -45,7 +45,7 @@ public class Conta extends GenericEntity {
 	private Contas tipoConta;
 	
 	@Column(nullable = false, precision = 20, scale = 2)
-	private BigDecimal saldo = BigDecimal.ZERO;
+	private Double saldo = 0.0;
 	
 	/*
 	 * @Column(nullable = false) private Contas tipo;
@@ -109,11 +109,11 @@ public class Conta extends GenericEntity {
 		this.status = status;
 	}
 
-	public BigDecimal getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(BigDecimal saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 

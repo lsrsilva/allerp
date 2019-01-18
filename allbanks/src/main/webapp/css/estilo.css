@@ -200,6 +200,17 @@ body{
 	display: block;
 }
 
+.feedback{
+	display: -ms-flexbox !important;
+  	display: flex !important;
+  	justify-content: center;
+  	padding-top: 25px;
+  	
+  	-webkit-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+	-moz-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+	box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+}
+
 .sidebar {
     height: 100%; /* 100% Full-height */
     width: 60px; /* 0 width - change this with JavaScript */

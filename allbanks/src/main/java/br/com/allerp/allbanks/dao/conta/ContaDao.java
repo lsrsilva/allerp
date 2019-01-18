@@ -16,12 +16,12 @@ public class ContaDao extends GenericDao<Conta, Long> {
 	}
 
 	@Transactional
-	public BigDecimal consultaSaldo(Float qtdSaque) {
+	public Double consultaSaldo(Integer numConta) {
 		setHsql("SELECT ct.saldo FROM conta ct WHERE ct.numConta = :numConta");
 		setSqlQuery(getSession().createSQLQuery(getHsql()));
-		getSqlQuery().setParameter("numConta", qtdSaque);
+		getSqlQuery().setParameter("numConta", numConta);
 
-		return (BigDecimal) getSqlQuery().uniqueResult();
+		return (Double) getSqlQuery().uniqueResult();
 	}
 
 }

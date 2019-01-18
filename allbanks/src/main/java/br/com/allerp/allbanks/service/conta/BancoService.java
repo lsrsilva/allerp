@@ -28,7 +28,7 @@ public class BancoService extends GenericService<Banco> {
 	public List<Banco> search(String codBc, String nome) {
 		search = new Search(Banco.class);
 
-		filter = Filter.or(Filter.ilike("cod_compensacao", "%" + codBc + "%"), Filter.ilike("nome", "%" + nome + "%"));
+		filter = Filter.or(Filter.ilike("codCompensacao", "%" + codBc + "%"), Filter.ilike("nome", "%" + nome + "%"));
 		
 		search.addFilter(filter);
 

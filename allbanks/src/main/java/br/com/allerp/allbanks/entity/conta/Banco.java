@@ -35,7 +35,7 @@ public class Banco extends GenericEntity {
 	@Column(name = "cod_compensacao", nullable = false, unique = true, length = 5)
 	private String codCompensacao;
 
-	@Column(nullable = false, length = 65)
+	@Column(nullable = false, unique = true, length = 65)
 	private String nome;
 
 	public List<Conta> getConta() {

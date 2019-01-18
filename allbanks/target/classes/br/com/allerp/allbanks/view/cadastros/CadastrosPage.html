@@ -71,8 +71,8 @@
 
 			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade troca"><br>
 			   		<form wicket:id="searchFunc" class="d-flex justify-content-center form-inline">
-						<input wicket:id="nome" class="form-control col-md-3 my-mx-5 somenteNumero" type="text" placeholder="Pesquisar por nome">
-						<input wicket:id="cpf" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por CPF">
+						<input wicket:id="nome" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por nome">
+						<input wicket:id="cpf" class="form-control col-md-3 my-mx-5 somenteNumero cpf" type="text" placeholder="Pesquisar por CPF">
 						<input wicket:id="funcao" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por função">
 						<button wicket:id="btnSearchFunc" class="btn btn-success" type="submit"><span class="ft-fam-ubuntu-white">Filtrar&nbsp;</span><img width="20" src="./icons/svg/search_white.svg"></button>
 					</form>
@@ -102,7 +102,13 @@
 			    		</tbody>
 			    	</table>
 			    </div>
+			  	
 			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade troca"><br>
+			  		<form wicket:id="searchBc" class="d-flex justify-content-center form-inline">
+						<input wicket:id="codCompensacao" class="form-control col-md-3 my-mx-5 somenteNumero" type="text" placeholder="Pesquisar por Código de compensação">
+						<input wicket:id="nome" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por nome">
+						<button wicket:id="btnSearchBc" class="btn btn-success" type="submit"><span class="ft-fam-ubuntu-white">Filtrar&nbsp;</span><img width="20" src="./icons/svg/search_white.svg"></button>
+					</form>
 			    	<button wicket:id="btnAddBc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Banco</span>
 					</button>
@@ -125,6 +131,7 @@
 			    		</tbody>
 			    	</table>
 			  	</div>
+			  	
 			  	<div wicket:id="divAg" id="agCad" class="tab-pane fade troca"><br>
 			  		<form wicket:id="searchAg" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-3 my-mx-5">
@@ -167,7 +174,27 @@
 			    	
 			    	<!-- <div wicket:id="notFound"></div> -->
 			  	</div>
+			  
 			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade troca"><br>
+			    	<form wicket:id="searchCt" class="d-flex justify-content-center form-row">
+					  	<div class="col-md-3 my-mx-5">
+							<input wicket:id="agencia.codAg" class="form-control somenteNumero" type="text" placeholder="Pesquisar pelo código da agência">
+						</div>
+						<div class="col-md-3 my-mx-5">
+							<input wicket:id="numConta" class="form-control somenteNumero" type="text" placeholder="Pesquisar pelo número da conta">
+						</div>
+						
+						<div class="col-md-1 my-mx-5">
+							<select wicket:id="status" class="form-control custom-select"></select>
+						</div>
+						<div class="col-md-2 my-mx-5">
+							<select wicket:id="tipoConta" class="form-control custom-select"></select>
+						</div>
+						<div class="my-mx-2 my-mx-5">
+							<button wicket:id="btnSearchCt" class="btn btn-success" type="submit"><span class="ft-fam-ubuntu-white">Filtrar&nbsp;</span><img width="20" src="./icons/svg/search_white.svg"></button>
+						</div>
+					</form>
+			    	
 			    	<button wicket:id="btnAddCt" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Nova Conta</span>
 					</button>
@@ -192,7 +219,20 @@
 			    		</tbody>
 			    	</table>
 			  	</div>
+			 
 			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade troca"><br>
+			  	<form wicket:id="searchTit" class="d-flex justify-content-center form-row">
+					  	<div class="col-md-4 my-mx-5">
+							<input wicket:id="cpfCnpj" class="form-control" id="cpfcnpj" name="cpfcnpj" type="text" placeholder="Pesquisar por CPF / CNPJ">
+						</div>
+						<div class="col-md-4 my-mx-5">
+							<input wicket:id="nome" class="form-control" type="text" placeholder="Pesquisar por nome / razão social">
+						</div>
+						<div class="my-mx-4 my-mx-5">
+							<button wicket:id="btnSearchTit" class="btn btn-success" type="submit"><span class="ft-fam-ubuntu-white">Filtrar&nbsp;</span><img width="20" src="./icons/svg/search_white.svg"></button>
+						</div>
+					</form>
+					
 					<table class="table table-hover table-sm br-top-none">
 			    		<thead>
 			    			<tr class="tr text-center">

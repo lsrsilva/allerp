@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.googlecode.genericdao.search.Search;
-
 import br.com.allerp.allbanks.dao.GenericDao;
 
 @Service

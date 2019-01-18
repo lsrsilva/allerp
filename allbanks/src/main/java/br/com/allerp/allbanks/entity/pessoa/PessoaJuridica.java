@@ -1,16 +1,11 @@
 package br.com.allerp.allbanks.entity.pessoa;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
-
-import br.com.allerp.allbanks.entity.conta.Titular;
 
 @Entity
 @Table(name = "PJ")

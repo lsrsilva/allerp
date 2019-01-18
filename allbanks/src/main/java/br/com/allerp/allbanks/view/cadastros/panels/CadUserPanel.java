@@ -16,9 +16,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.view.Util;
-import wicket.contrib.input.events.EventType;
-import wicket.contrib.input.events.InputBehavior;
-import wicket.contrib.input.events.key.KeyType;
 
 public class CadUserPanel extends Util<User> {
 

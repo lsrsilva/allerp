@@ -25,7 +25,9 @@ import br.com.allerp.allbanks.entity.conta.Agencia;
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Titular;
+import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Perfis;
+import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.colaborador.FuncionarioService;
@@ -487,8 +489,38 @@ public class CadastrosPage extends DashboardPage {
 		divFunc.add(lvFunc);
 		add(divFunc, cadMdFunc);
 	}
-	
+
 	private void listViewBanco() {
+
+		final Banco banco = new Banco();
+		CompoundPropertyModel<Banco> formModel = new CompoundPropertyModel<Banco>(banco);
+		final Form<Banco> searchBc = new Form<Banco>("searchBc", formModel);
+
+		final TextField<String> nome = new TextField<String>("nome");
+		final TextField<String> codCompensacao = new TextField<String>("codCompensacao");
+
+		searchBc.add(nome, codCompensacao);
+
+		searchBc.add(new AjaxButton("btnSearchBc") {
+
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				if (nome != null && codCompensacao != null || banco.getNome().equals("")
+						|| banco.getCodCompensacao().equals("")) {
+					if (nome.getValue().equals("") && codCompensacao.getValue().equals("")) {
+						listBc = bancoService.findAll();
+					}
+					listBc = bancoService.search(banco.getCodCompensacao(), banco.getNome());
+				}
+				target.add(divBc);
+			}
+
+		});
+
+		divBc.add(searchBc);
+
 		divBc.add(new AjaxLink<Banco>("btnAddBc") {
 
 			private static final long serialVersionUID = 2044861581184497470L;
@@ -594,18 +626,22 @@ public class CadastrosPage extends DashboardPage {
 
 		add(divBc, cadMdBc);
 	}
-	
+
 	private void listViewAg() {
 
 		final Agencia agencia = new Agencia();
-		
+		/*
+		 * final Banco banco = new Banco(); agencia.setBanco(banco);
+		 */
+
 		CompoundPropertyModel<Agencia> formModel = new CompoundPropertyModel<Agencia>(agencia);
 		final Form<Agencia> searchAg = new Form<Agencia>("searchAg", formModel);
 
-		final TextField<String> codAg = new TextField<String>("codAg");
+		final TextField<Integer> codAg = new TextField<Integer>("codAg");
 		ChoiceRenderer<Banco> bcCodRender = new ChoiceRenderer<Banco>("codCompensacao");
 		final DropDownChoice<Banco> dropCodBc = new DropDownChoice<Banco>("banco",
 				new PropertyModel<Banco>(agencia, "banco"), listBc, bcCodRender);
+
 		ChoiceRenderer<Banco> bcNmRender = new ChoiceRenderer<Banco>("nome");
 		final DropDownChoice<Banco> dropNmBc = new DropDownChoice<Banco>("banco.nome",
 				new PropertyModel<Banco>(agencia, "banco"), listBc, bcNmRender);
@@ -619,13 +655,20 @@ public class CadastrosPage extends DashboardPage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 
+				if (dropCodBc.getValue().equals("") || dropNmBc.getValue().equals("")) {
+					agencia.setBanco(new Banco());
+				}
+
 				if (codAg != null && dropCodBc != null && dropNmBc != null || agencia.getCodAg() == 0
 						|| agencia.getBanco().getCodCompensacao().equals("")
 						|| agencia.getBanco().getNome().equals("")) {
-					if (codAg.getValue().equals("") && dropCodBc.getValue().equals("") && dropNmBc.getValue().equals("")) {
+
+					if (codAg.getValue().equals("") && dropCodBc.getValue().equals("")
+							&& dropNmBc.getValue().equals("")) {
 						listAg = agenciaService.findAll();
 					} else {
-						listAg = agenciaService.search(agencia.getCodAg(), agencia.getBanco().getCodCompensacao(), agencia.getBanco().getNome());
+						listAg = agenciaService.search(agencia.getCodAg(), agencia.getBanco().getCodCompensacao(),
+								agencia.getBanco().getNome());
 					}
 				}
 
@@ -751,6 +794,52 @@ public class CadastrosPage extends DashboardPage {
 	}
 
 	private void listViewConta() {
+
+		final Conta conta = new Conta();
+		CompoundPropertyModel<Conta> formModel = new CompoundPropertyModel<Conta>(conta);
+		final Form<Conta> searchCt = new Form<Conta>("searchCt", formModel);
+
+		final TextField<Integer> codAg = new TextField<Integer>("agencia.codAg");
+		final TextField<Integer> numConta = new TextField<Integer>("numConta");
+		ChoiceRenderer<Status> statusRender = new ChoiceRenderer<Status>("text");
+		final DropDownChoice<Status> status = new DropDownChoice<Status>("status",
+				new PropertyModel<Status>(conta, "status"), Arrays.asList(Status.values()), statusRender);
+		ChoiceRenderer<Contas> tipoCtRender = new ChoiceRenderer<Contas>("text");
+		final DropDownChoice<Contas> tipoCt = new DropDownChoice<Contas>("tipoConta",
+				new PropertyModel<Contas>(conta, "tipoConta"), Arrays.asList(Contas.values()), tipoCtRender);
+
+		searchCt.add(codAg, numConta, status, tipoCt);
+
+		searchCt.add(new AjaxButton("btnSearchCt") {
+
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+
+				if(conta.getAgencia() == null) {
+					conta.setAgencia(new Agencia());
+				}
+				
+				if (codAg != null && numConta != null && status != null && tipoCt != null
+						|| conta.getAgencia().getCodAg() == 0 || conta.getNumConta() == 0
+						|| conta.getStatus().toString().equals("") || conta.getTipoConta().toString().equals("")) {
+					if (codAg.getValue().equals("") && numConta.getValue().equals("") && status.getValue().toString().equals("")
+							&& tipoCt.getValue().toString().equals("")) {
+						listCt = contaService.findAll();
+					} else {
+						listCt = contaService.search(conta.getAgencia().getCodAg(), conta.getNumConta(),
+								conta.getStatus(), conta.getTipoConta());
+					}
+				}
+
+				target.add(divCt, searchCt);
+			}
+
+		});
+
+		divCt.add(searchCt);
+
 		divCt.add(new AjaxLink<Conta>("btnAddCt") {
 
 			private static final long serialVersionUID = 2044861581184497470L;
@@ -871,6 +960,38 @@ public class CadastrosPage extends DashboardPage {
 	}
 
 	private void listViewTitular() {
+		
+		final Titular titular = new Titular();
+		CompoundPropertyModel<Titular> formModel = new CompoundPropertyModel<Titular>(titular);
+		final Form<Titular> searchTit = new Form<Titular>("searchTit", formModel);
+
+		final TextField<String> cpfCnpj = new TextField<String>("cpfCnpj");
+		final TextField<String> nome = new TextField<String>("nome");
+
+		searchTit.add(cpfCnpj, nome);
+
+		searchTit.add(new AjaxButton("btnSearchTit") {
+			
+			private static final long serialVersionUID = 3865918601254958016L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+
+				if (cpfCnpj != null && nome != null || titular.getNome().equals("")
+						|| titular.getCpfCnpj().equals("")) {
+					if (cpfCnpj.getValue().equals("") && nome.getValue().equals("")) {
+						listTit= titularService.findAll();
+					} else {
+						listTit = titularService.search(titular.getCpfCnpj(), titular.getNome());
+					}
+				}
+
+				target.add(divTit, searchTit);
+			}
+
+		});
+
+		divTit.add(searchTit);
 
 		LoadableDetachableModel<List<Titular>> loader = new LoadableDetachableModel<List<Titular>>(listTit) {
 
@@ -900,7 +1021,7 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						CadTitularPanel editForm = new CadTitularPanel(cadMdTit.getContentId(), titular) {
+						CadTitularPanel editForm = new CadTitularPanel(cadMdTit.getContentId(), titular, cadMdTit) {
 
 							private static final long serialVersionUID = -2360017131168195435L;
 

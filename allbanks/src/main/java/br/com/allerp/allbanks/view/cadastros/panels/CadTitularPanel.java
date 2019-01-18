@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -32,11 +33,11 @@ public class CadTitularPanel extends Util<Titular> {
 
 	private String selectedPes = LIST_PES.get(0);
 
-	public CadTitularPanel(String id) {
-		this(id, new Titular());
+	public CadTitularPanel(String id, ModalWindow modal) {
+		this(id, new Titular(), modal);
 	}
 	
-	public CadTitularPanel(String id, Titular titular) {
+	public CadTitularPanel(String id, Titular titular, ModalWindow modal) {
 		super(id);
 
 		CompoundPropertyModel<Titular> modelCadTit = new CompoundPropertyModel<Titular>(titular);
@@ -95,7 +96,7 @@ public class CadTitularPanel extends Util<Titular> {
 
 		});
 
-		formCadTit.add(radioTipoPes, formPf(), formPj(), divEnd());
+		formCadTit.add(radioTipoPes, formPf(), formPj(), divEnd(), btnCan("btnCanc", modal));
 		add(formCadTit);
 
 	}

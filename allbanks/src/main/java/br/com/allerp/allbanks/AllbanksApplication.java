@@ -12,6 +12,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import br.com.allerp.allbanks.view.DashboardPage;
 import br.com.allerp.allbanks.view.LoginPage;
 import br.com.allerp.allbanks.view.cadastros.CadastrosPage;
+import br.com.allerp.allbanks.view.titular.TransacaoPage;
 
 public class AllbanksApplication extends WebApplication {
 
@@ -27,6 +28,7 @@ public class AllbanksApplication extends WebApplication {
 		mount(new MountedMapper("/login", LoginPage.class, new UrlPathPageParametersEncoder()));
 		mount(new MountedMapper("/dashboard", DashboardPage.class, new UrlPathPageParametersEncoder()));
 		mount(new MountedMapper("/cadastro", CadastrosPage.class, new UrlPathPageParametersEncoder()));
+		mount(new MountedMapper("/transacao", TransacaoPage.class, new UrlPathPageParametersEncoder()));
 		
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 	}

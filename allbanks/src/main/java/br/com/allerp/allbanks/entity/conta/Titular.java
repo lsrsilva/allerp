@@ -18,6 +18,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import br.com.allerp.allbanks.entity.Endereco;
 import br.com.allerp.allbanks.entity.pessoa.Pessoa;
+import br.com.allerp.allbanks.entity.user.User;
 
 @Entity
 @Table(name = "TITULAR")
@@ -30,11 +31,16 @@ public class Titular extends Pessoa {
 	@OneToMany(mappedBy="titular")
 	@Column(nullable = false)
 	private List<Conta> conta;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_user", nullable = false, unique = true)
+	@ForeignKey(name = "FK_ID_USER")
+	private User user;
 
 	@Column(length = 200)
 	private String ie;
 	
-	@Column
+	@Column(length = 16)
 	private String celular;
 
 	@Column( length = 14)
@@ -112,6 +118,22 @@ public class Titular extends Pessoa {
 
 	public void setRg(String rg) {
 		this.rg = rg;
+	}
+
+	public List<Conta> getConta() {
+		return conta;
+	}
+
+	public void setConta(List<Conta> conta) {
+		this.conta = conta;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

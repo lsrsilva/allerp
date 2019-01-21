@@ -12,8 +12,10 @@ import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -25,7 +27,9 @@ import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.entity.enums.Contas;
+import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.enums.Status;
+import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;
 import br.com.allerp.allbanks.view.Util;
@@ -54,12 +58,12 @@ public class CadContaPanel extends Util<Conta> {
 	private String selectedPes = LIST_PES.get(0);
 
 	public CadContaPanel(String id, ModalWindow modal) {
-		this(id, new Conta(), new Titular(), modal);
+		this(id, new Conta(), new Titular(), new User(), modal);
 	}
 
-	public CadContaPanel(String id, Conta conta, Titular titular, ModalWindow modal) {
+	public CadContaPanel(String id, Conta conta, Titular titular, User titUser, ModalWindow modal) {
 		super(id);
-
+		
 		// CadTitularPanel cadTit = new CadTitularPanel("cadTit");
 
 		CompoundPropertyModel<Conta> modelCadCt = new CompoundPropertyModel<Conta>(conta);
@@ -120,12 +124,20 @@ public class CadContaPanel extends Util<Conta> {
 				target.add(divTitCt);
 			}
 		});
+		
+		TextField<String> userAccess = new TextField<String>("titular.user.userAccess");
+		EmailTextField email = new EmailTextField("titular.user.email");
+		PasswordTextField psw = new PasswordTextField("titular.user.psw");
+		titUser.setPerfil(Perfis.TITULAR);
+		titular.setUser(titUser);
+		
+		formCadCt.add(userAccess, email, psw);
 
 		titular.setTipoPessoa(selectedPes);
 		conta.setTitular(titular);
 		ctAux = conta;
 		formCadCt.add(new AjaxButton("salvar") {
-
+			
 			private static final long serialVersionUID = -7557597292953590474L;
 
 			@Override

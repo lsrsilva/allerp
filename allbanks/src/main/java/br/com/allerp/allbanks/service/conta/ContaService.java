@@ -26,14 +26,19 @@ public class ContaService extends GenericService<Conta> {
 	/**
 	 * Limite máximo por saque.
 	 */
-	private final Double LIM_SAQUE = 700.00;
+	private final BigDecimal LIM_SAQUE = new BigDecimal(700.00);
 
 	/**
-	 * Limite máximo de sque diário.
+	 * Limite máximo de saque diário.
 	 */
 	private final BigDecimal LIM_SAQUE_D = new BigDecimal(1500.00);
+	
+	/**
+	 * Limite máximo para depósito.
+	 */
+	private final BigDecimal LIM_DEPO = new BigDecimal(2000.00);
 
-	private Double saldo;
+	private BigDecimal saldo;
 
 	public void setContaDao(ContaDao contaDao) {
 		super.setDao(contaDao);
@@ -52,22 +57,36 @@ public class ContaService extends GenericService<Conta> {
 		return contaDao.search(search);
 	}
 
+	public boolean deposita(Conta conta, Double valDep) throws FeedbackException {
+		saldo = contaDao.consultaSaldo(conta.getNumConta());
+		
+		if(valDep <= 0 ) {
+			throw new FeedbackException("Valor informado para depósito deve ser maior que 0.");
+		} else if(valDep > LIM_DEPO.doubleValue()) {
+			throw new FeedbackException("Valor informado para depósito deve ser menor que " + LIM_DEPO.doubleValue() + ".");
+		} else {
+			saldo = saldo.add(new BigDecimal(valDep));
+			conta.setSaldo(saldo);
+			return true;
+		}
+	}
+	
 	public boolean saque(Conta conta, Double valSaque) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 
 		if (valSaque <= 0) {
-			throw new FeedbackException("O valor para realização do saque deve ser maior que 0.");
+			throw new FeedbackException("Valor informado para saque deve ser maior que 0.");
 		} else if (valSaque > LIM_SAQUE.doubleValue()) {
 			throw new FeedbackException("Valor informado excede o limite por saque.");
 		} else {
-			saldo -= valSaque;
+			saldo = saldo.subtract(new BigDecimal(valSaque));
 			conta.setSaldo(saldo);
 			return true;
 		}
 
 	}
 
-	public Double getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 

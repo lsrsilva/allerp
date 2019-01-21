@@ -32,8 +32,6 @@ public class User extends GenericEntity {
 	@Enumerated(EnumType.ORDINAL)
 	private Perfis perfil;
 
-	// -----------------------
-
 	public String getEmail() {
 		return email;
 	}
@@ -62,7 +60,7 @@ public class User extends GenericEntity {
 		return perfil;
 	}
 
-	protected void setPerfil(Perfis perfil) {
+	public void setPerfil(Perfis perfil) {
 		this.perfil = perfil;
 	}
 }

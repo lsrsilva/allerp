@@ -5,7 +5,6 @@ import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -42,10 +41,6 @@ public class LoginPage extends SecuredBasePage {
 		form.add(userAccess);
 		form.add(senha);
 
-		final FeedbackPanel feedback = new FeedbackPanel("feedback");
-		feedback.setOutputMarkupId(true);
-		feedback.setVisible(false);
-
 		form.add(new AjaxButton("btnLogin") {
 
 			private static final long serialVersionUID = -8073860944878508482L;
@@ -55,21 +50,12 @@ public class LoginPage extends SecuredBasePage {
 				System.out.println(userAccess.getValue() + " " + senha.getValue());
 				if (userService.autentica(userAccess.getValue(), senha.getValue())) {
 					setResponsePage(DashboardPage.class);
-				} else {
-					feedback.error("Usuário ou Senha inválidos.");
-					target.add(feedback);
-				}
-			}
-			
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				
-				target.add(feedback);
+				} 
 			}
 
 		});
 
-		add(form, feedback);
+		add(form);
 	}
 
 	@Override

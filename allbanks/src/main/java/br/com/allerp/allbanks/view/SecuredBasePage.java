@@ -10,6 +10,8 @@ public class SecuredBasePage extends WebPage {
 
 	private static final long serialVersionUID = 9071207182185957571L;
 
+	private String title;
+
 	public SecuredBasePage() {
 		super();
 		verifyAccess();
@@ -25,9 +27,17 @@ public class SecuredBasePage extends WebPage {
 	protected boolean isLogedIn() {
 		return getSessao().isLogedIn();
 	}
-	
+
 	public AllbanksSession getSessao() {
 		return ((AllbanksSession) super.getSession());
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

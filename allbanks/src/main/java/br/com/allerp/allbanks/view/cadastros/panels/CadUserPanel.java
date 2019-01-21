@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -16,6 +17,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.view.Util;
+import wicket.contrib.input.events.EventType;
+import wicket.contrib.input.events.InputBehavior;
+import wicket.contrib.input.events.key.KeyType;
 
 public class CadUserPanel extends Util<User> {
 
@@ -37,7 +41,18 @@ public class CadUserPanel extends Util<User> {
 		final Form<User> formCadUs = new Form<User>("formCadUs", modelCadAg);
 
 		TextField<String> userAccess = new TextField<String>("userAccess");
-		DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis);
+		DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis) {
+
+			private static final long serialVersionUID = 7194271655576226917L;
+			
+			@Override
+			protected boolean isDisabled(Perfis object, int index, String selected) {
+				if(object == Perfis.TITULAR) {
+					return true;
+				}
+				return super.isDisabled(object, index, selected);
+			}
+		};
 		EmailTextField email = new EmailTextField("email");
 		PasswordTextField psw = new PasswordTextField("psw");
 
@@ -59,8 +74,7 @@ public class CadUserPanel extends Util<User> {
 
 		});
 
-		formCadUs.add(userAccess, email, psw, perfil,
-				btnCan("btnCanc", modal));
+		formCadUs.add(userAccess, email, psw, perfil, btnCan("btnCanc", modal));
 
 		add(formCadUs);
 

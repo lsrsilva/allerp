@@ -15,7 +15,7 @@ public abstract class Pessoa extends GenericEntity {
 
 	private static final long serialVersionUID = 4325236325700108451L;
 	
-	@Column(nullable = false, length = 14)
+	@Column(nullable = false, length = 15)
 	private String telefone;
 
 	public String getTelefone() {

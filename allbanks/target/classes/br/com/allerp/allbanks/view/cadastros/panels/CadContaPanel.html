@@ -119,6 +119,23 @@
 				</fieldset>
 			</div>
 		</div>
+
+		<div class="form-row my-mx-5">
+			<h2>Dados de acesso do titular</h2>
+			<div class=" col-md-6">
+				<label wicket:for="titular.user.userAccess" class="control-label-md">Acesso</label>
+				<input wicket:id="titular.user.userAccess" class="form-control" type="text"/>
+			</div>
+			<div class=" col-md-6">
+				<label wicket:for="titular.user.email" class="control-label-md">E-mail</label>
+				<input wicket:id="titular.user.email" class="form-control" type="email"
+					placeholder="example@example.com" />
+			</div>
+			<div class=" col-md-6">
+				<label wicket:for="titular.user.psw" class="control-label-md">Senha</label>
+				<input wicket:id="titular.user.psw" class="form-control" type="password"/>
+			</div>
+		</div>
 		
 		<div class="d-flex justify-content-end">
 			<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>

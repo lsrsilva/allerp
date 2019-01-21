@@ -107,12 +107,20 @@ public class CadastrosPage extends DashboardPage {
 		add(Util.link("dashboard", DashboardPage.class));
 
 		cadMdUser = new ModalWindow("cadMdUser");
+		cadMdUser.setResizable(false);
+		cadMdUser.setInitialHeight(214);
 		cadMdFunc = new ModalWindow("cadMdFunc");
+		cadMdFunc.setResizable(false);
 		cadMdAg = new ModalWindow("cadMdAg");
+		cadMdAg.setResizable(false);
 		cadMdBc = new ModalWindow("cadMdBc");
+		cadMdBc.setResizable(false);
 		cadMdCt = new ModalWindow("cadMdCt");
+		cadMdCt.setResizable(false);
 		cadMdTit = new ModalWindow("cadMdTit");
+		cadMdTit.setResizable(false);
 		excModal = new ModalWindow("excModal");
+		excModal.setResizable(false);
 
 		divUser = new WebMarkupContainer("divUser");
 		divUser.setOutputMarkupId(true);
@@ -888,6 +896,7 @@ public class CadastrosPage extends DashboardPage {
 
 				final Conta conta = item.getModelObject();
 				final Titular titular = conta.getTitular();
+				final User user = titular.getUser();
 
 				item.add(new Label("agencia", conta.getAgencia().getCodAg()),
 						new Label("numConta", conta.getNumConta()), new Label("status", conta.getStatus()));
@@ -897,12 +906,13 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, titular, cadMdCt) {
+						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, titular, user, cadMdCt) {
 
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
+								userService.saveOrUpdate(object.getTitular().getUser());
 								titularService.saveOrUpdate(object.getTitular());
 								contaService.saveOrUpdate(object);
 								cadMdCt.close(target);

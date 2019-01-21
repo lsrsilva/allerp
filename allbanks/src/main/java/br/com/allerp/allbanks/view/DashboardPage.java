@@ -22,8 +22,6 @@ public class DashboardPage extends SecuredBasePage {
 		
 
 		add(new Link<Object>("home") {
-			
-
 			private static final long serialVersionUID = 1288650964782456928L;
 
 			@Override

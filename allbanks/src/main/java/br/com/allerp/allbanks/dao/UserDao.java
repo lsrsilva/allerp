@@ -21,7 +21,7 @@ public class UserDao extends GenericDao<User, Long> {
 		sessao = getSessionFactory().openSession();
 		sql = "SELECT us FROM User us WHERE userAccess like :userAccess";
 		query = sessao.createQuery(sql);
-		query.setParameter("userAccess", "%" + userAccess + "%");
+		query.setParameter("userAccess", userAccess);
 		User user = (User) query.uniqueResult();
 		if(user == null) {
 			return null;

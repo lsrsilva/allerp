@@ -6,9 +6,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.allerp.allbanks.entity.GenericEntity;
+import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 
 @Entity
@@ -31,6 +33,9 @@ public class User extends GenericEntity {
 	@Column(nullable = false, length = 20)
 	@Enumerated(EnumType.ORDINAL)
 	private Perfis perfil;
+	
+	@OneToOne(mappedBy="user")
+	private Titular titular;
 
 	public String getEmail() {
 		return email;
@@ -62,5 +67,12 @@ public class User extends GenericEntity {
 
 	public void setPerfil(Perfis perfil) {
 		this.perfil = perfil;
+	}
+
+	public Titular getTitular() {
+		if(titular != null) {
+			return titular;
+		}
+		return new Titular();
 	}
 }

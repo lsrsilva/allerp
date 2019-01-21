@@ -81,7 +81,7 @@ public class CadContaPanel extends Util<Conta> {
 		ChoiceRenderer<Contas> ctRender = new ChoiceRenderer<Contas>("text");
 		DropDownChoice<Contas> dropConta = new DropDownChoice<Contas>("conta",
 				new PropertyModel<Contas>(conta, "tipoConta"), contas, ctRender);
-		TextField<String> numConta = new TextField<String>("numConta");
+		final TextField<String> numConta = new TextField<String>("numConta");
 
 		ChoiceRenderer<Status> statusRender = new ChoiceRenderer<Status>("text");
 		RadioChoice<Status> status = new RadioChoice<Status>("status", new PropertyModel<Status>(conta, "status"),
@@ -125,13 +125,13 @@ public class CadContaPanel extends Util<Conta> {
 			}
 		});
 		
-		TextField<String> userAccess = new TextField<String>("titular.user.userAccess");
 		EmailTextField email = new EmailTextField("titular.user.email");
 		PasswordTextField psw = new PasswordTextField("titular.user.psw");
+		//titUser.setUserAccess(numConta.getValue());
 		titUser.setPerfil(Perfis.TITULAR);
 		titular.setUser(titUser);
 		
-		formCadCt.add(userAccess, email, psw);
+		formCadCt.add(email, psw);
 
 		titular.setTipoPessoa(selectedPes);
 		conta.setTitular(titular);
@@ -142,6 +142,8 @@ public class CadContaPanel extends Util<Conta> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				
+				ctAux.getTitular().getUser().setUserAccess(numConta.getValue());
 				atualizaAoModificar(target, ctAux);
 
 				ctAux = new Conta();

@@ -30,7 +30,7 @@ public class Titular extends Pessoa {
 
 	@OneToMany(mappedBy="titular")
 	@Column(nullable = false)
-	private List<Conta> conta;
+	private List<Conta> contas;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_user", nullable = false, unique = true)
@@ -120,12 +120,12 @@ public class Titular extends Pessoa {
 		this.rg = rg;
 	}
 
-	public List<Conta> getConta() {
-		return conta;
+	public List<Conta> getContas() {
+		return contas;
 	}
 
-	public void setConta(List<Conta> conta) {
-		this.conta = conta;
+	public void addContas(Conta conta) {
+		this.contas.add(conta);
 	}
 
 	public User getUser() {

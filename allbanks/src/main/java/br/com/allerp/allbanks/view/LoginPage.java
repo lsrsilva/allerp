@@ -47,7 +47,6 @@ public class LoginPage extends SecuredBasePage {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				System.out.println(userAccess.getValue() + " " + senha.getValue());
 				if (userService.autentica(userAccess.getValue(), senha.getValue())) {
 					setResponsePage(DashboardPage.class);
 				} 

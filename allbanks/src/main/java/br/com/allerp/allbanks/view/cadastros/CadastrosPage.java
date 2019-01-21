@@ -100,6 +100,7 @@ public class CadastrosPage extends DashboardPage {
 
 		if (!getSessao().getUser().getPerfil().toString().equals("Gerente")) {
 			setResponsePage(DashboardPage.class);
+			return;
 		}
 
 		setTitle("Cadastros");

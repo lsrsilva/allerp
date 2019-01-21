@@ -81,6 +81,7 @@ public class ContaService extends GenericService<Conta> {
 		} else {
 			saldo = saldo.subtract(new BigDecimal(valSaque));
 			conta.setSaldo(saldo);
+			saveOrUpdate(conta);
 			return true;
 		}
 

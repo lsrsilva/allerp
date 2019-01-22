@@ -11,6 +11,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import com.ibm.icu.text.DecimalFormat;
+
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.exceptions.FeedbackException;
@@ -31,7 +33,11 @@ public class TransacaoPage extends DashboardPage {
 	private Titular titular;
 	private Conta conta;
 
-	private Double valorDep;
+	private Double valDep;
+	private Double valSaq;
+	private DecimalFormat decFormt;
+
+	private Label saldo;
 
 	public TransacaoPage() {
 		setTitle("Transações");
@@ -39,6 +45,31 @@ public class TransacaoPage extends DashboardPage {
 			setResponsePage(DashboardPage.class);
 			return;
 		}
+
+		decFormt = new DecimalFormat("R$ #,##0.00");
+		
+		add(lbSaldo());
+		add(formDep(), formSaque());
+
+	}
+
+	public Double getValDep() {
+		return valDep;
+	}
+
+	public void setValDep(Double valDep) {
+		this.valDep = valDep;
+	}
+
+	public Double getValSaq() {
+		return valSaq;
+	}
+
+	public void setValSaq(Double valSaq) {
+		this.valSaq = valSaq;
+	}
+
+	public Label lbSaldo() {
 
 		titular = getSessao().getUser().getTitular();
 		List<Conta> contas = titular.getContas();
@@ -53,39 +84,74 @@ public class TransacaoPage extends DashboardPage {
 			}
 		}
 
-		final Label saldo = new Label("saldo", Model.of("Saldo: R$ " + conta.getSaldo()));
+		saldo = new Label("saldo", Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
 		saldo.setOutputMarkupId(true);
+		
+		return saldo;
+	}
+	
+	public Form<Double> formDep() {
 
-		Form<Double> formConta = new Form<Double>("formConta");
-		TextField<Double> valDep = new TextField<Double>("valorDep", new PropertyModel<Double>(this, "valorDep"));
+		Form<Double> formDep = new Form<Double>("formDep");
+		TextField<Double> valDepo = new TextField<Double>("valDep", new PropertyModel<Double>(this, "valDep"));
+		valDepo.clearInput();
 
-		formConta.add(valDep, new AjaxButton("depositar") {
+		formDep.add(valDepo, new AjaxButton("depositar", formDep) {
 
 			private static final long serialVersionUID = 5413163658877175673L;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				System.out.println(valorDep);
 				try {
-					contaService.deposita(conta, valorDep);
-				} catch (FeedbackException e) {
-					e.printStackTrace();
+					contaService.deposita(conta, valDep);
+					saldo.modelChanged();
+					saldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
+					target.add(saldo, form);
+				} catch (NullPointerException | FeedbackException e) {
+					String message = e.getMessage();
+					System.out.println(message);
 				}
-				target.add(saldo);
 			}
 
 		});
 
-		add(saldo, formConta);
-
+		return formDep;
 	}
 
-	public Double getValorDep() {
-		return valorDep;
+	public Form<Double> formSaque() {
+		Form<Double> formSaque = new Form<Double>("formSaque");
+		TextField<Double> valSaque = new TextField<Double>("valSaque", new PropertyModel<Double>(this, "valSaq"));
+		valSaque.clearInput();
+
+		formSaque.add(valSaque, new AjaxButton("sacar", formSaque) {
+
+			private static final long serialVersionUID = 5413163658877175673L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				try {
+					contaService.saque(conta, valSaq);
+					saldo.modelChanged();
+					saldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
+					target.add(saldo);
+				} catch (NullPointerException | FeedbackException e) {
+					String message = e.getMessage();
+					System.out.println(message);
+				}
+			}
+
+		});
+
+		return formSaque;
 	}
 
-	public void setValorDep(Double valorDep) {
-		this.valorDep = valorDep;
+	public void formTransf() {
+		/**
+		 * CPF ou CNPJ da pessoa/empresa beneficiária;
+		 * Número da agência onde a pessoa/empresa possui conta;
+		 * Número da conta bancária.
+		 */
+		
+		
 	}
-
 }

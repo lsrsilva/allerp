@@ -1,6 +1,9 @@
 package br.com.allerp.allbanks.view.cadastros;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -13,12 +16,16 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
+import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
 
 import br.com.allerp.allbanks.entity.colaborador.Funcionario;
 import br.com.allerp.allbanks.entity.conta.Agencia;
@@ -29,6 +36,7 @@ import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.entity.user.User;
+import br.com.allerp.allbanks.relatorio.GeradorRelatorio;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.colaborador.FuncionarioService;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
@@ -93,6 +101,15 @@ public class CadastrosPage extends DashboardPage {
 	private WebMarkupContainer divBc;
 	private WebMarkupContainer divCt;
 	private WebMarkupContainer divTit;
+
+	// ----------------------------------------------------------------------//
+
+	// ---------------------------- BEANS --------------------------------//
+
+	private User user;
+	private Conta conta;
+	private Titular titular;
+	private Banco banco;
 
 	// ----------------------------------------------------------------------//
 
@@ -347,6 +364,48 @@ public class CadastrosPage extends DashboardPage {
 
 			}
 		};
+
+		lvUser.getReuseItems();
+
+		final GeradorRelatorio<User> relUser = new GeradorRelatorio<User>();
+		final HashMap<String, Object> usParam = new HashMap<String, Object>();
+		usParam.put("listUser", listUser);
+
+		divUser.add(new Link<Object>("pdfUser") {
+
+			private static final long serialVersionUID = -5958698290102968565L;
+
+			@Override
+			public void onClick() {
+
+				try {
+
+					final byte[] pdfBytes = relUser.geraPdf(usParam, "Usuarios", listUser);
+
+					if (pdfBytes != null) {
+						AbstractResourceStreamWriter stream = new AbstractResourceStreamWriter() {
+
+							private static final long serialVersionUID = -1194480532924626151L;
+
+							@Override
+							public void write(OutputStream output) throws IOException {
+								output.write(pdfBytes);
+								output.close();
+							}
+						};
+
+						ResourceStreamRequestHandler handler = new ResourceStreamRequestHandler(stream);
+						handler.setContentDisposition(ContentDisposition.ATTACHMENT);
+						handler.setFileName("Relatório de Usuários.pdf");
+						getRequestCycle().scheduleRequestHandlerAfterCurrent(handler);
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		});
 
 		divUser.setOutputMarkupId(true);
 		divUser.add(lvUser);
@@ -826,15 +885,15 @@ public class CadastrosPage extends DashboardPage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 
-				if(conta.getAgencia() == null) {
+				if (conta.getAgencia() == null) {
 					conta.setAgencia(new Agencia());
 				}
-				
+
 				if (codAg != null && numConta != null && status != null && tipoCt != null
 						|| conta.getAgencia().getCodAg() == 0 || conta.getNumConta() == 0
 						|| conta.getStatus().toString().equals("") || conta.getTipoConta().toString().equals("")) {
-					if (codAg.getValue().equals("") && numConta.getValue().equals("") && status.getValue().toString().equals("")
-							&& tipoCt.getValue().toString().equals("")) {
+					if (codAg.getValue().equals("") && numConta.getValue().equals("")
+							&& status.getValue().toString().equals("") && tipoCt.getValue().toString().equals("")) {
 						listCt = contaService.findAll();
 					} else {
 						listCt = contaService.search(conta.getAgencia().getCodAg(), conta.getNumConta(),
@@ -907,7 +966,8 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, titular, user, cadMdCt) {
+						CadContaPanel editForm = new CadContaPanel(cadMdCt.getContentId(), conta, titular, user,
+								cadMdCt) {
 
 							private static final long serialVersionUID = -2360017131168195435L;
 
@@ -971,7 +1031,7 @@ public class CadastrosPage extends DashboardPage {
 	}
 
 	private void listViewTitular() {
-		
+
 		final Titular titular = new Titular();
 		CompoundPropertyModel<Titular> formModel = new CompoundPropertyModel<Titular>(titular);
 		final Form<Titular> searchTit = new Form<Titular>("searchTit", formModel);
@@ -982,7 +1042,7 @@ public class CadastrosPage extends DashboardPage {
 		searchTit.add(cpfCnpj, nome);
 
 		searchTit.add(new AjaxButton("btnSearchTit") {
-			
+
 			private static final long serialVersionUID = 3865918601254958016L;
 
 			@Override
@@ -991,7 +1051,7 @@ public class CadastrosPage extends DashboardPage {
 				if (cpfCnpj != null && nome != null || titular.getNome().equals("")
 						|| titular.getCpfCnpj().equals("")) {
 					if (cpfCnpj.getValue().equals("") && nome.getValue().equals("")) {
-						listTit= titularService.findAll();
+						listTit = titularService.findAll();
 					} else {
 						listTit = titularService.search(titular.getCpfCnpj(), titular.getNome());
 					}

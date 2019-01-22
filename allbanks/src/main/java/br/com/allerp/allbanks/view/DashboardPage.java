@@ -12,14 +12,13 @@ import br.com.allerp.allbanks.view.titular.TransacaoPage;
 public class DashboardPage extends SecuredBasePage {
 
 	private static final long serialVersionUID = -4712703917780323193L;
-	
-	private	Link<Object> transacao;
+
+	private Link<Object> transacao;
 
 	public DashboardPage() {
 
 		setTitle("Dashboard");
 		add(new Label("title", new PropertyModel<>(this, "title")));
-		
 
 		add(new Link<Object>("home") {
 			private static final long serialVersionUID = 1288650964782456928L;
@@ -63,7 +62,7 @@ public class DashboardPage extends SecuredBasePage {
 	public boolean getUserPerfil(String perfil) {
 		return getSessao().getUser().getPerfil().toString().equals(perfil);
 	}
-	
+
 	private void titular() {
 		transacao.setVisible(true);
 	}

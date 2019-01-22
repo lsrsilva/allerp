@@ -32,11 +32,16 @@ public class ContaService extends GenericService<Conta> {
 	 * Limite máximo de saque diário.
 	 */
 	private final BigDecimal LIM_SAQUE_D = new BigDecimal(1500.00);
-	
+
 	/**
 	 * Limite máximo para depósito.
 	 */
 	private final BigDecimal LIM_DEPO = new BigDecimal(2000.00);
+
+	/**
+	 * Limite máximo para transferência
+	 */
+	private final BigDecimal LIM_DOC = new BigDecimal(4999.99);
 
 	private BigDecimal saldo;
 
@@ -57,38 +62,55 @@ public class ContaService extends GenericService<Conta> {
 		return contaDao.search(search);
 	}
 
-	public boolean deposita(Conta conta, Double valDep) throws FeedbackException {
+	public void deposita(Conta conta, Double valDep) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
-		
-		if(valDep <= 0 ) {
+		if (valDep <= 0) {
 			throw new FeedbackException("Valor informado para depósito deve ser maior que 0.");
-		} else if(valDep > LIM_DEPO.doubleValue()) {
-			throw new FeedbackException("Valor informado para depósito deve ser menor que " + LIM_DEPO.doubleValue() + ".");
+		} else if (valDep > LIM_DEPO.doubleValue()) {
+			throw new FeedbackException(
+					"Valor informado para depósito deve ser menor que " + LIM_DEPO.doubleValue() + ".");
 		} else {
 			saldo = saldo.add(new BigDecimal(valDep));
 			conta.setSaldo(saldo);
-			return true;
+			contaDao.merge(conta);
 		}
 	}
-	
-	public boolean saque(Conta conta, Double valSaque) throws FeedbackException {
+
+	public void saque(Conta conta, Double valSaque) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 
 		if (valSaque <= 0) {
 			throw new FeedbackException("Valor informado para saque deve ser maior que 0.");
 		} else if (valSaque > LIM_SAQUE.doubleValue()) {
-			throw new FeedbackException("Valor informado excede o limite por saque.");
+			throw new FeedbackException(
+					"Valor informado excede o limite por saque de R$ " + LIM_SAQUE.doubleValue() + ".");
+		} else if (saldo == null || saldo == BigDecimal.ZERO || saldo.doubleValue() < valSaque) {
+			throw new FeedbackException("Saldo insuficiente. Saldo: R$ " + saldo.doubleValue());
 		} else {
 			saldo = saldo.subtract(new BigDecimal(valSaque));
 			conta.setSaldo(saldo);
 			saveOrUpdate(conta);
-			return true;
 		}
 
 	}
 
-	public BigDecimal getSaldo() {
+	public void transfere(Conta conta, Conta ctDest, Double valTransf) throws FeedbackException {
+		if (valTransf <= 0) {
+			throw new FeedbackException("Valor informado para transferência deve ser maior que 0.");
+		} else if (valTransf > LIM_DOC.doubleValue()) {
+			throw new FeedbackException(
+					"Valor informado para transferência deve ser menor que R$" + LIM_DOC.doubleValue() + ".");
+		} else if (saldo == null || saldo == BigDecimal.ZERO || saldo.doubleValue() < valTransf) {
+			throw new FeedbackException("Saldo insuficiente. Saldo: R$ " + saldo.doubleValue());
+		} else {
+			saque(conta, valTransf);
+			deposita(ctDest, valTransf);
+		}
+
+	}
+	
+	public BigDecimal getCtSaldo(Conta conta) {
+		saldo = contaDao.consultaSaldo(conta.getNumConta());
 		return saldo;
 	}
-
 }

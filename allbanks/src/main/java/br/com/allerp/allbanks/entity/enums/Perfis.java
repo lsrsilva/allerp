@@ -6,7 +6,7 @@ public enum Perfis {
 	FUNCIONARIO("Funcionário"),
 	TITULAR("Titular");
 	
-	private final String text;
+	private String text;
 
 	Perfis(String text) {
 		this.text = text;
@@ -15,6 +15,10 @@ public enum Perfis {
 	@Override
 	public String toString() {
 		return text;
+	}
+	
+	public String getText() {
+		return toString();
 	}
 	
 }

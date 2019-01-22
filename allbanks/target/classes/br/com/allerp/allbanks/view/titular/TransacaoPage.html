@@ -1,10 +1,17 @@
 <wicket:extend>
 	<span wicket:id="saldo"></span>
 	
-	<form wicket:id="formConta">
-		
-		<input wicket:id=valorDep class="somenteNumeros" type="text">
+	<form wicket:id="formDep">
+		<input wicket:id="valDep" class="dinheiro" type="text">
 		<button wicket:id="depositar">Depositar</button>
 	</form>
+	
+	<form wicket:id="formSaque">
+		<input wicket:id="valSaque" class="dinheiro" type="text">
+		<button wicket:id="sacar">Sacar</button>
+	</form>
+	
+	<script type="text/javascript" src="js/jqueryfunc.js"></script>
+	<script src="js/jquery.maskMoney.js" type="text/javascript"></script>
 		
 </wicket:extend>

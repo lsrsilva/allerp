@@ -44,6 +44,11 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 	public void saveOrUpdate(Entity entity) {
 		super.save(entity);
 	}
+	
+	@Transactional
+	public void merge(Entity entity) {
+		super._merge(entity);
+	}
 
 	@Transactional(readOnly = true, isolation = Isolation.SERIALIZABLE, propagation = Propagation.SUPPORTS)
 	public List<Entity> findAll() {

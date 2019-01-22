@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -28,10 +29,10 @@ public class Titular extends Pessoa {
 
 	private static final long serialVersionUID = -8605819128606661027L;
 
-	@OneToMany(mappedBy="titular")
+	@OneToMany(mappedBy = "titular")
 	@Column(nullable = false)
 	private List<Conta> contas;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_user", nullable = false, unique = true)
 	@ForeignKey(name = "FK_ID_USER")
@@ -39,11 +40,11 @@ public class Titular extends Pessoa {
 
 	@Column(length = 200)
 	private String ie;
-	
+
 	@Column(length = 16)
 	private String celular;
 
-	@Column( length = 14)
+	@Column(length = 14)
 	private String cpfCnpj;
 
 	@Column
@@ -71,7 +72,7 @@ public class Titular extends Pessoa {
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-	
+
 	public String getCpfCnpj() {
 		return cpfCnpj;
 	}
@@ -81,6 +82,9 @@ public class Titular extends Pessoa {
 	}
 
 	public String getNome() {
+		if(nome == null) {
+			return "";
+		}
 		return nome;
 	}
 
@@ -95,7 +99,7 @@ public class Titular extends Pessoa {
 	public void setIe(String ie) {
 		this.ie = ie;
 	}
-	
+
 	public String getCelular() {
 		return celular;
 	}

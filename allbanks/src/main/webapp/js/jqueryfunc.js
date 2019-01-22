@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	$(".somenteNumero").bind("keypress", function(e) {
 		var key = (window.event) ? event.keyCode : e.which;
-		if ((key > 47 && key < 58 || key == 13)) {
+		if ((key > 47 && key < 58 || key == 13 || key == 44)) {
 			return true;
 		} else {
 			return (key == 8 || key == 0) ? true : false;
@@ -15,6 +15,7 @@ $(document).ready(function() {
 	$(".data").mask("99/99/99");
 	$(".telefone").mask("(999) 9999-9999");
 	$(".celular").mask("(999) 99999-9999");
+	$(".dinheiro").maskMoney({thousands:'.', decimal:','});
 	
 	/*$("#cpfcnpj").keydown(function(){
 	    try {

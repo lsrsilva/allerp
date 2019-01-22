@@ -10,21 +10,17 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.file.File;
 
 import br.com.allerp.libsoft.entity.user.Bibliotecario;
-import br.com.allerp.libsoft.service.user.BibliotecarioService;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -51,7 +47,6 @@ public class GeradorRelatorios implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -73,11 +68,10 @@ public class GeradorRelatorios implements Serializable {
 		 * CreationHelper helps us create instances of various things like DataFormat,
 		 * Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way
 		 */
-		// CreationHelper createHelper = workbook.getCreationHelper();
-
-//		// Create Cell Style for formatting Date
-//        CellStyle dateCellStyle = workbook.createCellStyle();
-//        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+		CreationHelper createHelper = workbook.getCreationHelper();
+		//Create Cell Style for formatting Date
+        CellStyle dateCellStyle = workbook.createCellStyle();
+        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
 
 		// Create a Sheet
 		Sheet sheet = workbook.createSheet("Usuários Cadastrados");

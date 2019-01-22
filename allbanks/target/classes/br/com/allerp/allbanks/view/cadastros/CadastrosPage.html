@@ -10,10 +10,10 @@
 		<div class="div-cad">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true"><img class="icons" alt="Usuário" src="icons/svg/user2.svg"> Usuários</a>
+					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true" onclick="alteraClasse(userCad);"><img class="icons" alt="Usuário" src="icons/svg/user2.svg"> Usuários</a>
 				</li>
   				<li class="nav-item">
-    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" ><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
+    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" onclick="alteraClasse(funcCad);"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
@@ -31,7 +31,7 @@
 
 			<div class="tab-content">
 
-				<div wicket:id="divUser" id="userCad" class="tab-pane fade show active troca"><br>
+				<div wicket:id="divUser" id="userCad" class="tab-pane fade active show"><br>
 				  	<form wicket:id="searchUser" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-4 my-mx-5">
 							<input wicket:id="userAccess" class="form-control" type="text" placeholder="Pesquisar por acesso">
@@ -44,9 +44,14 @@
 						</div>
 					</form>
 
-			    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
-						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo usuário</span>
-					</button>
+					<div>
+				    	<button wicket:id="btnAddUser" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+							<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo usuário</span>
+						</button>
+						<button wicket:id="pdfUser" type="button" class="btn btn-pdf btn-sm">
+							<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/pdf.png">&nbsp;Gerar PDF</span>
+						</button>
+					</div>
 					
 			    	<table class="table table-hover table-sm br-top-none">
 			    		<thead>
@@ -69,7 +74,7 @@
 					</table>
 				</div>
 
-			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade troca"><br>
+			    <div wicket:id="divFunc" id="funcCad" class="tab-pane fade"><br>
 			   		<form wicket:id="searchFunc" class="d-flex justify-content-center form-inline">
 						<input wicket:id="nome" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por nome">
 						<input wicket:id="cpf" class="form-control col-md-3 my-mx-5 somenteNumero cpf" type="text" placeholder="Pesquisar por CPF">
@@ -79,7 +84,6 @@
 			    	<button wicket:id="btnAddFunc" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
 						<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo funcionário</span>
 					</button>
-					
 			    	<table class="table table-hover table-sm br-top-none">
 			    		<thead>
 			    			<tr class="tr text-center">
@@ -103,7 +107,7 @@
 			    	</table>
 			    </div>
 			  	
-			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade troca"><br>
+			  	<div wicket:id="divBc" id="bancoCad" class="tab-pane fade"><br>
 			  		<form wicket:id="searchBc" class="d-flex justify-content-center form-inline">
 						<input wicket:id="codCompensacao" class="form-control col-md-3 my-mx-5 somenteNumero" type="text" placeholder="Pesquisar por Código de compensação">
 						<input wicket:id="nome" class="form-control col-md-3 my-mx-5" type="text" placeholder="Pesquisar por nome">
@@ -132,7 +136,7 @@
 			    	</table>
 			  	</div>
 			  	
-			  	<div wicket:id="divAg" id="agCad" class="tab-pane fade troca"><br>
+			  	<div wicket:id="divAg" id="agCad" class="tab-pane fade"><br>
 			  		<form wicket:id="searchAg" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-3 my-mx-5">
 							<input wicket:id="codAg" class="form-control somenteNumero" type="text" placeholder="Pesquisar por código da conta">
@@ -175,7 +179,7 @@
 			    	<!-- <div wicket:id="notFound"></div> -->
 			  	</div>
 			  
-			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade troca"><br>
+			  	<div wicket:id="divCt" id="contaCad" class="tab-pane fade"><br>
 			    	<form wicket:id="searchCt" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-3 my-mx-5">
 							<input wicket:id="agencia.codAg" class="form-control somenteNumero" type="text" placeholder="Pesquisar pelo código da agência">
@@ -220,7 +224,7 @@
 			    	</table>
 			  	</div>
 			 
-			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade troca"><br>
+			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
 			  	<form wicket:id="searchTit" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-4 my-mx-5">
 							<input wicket:id="cpfCnpj" class="form-control" id="cpfcnpj" name="cpfcnpj" type="text" placeholder="Pesquisar por CPF / CNPJ">
@@ -262,5 +266,23 @@
 	<div wicket:id="cadMdCt"></div>
 	<div wicket:id="cadMdTit"></div>
 	<div wicket:id="excModal"></div>
+	
+	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	
+		function alteraClasse(id){
+			
+			var elements = $(".show");
+			
+			var i;
+			for(i = 0; i < elements.length; i++){
+				elements[i].hide();
+			}
+			
+			id.show();
+		}
+		
+	</script>
+	
 
 </wicket:extend>

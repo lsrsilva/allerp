@@ -44,10 +44,26 @@ body{
 	display: none;
 }
 
+.label{
+	-ms-flex-align: ;
+       align-items: center;
+   -ms-flex-pack: center;
+       justify-content: center;
+}
+
 .div-azul{
 	overflow: auto;
 	background-color: #68c2e8;
 	height: 25px;
+}
+
+.forms{
+	display: block;
+}
+
+.forms > form{
+	display: inline-block;
+	width: 500px;
 }
 
 .ft-fam-ubuntu{
@@ -135,6 +151,10 @@ body{
 
 .my-mr-auto{
 	margin-right: auto;
+}
+
+.mr-tb-5{
+	margin: 5px 0;
 }
 
 .nav-text {

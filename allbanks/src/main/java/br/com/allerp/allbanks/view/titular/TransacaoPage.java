@@ -56,7 +56,7 @@ public class TransacaoPage extends DashboardPage {
 
 		decFormt = new DecimalFormat("R$ #,##0.00");
 
-		add(lbSaldo(), addContatoMd());
+		add(lbSaldo());
 		add(formDep(), formSaque(), formTransf());
 
 	}
@@ -162,8 +162,6 @@ public class TransacaoPage extends DashboardPage {
 					saldo.modelChanged();
 					saldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
 
-					
-
 					target.add(saldo);
 				} catch (NumberFormatException | FeedbackException fe) {
 					System.out.println(fe.getMessage());
@@ -180,9 +178,9 @@ public class TransacaoPage extends DashboardPage {
 
 	public ModalWindow addContatoMd() {
 		addContatoModal = new ModalWindow("addContatoMd");
-
-		addContatoModal
-				.setContent(new AddContatoPanel(addContatoModal.getContentId(), contato, conta, addContatoModal));
+//
+//		addContatoModal
+//				.setContent(new AddContatoPanel(addContatoModal.getContentId(), contato, conta, addContatoModal));
 
 		return addContatoModal;
 	}

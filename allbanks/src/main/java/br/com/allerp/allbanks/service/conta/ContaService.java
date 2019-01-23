@@ -10,6 +10,7 @@ import com.googlecode.genericdao.search.Search;
 
 import br.com.allerp.allbanks.dao.conta.ContaDao;
 import br.com.allerp.allbanks.entity.conta.Conta;
+import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.exceptions.FeedbackException;
@@ -42,6 +43,11 @@ public class ContaService extends GenericService<Conta> {
 	 * Limite máximo para transferência
 	 */
 	private final BigDecimal LIM_DOC = new BigDecimal(4999.99);
+
+	/**
+	 * Taxa para transferência entre bancos diferentes
+	 */
+	private final Double TAXA_TRANSF = 10D;
 
 	private BigDecimal saldo;
 
@@ -89,28 +95,71 @@ public class ContaService extends GenericService<Conta> {
 		} else {
 			saldo = saldo.subtract(new BigDecimal(valSaque));
 			conta.setSaldo(saldo);
-			saveOrUpdate(conta);
+			contaDao.merge(conta);
 		}
 
 	}
 
-	public void transfere(Conta conta, Conta ctDest, Double valTransf) throws FeedbackException {
+	/**
+	 * 
+	 * @param conta     Conta origem
+	 * @param ctBen     Conta do beneficiário
+	 * @param valTransf Valor que será transferido para o destinatário
+	 * @throws FeedbackException
+	 */
+	public void transfere(Conta conta, Conta ctBen, Double valTransf) throws FeedbackException {
+		saldo = contaDao.consultaSaldo(conta.getNumConta());
+
 		if (valTransf <= 0) {
 			throw new FeedbackException("Valor informado para transferência deve ser maior que 0.");
 		} else if (valTransf > LIM_DOC.doubleValue()) {
 			throw new FeedbackException(
 					"Valor informado para transferência deve ser menor que R$" + LIM_DOC.doubleValue() + ".");
 		} else if (saldo == null || saldo == BigDecimal.ZERO || saldo.doubleValue() < valTransf) {
-			throw new FeedbackException("Saldo insuficiente. Saldo: R$ " + saldo.doubleValue());
+			throw new FeedbackException("Saldo insuficiente para transferência. Saldo: R$ " + saldo.doubleValue());
+		} else if (!ctBen.getBanco().getCodCompensacao().equals(conta.getBanco().getCodCompensacao())) {
+			verifExisteContato(conta, ctBen);
+			saque(conta, valTransf + TAXA_TRANSF);
+			deposita(ctBen, valTransf);
 		} else {
+			verifExisteContato(conta, ctBen);
 			saque(conta, valTransf);
-			deposita(ctDest, valTransf);
+			deposita(ctBen, valTransf);
 		}
 
 	}
-	
+
 	public BigDecimal getCtSaldo(Conta conta) {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 		return saldo;
 	}
+
+	/**
+	 * Verifica se uma conta existe para um titular.
+	 * 
+	 * @param numConta
+	 * @param cpfCnpjTit
+	 * @return A conta caso exista.
+	 * @throws FeedbackException
+	 */
+	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit) throws FeedbackException {
+
+		Conta conta;
+		search = new Search(Conta.class);
+
+		filter = Filter.and(Filter.equal("numConta", numConta), Filter.ilike("titular.cpfCnpj", cpfCnpjTit));
+		search.addFilter(filter);
+		conta = contaDao.searchUnique(search);
+
+		if (conta == null) {
+			throw new FeedbackException("Conta para transferência inexistente.");
+		}
+
+		return conta;
+	}
+	
+	private void verifExisteContato(Conta conta, Conta ctContato) {
+		search = new Search(Conta.class);
+	}
+
 }

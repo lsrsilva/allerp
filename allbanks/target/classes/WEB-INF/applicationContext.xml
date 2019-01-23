@@ -107,6 +107,16 @@
 		<property name="contaDao" ref="contaDao"></property>
 	</bean>
 	
+	<!--======================================= CONTATOS ====================================== -->
+	<bean id="contatoDao" class="br.com.allerp.allbanks.dao.conta.ContatoDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="contatoService"
+		class="br.com.allerp.allbanks.service.conta.ContatoService">
+		<property name="contatoDao" ref="contatoDao"></property>
+	</bean>
+	
 	<!--======================================== BANCO ======================================== -->
 	<bean id="bancoDao" class="br.com.allerp.allbanks.dao.conta.BancoDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>

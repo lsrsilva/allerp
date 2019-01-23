@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,9 +24,6 @@ public class Banco extends GenericEntity {
 	@JoinTable(name = "banco_contas", joinColumns = @JoinColumn(name = "banco_cod"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
 	@ForeignKey(name = "FK_BC_COD", inverseName = "FK_CONTA")
 	private List<Conta> conta;
-
-	@ManyToMany(mappedBy = "banco")
-	private List<ListaContatos> listaCont;
 
 	@OneToMany(mappedBy = "banco")
 	private List<Agencia> agencia;

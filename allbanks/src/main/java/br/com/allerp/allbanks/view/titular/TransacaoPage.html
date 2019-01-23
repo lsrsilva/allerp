@@ -1,17 +1,28 @@
 <wicket:extend>
 	<span wicket:id="saldo"></span>
-	
+
 	<form wicket:id="formDep">
 		<input wicket:id="valDep" class="dinheiro" type="text">
 		<button wicket:id="depositar">Depositar</button>
 	</form>
-	
+
 	<form wicket:id="formSaque">
 		<input wicket:id="valSaque" class="dinheiro" type="text">
 		<button wicket:id="sacar">Sacar</button>
 	</form>
-	
+
+	<form wicket:id="formTransf">
+		<input wicket:id="cpfCnpjBenef" type="text" placeholder="CPF / CNPJ do beneficiário.">
+		<input wicket:id="agBenef" type="text" placeholder="Agência do Beneficiário.">
+		<input wicket:id="numContaBenef" class="somenteNumero" type="text" placeholder="Número da Conta do beneficiário">
+		<input wicket:id="valTransf" class="dinheiro" type="text" placeholder="Valor para transferência.">
+		<button wicket:id="transferir">Transferir</button>
+	</form>
+
+	<div wicket:id="addContatoMd"></div>
+
 	<script type="text/javascript" src="js/jqueryfunc.js"></script>
 	<script src="js/jquery.maskMoney.js" type="text/javascript"></script>
-		
+	<script src="js/jqueryfunc.js" type="text/javascript"></script>
+
 </wicket:extend>

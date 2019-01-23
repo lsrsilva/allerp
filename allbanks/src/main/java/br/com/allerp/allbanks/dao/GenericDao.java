@@ -77,6 +77,11 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 	public List<Entity> search(Search search) {
 		return super.search(search);
 	}
+	
+	@Transactional
+	public Entity searchUnique(Search search) {
+		return super.searchUnique(search);
+	}
 
 	protected String getHsql() {
 		return hsql;

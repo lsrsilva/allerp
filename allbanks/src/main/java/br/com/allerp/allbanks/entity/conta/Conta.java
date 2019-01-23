@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -47,10 +46,7 @@ public class Conta extends GenericEntity {
 	
 	@Column(nullable = false, precision = 20, scale = 2)
 	private BigDecimal saldo = BigDecimal.ZERO;
-	
-	/*
-	 * @Column(nullable = false) private Contas tipo;
-	 */
+
 	private ExtratoBancario extrato;
 
 	@ManyToOne
@@ -64,7 +60,7 @@ public class Conta extends GenericEntity {
 	private Titular titular;
 
 	@ManyToMany(mappedBy = "ctContato")
-	private List<ListaContatos> listaCont;
+	private List<Contato> contato;
 
 	public Conta() {
 		status = Status.ATIVO;
@@ -132,6 +128,18 @@ public class Conta extends GenericEntity {
 
 	public void setTipoConta(Contas tipoConta) {
 		this.tipoConta = tipoConta;
+	}
+
+	public List<Contato> getContato() {
+		if(contato == null) {
+			contato.add(new Contato());
+			return contato;
+		}
+		return contato;
+	}
+
+	public void setContato(List<Contato> contato) {
+		this.contato = contato;
 	}
 
 }

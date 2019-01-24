@@ -6,7 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
@@ -14,21 +15,34 @@ import org.hibernate.annotations.ForeignKey;
 import br.com.allerp.allbanks.entity.GenericEntity;
 
 @Entity
-@Table(name = "LISTA_CONTATOS")
+@Table(name = "CONTATOS")
 public class Contato extends GenericEntity {
 
 	private static final long serialVersionUID = 7292792173768982050L;
 
-	@ManyToMany
-	@JoinTable(name = "list_ct_bc", joinColumns = @JoinColumn(name = "list_ct_id"), inverseJoinColumns = @JoinColumn(name = "ct_cod"))
-	@ForeignKey(name = "FK_LIST_CT", inverseName = "FK_CT_CONTATO")
-	private List<Conta> ctContato;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "tit_cod")
+	@ForeignKey(name = "FK_TIT_CONTATO")
+	private Titular titular;
 
-	public List<Conta> getCtContato() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ct_contato")
+	@ForeignKey(name = "FK_CT_CONTATO")
+	private Conta ctContato;
+
+	public Titular getTitular() {
+		return titular;
+	}
+
+	public void setTitular(Titular ctContato) {
+		this.titular = ctContato;
+	}
+
+	public Conta getCtContato() {
 		return ctContato;
 	}
 
-	public void setCtContato(List<Conta> ctContato) {
+	public void setCtContato(Conta ctContato) {
 		this.ctContato = ctContato;
 	}
 

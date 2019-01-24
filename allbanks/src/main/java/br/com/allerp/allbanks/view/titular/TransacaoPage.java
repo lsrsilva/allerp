@@ -56,8 +56,13 @@ public class TransacaoPage extends DashboardPage {
 
 		decFormt = new DecimalFormat("R$ #,##0.00");
 
+		addContatoModal = new ModalWindow("addContatoMd");
+		
+		addContatoModal.setInitialHeight(200);
+		addContatoModal.setInitialWidth(400);
+
 		add(lbSaldo());
-		add(formDep(), formSaque(), formTransf());
+		add(formDep(), formSaque(), formTransf(), addContatoModal);
 
 	}
 
@@ -149,9 +154,13 @@ public class TransacaoPage extends DashboardPage {
 		final TextField<Double> valorTransf = new TextField<Double>("valTransf",
 				new PropertyModel<Double>(this, "valTransf"));
 
+		contato = new Contato();
+
 		formTransf.add(new AjaxButton("transferir") {
 
 			private static final long serialVersionUID = -6305437308864849716L;
+
+			private boolean temContato;
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -161,6 +170,14 @@ public class TransacaoPage extends DashboardPage {
 
 					saldo.modelChanged();
 					saldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
+					temContato = titularService.existeContato(titular, ctBenef);
+
+					AddContatoPanel addContato = new AddContatoPanel(addContatoModal.getContentId(), contato, titular,
+							ctBenef, addContatoModal);
+					addContatoModal.setContent(addContato);
+					if (!temContato) {
+						addContatoModal.show(target);
+					}
 
 					target.add(saldo);
 				} catch (NumberFormatException | FeedbackException fe) {
@@ -174,15 +191,6 @@ public class TransacaoPage extends DashboardPage {
 		formTransf.add(cnpfCnpjBenefi, agCtBenef, numCtBenef, valorTransf);
 		return formTransf;
 
-	}
-
-	public ModalWindow addContatoMd() {
-		addContatoModal = new ModalWindow("addContatoMd");
-//
-//		addContatoModal
-//				.setContent(new AddContatoPanel(addContatoModal.getContentId(), contato, conta, addContatoModal));
-
-		return addContatoModal;
 	}
 
 	public Double getValDep() {

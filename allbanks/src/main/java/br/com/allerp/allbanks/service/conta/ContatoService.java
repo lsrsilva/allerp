@@ -17,8 +17,4 @@ public class ContatoService extends GenericService<Contato> {
 		this.contatoDao = contatoDao;
 	}
 
-	public void saveOrUpdate(Contato entity, Conta conta) {
-		contatoDao.saveOrUpdate(entity, conta);
-	}
-
 }

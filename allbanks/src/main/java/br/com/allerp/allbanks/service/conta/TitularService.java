@@ -2,12 +2,15 @@ package br.com.allerp.allbanks.service.conta;
 
 import java.util.List;
 
+import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 
 import br.com.allerp.allbanks.dao.conta.TitularDao;
+import br.com.allerp.allbanks.entity.conta.Conta;
+import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.service.GenericService;
 
@@ -18,6 +21,13 @@ public class TitularService extends GenericService<Titular> {
 
 	private Search search;
 	private Filter filter;
+
+	@SpringBean(name = "contatoDao")
+	private ContatoService contatoService;
+
+	public void setContatoService(ContatoService contatoService) {
+		this.contatoService = contatoService;
+	}
 
 	public void setTitularDao(TitularDao titularDao) {
 		setDao(titularDao);
@@ -33,6 +43,28 @@ public class TitularService extends GenericService<Titular> {
 		search.addFilter(filter);
 
 		return titularDao.search(search);
+	}
+
+	/**
+	 * Verifica se o titular já possui a conta em sua lista de contatos
+	 * 
+	 * @param ctContato conta a ser verificada
+	 */
+	public boolean existeContato(Titular titular, Conta ctContato) {
+
+		search = new Search(Contato.class);
+
+		filter = Filter.and(Filter.equal("titular.codigo", titular.getCodigo()),
+				Filter.equal("ctContato.numConta", ctContato.getNumConta()));
+
+		search.addFilter(filter);
+
+		Contato contatos = contatoService.searchUnique(search);
+
+		if (contatos == null) {
+			return false;
+		}
+		return true;
 	}
 
 }

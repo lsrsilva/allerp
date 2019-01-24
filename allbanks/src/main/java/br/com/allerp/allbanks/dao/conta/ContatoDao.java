@@ -10,7 +10,6 @@ public class ContatoDao extends GenericDao<Contato, Long> {
 	}
 
 	public void saveOrUpdate(Contato entity, Conta conta) {
-		entity.getCtContato().add(conta);
 		super.saveOrUpdate(entity);
 	}
 }

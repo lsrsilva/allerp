@@ -145,6 +145,7 @@
 	<bean id="titularService"
 		class="br.com.allerp.allbanks.service.conta.TitularService">
 		<property name="titularDao" ref="titularDao"></property>
+		<property name="contatoService" ref="contatoService"></property>
 	</bean>
 
 	<!--====================================== FUNCIONÁRIO ====================================== -->

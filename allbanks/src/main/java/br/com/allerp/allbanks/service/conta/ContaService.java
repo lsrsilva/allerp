@@ -10,7 +10,6 @@ import com.googlecode.genericdao.search.Search;
 
 import br.com.allerp.allbanks.dao.conta.ContaDao;
 import br.com.allerp.allbanks.entity.conta.Conta;
-import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.exceptions.FeedbackException;
@@ -110,7 +109,9 @@ public class ContaService extends GenericService<Conta> {
 	public void transfere(Conta conta, Conta ctBen, Double valTransf) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 
-		if (valTransf <= 0) {
+		if (conta.equals(ctBen)) {
+			throw new FeedbackException("Não é possível transferir para a mesma conta.");
+		} else if (valTransf <= 0) {
 			throw new FeedbackException("Valor informado para transferência deve ser maior que 0.");
 		} else if (valTransf > LIM_DOC.doubleValue()) {
 			throw new FeedbackException(
@@ -118,11 +119,9 @@ public class ContaService extends GenericService<Conta> {
 		} else if (saldo == null || saldo == BigDecimal.ZERO || saldo.doubleValue() < valTransf) {
 			throw new FeedbackException("Saldo insuficiente para transferência. Saldo: R$ " + saldo.doubleValue());
 		} else if (!ctBen.getBanco().getCodCompensacao().equals(conta.getBanco().getCodCompensacao())) {
-			verifExisteContato(conta, ctBen);
 			saque(conta, valTransf + TAXA_TRANSF);
 			deposita(ctBen, valTransf);
 		} else {
-			verifExisteContato(conta, ctBen);
 			saque(conta, valTransf);
 			deposita(ctBen, valTransf);
 		}
@@ -156,10 +155,6 @@ public class ContaService extends GenericService<Conta> {
 		}
 
 		return conta;
-	}
-	
-	private void verifExisteContato(Conta conta, Conta ctContato) {
-		search = new Search(Conta.class);
 	}
 
 }

@@ -9,7 +9,7 @@ body{
 	font-family: 'Ubuntu';
 }
 
-form input{
+form .input-right{
 	text-align: right;
 }
 

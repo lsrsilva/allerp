@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.googlecode.genericdao.search.Search;
+
 import br.com.allerp.allbanks.dao.GenericDao;
 
 @Service
@@ -37,9 +39,19 @@ public class GenericService<Entity> {
 	@SuppressWarnings("unchecked")
 	public void update(Entity... entities) {
 		dao.update(entities);
-	}/*
-		 * 
-		 * public List<Entity> search(Search search) { return dao.search(search); }
-		 */
+	}
+
+	public List<Entity> search(Search search) {
+		return dao.search(search);
+	}
+	
+	public Entity searchUnique(Search search) {
+		return dao.searchUnique(search);
+	}
+	
+	@Transactional
+	public void merge(Entity entity) {
+		dao.merge(entity);
+	}
 
 }

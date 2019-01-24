@@ -29,8 +29,8 @@ public class Conta extends GenericEntity {
 	private static final long serialVersionUID = 1750152236850386281L;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="id_ag", referencedColumnName = "codigo", nullable = false)
-	@ForeignKey(name="FK_AG_CT")
+	@JoinColumn(name = "id_ag", referencedColumnName = "codigo", nullable = false)
+	@ForeignKey(name = "FK_AG_CT")
 	private Agencia agencia;
 
 	@Column(nullable = false, unique = true, length = 10)
@@ -39,11 +39,11 @@ public class Conta extends GenericEntity {
 	@Column(nullable = false, length = 7)
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Contas tipoConta;
-	
+
 	@Column(nullable = false, precision = 20, scale = 2)
 	private BigDecimal saldo = BigDecimal.ZERO;
 
@@ -59,8 +59,19 @@ public class Conta extends GenericEntity {
 	@ForeignKey(name = "FK_CT_TIT")
 	private Titular titular;
 
-	@ManyToMany(mappedBy = "ctContato")
-	private List<Contato> contato;
+	@Override
+	public boolean equals(Object conta) {
+		if (this == conta) {
+			return true;
+		}
+
+		if (!(conta instanceof Conta)) {
+			return false;
+		}
+
+		Conta conta2 = (Conta) conta;
+		return this.getCodigo() == conta2.getCodigo();
+	}
 
 	public Conta() {
 		status = Status.ATIVO;
@@ -128,18 +139,6 @@ public class Conta extends GenericEntity {
 
 	public void setTipoConta(Contas tipoConta) {
 		this.tipoConta = tipoConta;
-	}
-
-	public List<Contato> getContato() {
-		if(contato == null) {
-			contato.add(new Contato());
-			return contato;
-		}
-		return contato;
-	}
-
-	public void setContato(List<Contato> contato) {
-		this.contato = contato;
 	}
 
 }

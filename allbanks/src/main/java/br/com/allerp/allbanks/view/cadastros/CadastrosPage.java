@@ -44,7 +44,6 @@ import br.com.allerp.allbanks.service.conta.BancoService;
 import br.com.allerp.allbanks.service.conta.ContaService;
 import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.DashboardPage;
-import br.com.allerp.allbanks.view.Util;
 import br.com.allerp.allbanks.view.cadastros.panels.CadAgPanel;
 import br.com.allerp.allbanks.view.cadastros.panels.CadBancoPanel;
 import br.com.allerp.allbanks.view.cadastros.panels.CadContaPanel;
@@ -104,15 +103,6 @@ public class CadastrosPage extends DashboardPage {
 
 	// ----------------------------------------------------------------------//
 
-	// ---------------------------- BEANS --------------------------------//
-
-	private User user;
-	private Conta conta;
-	private Titular titular;
-	private Banco banco;
-
-	// ----------------------------------------------------------------------//
-
 	public CadastrosPage() {
 
 		if (!getSessao().getUser().getPerfil().toString().equals("Gerente")) {
@@ -164,57 +154,6 @@ public class CadastrosPage extends DashboardPage {
 		listViewBanco();
 		listViewConta();
 		listViewTitular();
-
-//		add(new AjaxLink<Object>("abaUser") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				target.add(divUser);
-//			}
-//		}, new AjaxLink<Object>("abaFunc") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				//listViewFunc();
-//				target.add(divFunc);
-//			}
-//		}, new AjaxLink<Object>("abaBanco") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				target.add(divBc);
-//			}
-//		}, new AjaxLink<Object>("abaAg") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				target.add(divAg);
-//			}
-//		},new AjaxLink<Object>("abaConta") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				target.add(divCt);
-//			}
-//		},new AjaxLink<Object>("abaTit") {
-//			
-//			private static final long serialVersionUID = 4409560948251289852L;
-//			
-//			@Override
-//			public void onClick(AjaxRequestTarget target) {
-//				target.add(divTit);
-//			}
-//		});
 
 		add(excModal);
 	}

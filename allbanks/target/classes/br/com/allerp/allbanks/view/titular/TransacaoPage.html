@@ -1,12 +1,13 @@
 <wicket:extend>
 
+	<div wicket:id="addContatoMd"></div>
 	<div class="center-div-content">
 	
-		<div class="d-flex justify-content-center">
-			<img class="icons-30" src="./icons/transacao.png"><h2 style="margin: 0 0 0 5px">Transações</h2>
+		<div class="">
+			<h2 class="text-center"><img class="icon" src="./icons/transacao.png">Transações</h2>
 		</div>
 		
-		<div class="d-flex justify-content-end pr-10">
+		<div class="ml-3">
 			<img class="icons-30" src="./icons/svg/saldo.svg"><span wicket:id="saldo" style="font-size: 20px;"></span>
 		</div>
  	
@@ -14,7 +15,7 @@
 			<form wicket:id="formDep" class="col-md-5 col-sm-6 my-mx-5" style="margin-left: 12%;">
 				<div>
 					<label wicket:for="valDep" colass="control-label">Valor do
-						depósito:</label> <input wicket:id="valDep" class="form-control dinheiro"
+						depósito:</label> <input wicket:id="valDep" class="form-control dinheiro input-right"
 						type="text">
 				</div>
 				<div class="d-flex justify-content-end">
@@ -26,7 +27,7 @@
 			<form wicket:id="formSaque" class="col-md-5 my-mx-5">
 				<div>
 					<label wicket:for="valSaque" class="control-label">Valor do
-						saque:</label> <input wicket:id="valSaque" class="form-control dinheiro"
+						saque:</label> <input wicket:id="valSaque" class="form-control dinheiro input-right"
 						type="text">
 				</div>
 				<div class="d-flex justify-content-end">
@@ -42,22 +43,22 @@
 				<div class="row my-mx-5">
 					<div class="col-md-6">
 						<label wicket:for="cpfCnpjBenef">CPF / CNPJ do beneficiário.</label>
-						<input wicket:id="cpfCnpjBenef" type="text" class="form-control">
+						<input wicket:id="cpfCnpjBenef" type="text" class="form-control input-right">
 					</div>
 					<div class="col-md-6">
 						<label wicket:for="agBenef">Agência do Beneficiário</label>
-						<input wicket:id="agBenef" type="text" class="form-control">
+						<input wicket:id="agBenef" type="text" class="form-control input-right">
 					</div>
 				</div>
 		
 				<div class="row my-mx-5">
 					<div class="col-md-6">
 						<label wicket:for="numContaBenef" class="control-label">Nº. da Conta do Beneficiário</label>
-						<input wicket:id="numContaBenef" class="form-control somenteNumero">
+						<input wicket:id="numContaBenef" class="form-control somenteNumero input-right">
 					</div>
 					<div class="col-md-6">
 						<label wicket:for="valTransf" class="control-label">Valor para transferência</label>
-						<input wicket:id="valTransf" class="form-control dinheiro" type="text">
+						<input wicket:id="valTransf" class="form-control dinheiro input-right" type="text">
 					</div>
 				</div>
 				<div class="col-md-12 d-flex justify-content-end">

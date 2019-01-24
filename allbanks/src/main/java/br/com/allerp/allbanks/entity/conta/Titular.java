@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -65,6 +64,9 @@ public class Titular extends Pessoa {
 	@Column(nullable = false)
 	private String tipoPessoa;
 
+	@OneToMany(mappedBy = "titular")
+	private List<Contato> contato;
+
 	public String getTipoPessoa() {
 		return tipoPessoa;
 	}
@@ -82,7 +84,7 @@ public class Titular extends Pessoa {
 	}
 
 	public String getNome() {
-		if(nome == null) {
+		if (nome == null) {
 			return "";
 		}
 		return nome;
@@ -140,4 +142,15 @@ public class Titular extends Pessoa {
 		this.user = user;
 	}
 
+	public List<Contato> getContato() {
+		if (contato == null) {
+			contato.add(new Contato());
+			return contato;
+		}
+		return contato;
+	}
+
+	public void setContato(List<Contato> contato) {
+		this.contato = contato;
+	}
 }

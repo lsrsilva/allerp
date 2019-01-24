@@ -15,7 +15,7 @@ $(document).ready(function() {
 	$(".data").mask("99/99/99");
 	$(".telefone").mask("(999) 9999-9999");
 	$(".celular").mask("(999) 99999-9999");
-	$(".dinheiro").maskMoney({thousands:'.', decimal:','});
+	$(".dinheiro").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 	
 	/*$("#cpfcnpj").keydown(function(){
 	    try {

@@ -9,6 +9,10 @@ body{
 	font-family: 'Ubuntu';
 }
 
+form input{
+	text-align: right;
+}
+
 .br-top-none{
 	border-style: none, none, solid, none;
 }
@@ -26,12 +30,8 @@ body{
 }
 
 .center-div-content{
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index:-1;
-	
+	position: relative;
+	margin: 10px 10px 10px 10px;
 }
 
 .centered-div{
@@ -109,6 +109,11 @@ body{
 	height: auto;
 }
 
+.icons-30{
+	width: 30px;
+	height: auto;
+}
+
 .icons-40{
 	width: 40px;
 	height: auto;
@@ -135,6 +140,10 @@ body{
 
 .my-mr-5{
 	margin-rigth: 5px;
+}
+
+.pr-10{
+	padding-right: 10px;
 }
 
 .my-mr-10{

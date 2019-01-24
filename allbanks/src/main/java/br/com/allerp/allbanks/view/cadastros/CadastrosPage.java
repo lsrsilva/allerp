@@ -122,8 +122,6 @@ public class CadastrosPage extends DashboardPage {
 
 		setTitle("Cadastros");
 
-		add(Util.link("dashboard", DashboardPage.class));
-
 		cadMdUser = new ModalWindow("cadMdUser");
 		cadMdUser.setResizable(false);
 		cadMdUser.setInitialHeight(214);

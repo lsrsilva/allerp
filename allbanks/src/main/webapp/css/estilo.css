@@ -1,91 +1,112 @@
-@import url("https://fonts.googleapis.com/css?family=Oxygen|Ubuntu|Mukta");
+@import
+	url("https://fonts.googleapis.com/css?family=Oxygen|Ubuntu|Mukta");
 
-a:active{
+a:active {
 	text-decoration: none;
 }
 
-body{
+body {
 	background-color: #f9f9f9;
 	font-family: 'Ubuntu';
 }
 
-form .input-right{
+caption {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  color: #000;
+  font-size: x-large;
+  text-align: center;
+  caption-side: top;
+}
+
+form .input-right {
 	text-align: right;
 }
 
-.br-top-none{
+.br-top-none {
 	border-style: none, none, solid, none;
 }
 
-.btn-excel{
+.btn-excel {
 	color: #fff;
 	background-color: #137a1c;
 	border-color: #137a1c;
 }
 
-.btn-pdf{
+.btn-pdf {
 	color: #fff;
 	background-color: #e81010;
 	border-color: #e81010;
 }
 
-.center-div-content{
+.center-div-content {
 	position: relative;
 	margin: 10px 10px 10px 10px;
 }
 
-.centered-div{
+.centered-div {
 	padding-left: 0;
 	left: 10px;
 	transition: 0.7s;
 }
 
-.hidden{
+.hidden {
 	display: none;
 }
 
-.label{
-	-ms-flex-align: ;
-       align-items: center;
-   -ms-flex-pack: center;
-       justify-content: center;
+.label {
+	-ms-flex-align:;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
 }
 
-.div-azul{
+.div-azul {
 	overflow: auto;
 	background-color: #68c2e8;
 	height: 25px;
 }
 
-.forms{
+.feedback {
+	display: -ms-flexbox !important;
+	display: flex !important;
+	justify-content: center;
+	padding: 25px;
+	margin: 10px 100px;
+	-webkit-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+	-moz-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+	box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+}
+
+.forms {
 	display: block;
 }
 
-.forms > form{
+.forms>form {
 	display: inline-block;
 	width: 500px;
 }
 
-.ft-fam-ubuntu{
+.ft-fam-ubuntu {
 	font-family: 'Ubuntu', sans-serif;
 }
 
-.ft-fam-ubuntu-grey{
+.ft-fam-ubuntu-grey {
 	font-family: 'Ubuntu', sans-serif;
 	color: #bfbfbf;
 }
 
-.ft-fam-ubuntu-white{
+.ft-fam-ubuntu-white {
 	font-family: 'Ubuntu', sans-serif;
 	color: #fff;
 }
 
-.ft-fam-oxygen{
+.ft-fam-oxygen {
 	font-family: 'Oxygen', sans-serif;
 	color: red;
 }
 
-.ft-fam-mukta{
+.ft-fam-mukta {
 	font-family: 'Mukta', sans-serif;
 }
 
@@ -96,7 +117,7 @@ form .input-right{
 	width: 100%;
 }
 
-.icon-sidebar{
+.icon-sidebar {
 	justify-content: center;
 	width: 50px;
 	height: auto;
@@ -104,22 +125,22 @@ form .input-right{
 	padding-top: 6%;
 }
 
-.icons{
+.icons {
 	width: 20px;
 	height: auto;
 }
 
-.icons-30{
+.icons-30 {
 	width: 30px;
 	height: auto;
 }
 
-.icons-40{
+.icons-40 {
 	width: 40px;
 	height: auto;
 }
 
-.br-radio-4{
+.br-radio-4 {
 	border: 3px solid #fff;
 	border-radius: 50%;
 }
@@ -130,140 +151,195 @@ form .input-right{
 	margin-top: 0px;
 }
 
-.my-ml-5{
+.my-ml-5 {
 	margin-left: 5px;
 }
 
-.my-ml-auto{
+.my-ml-auto {
 	margin-left: auto;
 }
 
-.my-mr-5{
+.my-mr-5 {
 	margin-rigth: 5px;
 }
 
-.pr-10{
+.pr-10 {
 	padding-right: 10px;
 }
 
-.my-mr-10{
+.my-mr-10 {
 	margin-rigth: 10px;
 }
 
-.my-mx-5{
+.my-mx-5 {
 	margin: 5px;
 }
 
-.my-mx{
+.my-mx {
 	margin: 3px;
 }
 
-.my-mr-auto{
+.my-mr-auto {
 	margin-right: auto;
 }
 
-.mr-tb-5{
+.mr-tb-5 {
 	margin: 5px 0;
 }
 
+/* MODAL WINDOW */
+
+.mw-margin{
+	position: relative;
+	margin-top: 10%;
+}
+
+.mw-div{
+	border: 1px solid #e6fd93;
+	border-radius: 0 0 15px 15px;
+}
+
+.mw-div-red{
+	border: 1px solid #fcbdbd;
+}
+
+.mw-head{
+	text-align: center;
+	color: #8f8f8f;
+	font-size: 25px;
+	border-radius: 15px 15px 0 0;
+	background-color: #e6fd93;
+	margin: 0;
+}
+/* ================================================== */
+
+/* Contatos */
+.div-contato{
+	position: fixed;
+	left: 50%;
+	margin-top: 10px;
+	z-index: 0;
+	transform: translate(-50%);
+}
+
+.div-contato .agenda{
+	margin-top: 15px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+}
+
+.paper {
+    padding: 5px 55px 27px;
+    position: relative;
+    border: 1px solid #B5B5B5;
+    background: white;
+    background: -webkit-linear-gradient(top, #DFE8EC 0%, white 8%) 0 57px;
+    background: -moz-linear-gradient(top, #DFE8EC 0%, white 8%) 0 57px;
+    background: linear-gradient(top, #DFE8EC 0%, white 8%) 0 57px;
+    -webkit-background-size: 100% 30px;
+    -moz-background-size: 100% 30px;
+    -ms-background-size: 100% 30px;
+    background-size: 100% 30px;
+}
+.paper::after {content:''; position:absolute; width:0px; top:0; left:39px; bottom:0; border-left:1px solid #F8D3D3;}
+
+.table-title {
+	text-align: center;
+	font-size: 30px;
+}
+
 .nav-text {
-	position:relative;
-	display:table-cell;
-	vertical-align:middle;
-	width:190px;
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	width: 190px;
 	font-family: 'Titillium Web', sans-serif;
 }
 
-.logo-size{
+.logo-size {
 	width: 50px;
 	height: auto;
 }
 
-.logo-circle{
+.logo-circle {
 	border-radius: 50%;
 	background-color: #fff;
 }
 
-.logo-circle-borded{
+.logo-circle-borded {
 	border-radius: 50%;
 	background-color: #fff;
 }
 
-.logo-sidebar{
+.logo-sidebar {
 	width: 55px;
 	height: auto;
 	transition: 0.7s;
 }
 
-.text-center{
+.text-center {
 	text-align: center;
 }
 
-.mt-7{
+.mt-7 {
 	margin-top: 7px;
 }
 
-.mb-1{
+.mb-1 {
 	margin-bottom: 1.5px;
 }
 
-.td-55{
-	 width: 55px;
+.td-55 {
+	width: 55px;
 }
 
-.text-center{
+.text-center {
 	text-align: center;
 }
 
-.text-center-15{
+.text-center-15 {
 	text-align: center;
 	margin-bottom: 15px;
 }
 
-.text-footer-white{
+.text-footer-white {
 	text-align: center;
 	color: white;
 }
 
-.teste{
+.teste {
 	display: block;
 }
 
-.feedback{
-	display: -ms-flexbox !important;
-  	display: flex !important;
-  	justify-content: center;
-  	padding: 25px;
-  	
-  	margin: 10px 100px;
-  	
-  	-webkit-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
-	-moz-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
-	box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
+.title{
+	text-align: center;
+	font-size: 30px;
 }
+
 
 .sidebar {
-    height: 100%; /* 100% Full-height */
-    width: 60px; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0;
-    left: 0;
-    background-color: #ededed; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.7s; /* 0.5 second transition effect to slide in the sidebar */
+	height: 100%; /* 100% Full-height */
+	width: 60px; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Stay on top */
+	top: 0;
+	left: 0;
+	background-color: #ededed; /* Black*/
+	overflow-x: hidden; /* Disable horizontal scroll */
+	transition: 0.7s;
+	/* 0.5 second transition effect to slide in the sidebar */
 }
 
-#content{
+#content {
 	margin-left: 60px;
 	transition: 0.7s;
 }
 
-#divLogo{
+#divLogo {
 	background-color: white;
 	height: 53px;
 }
 
-#text{
+#text {
 	padding-top: 20px;;
 }

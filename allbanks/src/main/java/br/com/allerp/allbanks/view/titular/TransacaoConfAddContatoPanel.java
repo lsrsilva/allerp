@@ -13,14 +13,14 @@ import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.service.conta.ContatoService;
 import br.com.allerp.allbanks.view.Util;
 
-public class AddContatoPanel extends Util<Conta> {
+public class TransacaoConfAddContatoPanel extends Util<Conta> {
 
 	private static final long serialVersionUID = -816662741800789145L;
 
 	@SpringBean(name = "contatoService")
 	private ContatoService contatoService;
 
-	public AddContatoPanel(String id, Contato contato, Titular titular, Conta contaCt, ModalWindow modal) {
+	public TransacaoConfAddContatoPanel(String id, Contato contato, Titular titular, Conta contaCt, ModalWindow modal) {
 		super(id);
 
 		lblAddContato(id, contato, titular, contaCt, modal);
@@ -28,7 +28,7 @@ public class AddContatoPanel extends Util<Conta> {
 
 	private void lblAddContato(String id, final Contato contato, final Titular titular, final Conta contaCt, final ModalWindow modal) {
 		add(new Label("lblConfirma", Model
-				.of("Deseja adicionar a conta de " + contaCt.getTitular().getNome() + " em sua lista de contatos?")));
+				.of("Adicionar a conta de " + contaCt.getTitular().getNome() + " em sua lista de contatos?")));
 		add(new AjaxLink<Object>("confirma") {
 
 			private static final long serialVersionUID = 8378657139492580114L;

@@ -1,0 +1,32 @@
+<wicket:extend>
+
+	<div class="div-contato">
+		<div>
+		   	<button wicket:id="btnAddContato" type="button" class="btn btn-success btn-sm mb-1 fas fa-plus-circle">
+				<span class="ft-fam-ubuntu-white"><img class="icons" alt="add" src="./icons/svg/plus.svg">&nbsp;Novo Contato</span>
+			</button>
+		</div>
+		<div wicket:id="paginator"></div>
+		<div wicket:id="divLvContatos" class="agenda paper">
+			<table class="table-hover table-sm br-top-none">
+				<caption><img class="icon" src="./icons/svg/contato.svg">Seus Contatos</caption>
+				<thead>
+					<tr class="tr text-center">
+						<th scope="col" width="100px;">Id</th>
+						<th scope="col" width="500px;">Titular</th>
+						<th scope="col" width="500px;">Número da Conta</th>
+					</tr>
+				</thead>
+				<tbody wicket:id="listContatos" class="text-center">
+					<tr>
+						<td wicket:id="id"></td>
+						<td wicket:id="titular"></td>
+						<td wicket:id="numConta"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div wicket:id="mdAddContato"></div>
+
+</wicket:extend>

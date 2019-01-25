@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
 
 import br.com.allerp.allbanks.view.cadastros.CadastrosPage;
+import br.com.allerp.allbanks.view.titular.ContatosPage;
 import br.com.allerp.allbanks.view.titular.TransacaoPage;
 
 public class DashboardPage extends SecuredBasePage {
@@ -14,6 +15,7 @@ public class DashboardPage extends SecuredBasePage {
 	private static final long serialVersionUID = -4712703917780323193L;
 
 	private Link<Object> transacao;
+	private Link<Object> contatos;
 
 	public DashboardPage() {
 
@@ -45,6 +47,8 @@ public class DashboardPage extends SecuredBasePage {
 		cadastros.setVisible(false);
 		transacao = Util.link("transacao", TransacaoPage.class);
 		transacao.setVisible(false);
+		contatos = Util.link("contatos", ContatosPage.class);
+		contatos.setVisible(false);
 
 		if (getUserPerfil("Gerente")) {
 			cadastros.setVisible(true);
@@ -55,7 +59,7 @@ public class DashboardPage extends SecuredBasePage {
 			setResponsePage(this);
 		}
 
-		add(cadastros, transacao);
+		add(cadastros, transacao, contatos);
 
 	}
 
@@ -65,6 +69,7 @@ public class DashboardPage extends SecuredBasePage {
 
 	private void titular() {
 		transacao.setVisible(true);
+		contatos.setVisible(true);
 	}
 
 }

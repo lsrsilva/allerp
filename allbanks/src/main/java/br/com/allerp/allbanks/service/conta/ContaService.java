@@ -156,5 +156,29 @@ public class ContaService extends GenericService<Conta> {
 
 		return conta;
 	}
+	
+	/**
+	 * Verifica se uma conta existe para um titular.
+	 * 
+	 * @param nomeTitular
+	 * @param numConta
+	 * @return A conta caso exista.
+	 * @throws FeedbackException
+	 */
+	public Conta verifExisteConta(String nomeTitular, Integer numConta) throws FeedbackException {
+
+		Conta conta;
+		search = new Search(Conta.class);
+
+		filter = Filter.and(Filter.equal("numConta", numConta), Filter.like("titular.nome", nomeTitular));
+		search.addFilter(filter);
+		conta = contaDao.searchUnique(search);
+
+		if (conta == null) {
+			throw new FeedbackException("Conta inexistente.");
+		}
+
+		return conta;
+	}
 
 }

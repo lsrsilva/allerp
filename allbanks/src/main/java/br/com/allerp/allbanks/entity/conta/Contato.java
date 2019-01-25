@@ -34,8 +34,8 @@ public class Contato extends GenericEntity {
 		return titular;
 	}
 
-	public void setTitular(Titular ctContato) {
-		this.titular = ctContato;
+	public void setTitular(Titular titular) {
+		this.titular = titular;
 	}
 
 	public Conta getCtContato() {

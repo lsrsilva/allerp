@@ -59,7 +59,7 @@ public class TransacaoPage extends DashboardPage {
 		addContatoModal = new ModalWindow("addContatoMd");
 		
 		addContatoModal.setInitialHeight(200);
-		addContatoModal.setInitialWidth(400);
+		addContatoModal.setInitialWidth(450);
 
 		add(lbSaldo());
 		add(formDep(), formSaque(), formTransf(), addContatoModal);
@@ -172,7 +172,7 @@ public class TransacaoPage extends DashboardPage {
 					saldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
 					temContato = titularService.existeContato(titular, ctBenef);
 
-					AddContatoPanel addContato = new AddContatoPanel(addContatoModal.getContentId(), contato, titular,
+					TransacaoConfAddContatoPanel addContato = new TransacaoConfAddContatoPanel(addContatoModal.getContentId(), contato, titular,
 							ctBenef, addContatoModal);
 					addContatoModal.setContent(addContato);
 					if (!temContato) {

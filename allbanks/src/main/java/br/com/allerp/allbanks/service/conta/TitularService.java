@@ -66,5 +66,14 @@ public class TitularService extends GenericService<Titular> {
 		}
 		return true;
 	}
+	
+	public List<Contato> searchContatos(Titular titular){
+		search = new Search(Contato.class);
+		filter = Filter.and(Filter.equal("titular.codigo", titular.getCodigo()));
+		search.addFilter(filter);
+		
+		return contatoService.search(search);
+		
+	}
 
 }

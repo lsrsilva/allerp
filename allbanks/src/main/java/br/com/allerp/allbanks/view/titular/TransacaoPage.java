@@ -230,7 +230,6 @@ public class TransacaoPage extends DashboardPage {
 
 					target.add(cpfCnpjBenefi, agCtBenef, numCtBenef);
 				} catch (NullPointerException ne) {
-					formTransf.clearInput();
 					numCtBenef.setEnabled(true);
 					agCtBenef.setEnabled(true);
 					cpfCnpjBenefi.setEnabled(true);

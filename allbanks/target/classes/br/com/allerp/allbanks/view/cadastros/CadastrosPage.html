@@ -8,10 +8,10 @@
 		<div class="div-cad">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true" onclick="alteraClasse(userCad);"><img class="icons" alt="Usuário" src="icons/svg/user2.svg"> Usuários</a>
+					<a class="nav-link active" data-toggle="tab" href="#userCad" aria-controls="userCad" aria-selected="true"><img class="icons" alt="Usuário" src="icons/svg/user2.svg"> Usuários</a>
 				</li>
   				<li class="nav-item">
-    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false" onclick="alteraClasse(funcCad);"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
+    				<a class="nav-link" data-toggle="tab" href="#funcCad" aria-controls="funcCad" aria-selected="false"><img class="icons" alt="Funcionário" src="icons/svg/empregado.svg"> Funcionários</a>
   				</li>
 			 	<li class="nav-item">
 				    <a class="nav-link" data-toggle="tab" href="#bancoCad" aria-controls="bancoCad" aria-selected="false"><img class="icons" alt="Banco" src="icons/svg/banco.svg"> Bancos</a>
@@ -225,7 +225,9 @@
 			  	<div wicket:id="divTit" id="titularCad" class="tab-pane fade"><br>
 			  	<form wicket:id="searchTit" class="d-flex justify-content-center form-row">
 					  	<div class="col-md-4 my-mx-5">
-							<input wicket:id="cpfCnpj" class="form-control" id="cpfcnpj" name="cpfcnpj" type="text" placeholder="Pesquisar por CPF / CNPJ">
+							<input wicket:id="cpfCnpj" class="form-control" id="cpfcnpj"
+								name="cpfcnpj" type="text"
+								placeholder="Pesquisar por CPF / CNPJ">
 						</div>
 						<div class="col-md-4 my-mx-5">
 							<input wicket:id="nome" class="form-control" type="text" placeholder="Pesquisar por nome / razão social">
@@ -266,6 +268,7 @@
 	<div wicket:id="excModal"></div>
 	
 	<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/jquery-mask-min.js"></script>
 	<script>
 	
 		function alteraClasse(id){

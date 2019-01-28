@@ -20,12 +20,12 @@ public class Contato extends GenericEntity {
 
 	private static final long serialVersionUID = 7292792173768982050L;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "tit_cod")
 	@ForeignKey(name = "FK_TIT_CONTATO")
 	private Titular titular;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "ct_contato")
 	@ForeignKey(name = "FK_CT_CONTATO")
 	private Conta ctContato;

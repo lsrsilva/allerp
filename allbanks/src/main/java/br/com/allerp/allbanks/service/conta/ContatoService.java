@@ -18,7 +18,7 @@ public class ContatoService extends GenericService<Contato> {
 
 	@SpringBean(name = "contatoDao")
 	private ContatoDao contatoDao;
-
+	
 	private Search search;
 	private Filter filter;
 
@@ -26,20 +26,20 @@ public class ContatoService extends GenericService<Contato> {
 		super.setDao(contatoDao);
 		this.contatoDao = contatoDao;
 	}
-	
+
 	public void saveOrUpdate(Contato contato, Conta ctContato, Titular titular) throws FeedbackException {
 		contato.setCtContato(ctContato);
 		contato.setTitular(titular);
-		contatoDao.saveOrUpdate(contato);
+		contatoDao.merge(contato);
 	}
 
-	public List<Contato> searchContatos(Integer numConta, String titCod) {
+	public List<Contato> searchContatos(Titular titular) {
 		search = new Search(Contato.class);
-
-		filter = Filter.and(Filter.ilike("titular.codigo", titCod), Filter.equal("conta.numConta", numConta));
+		filter = Filter.and(Filter.equal("titular.codigo", titular.getCodigo()));
 		search.addFilter(filter);
 
 		return contatoDao.search(search);
+
 	}
 
 }

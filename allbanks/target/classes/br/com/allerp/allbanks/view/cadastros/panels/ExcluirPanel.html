@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org">
-<head>
-<meta charset="UTF-8">
-</head>
-<body>
-	<wicket:panel>
-			<div class="form-group my-mx-5">
-				<div class=" col-md-6">
-					<span wicket:id="confirma" class="control-label-md"></span><br>
-				</div>
-				<div class=" col-md-6">
-					<span wicket:id="exMsg" class="control-label-md"></span>
-				</div>
-			</div>
-			
+<wicket:panel>
+	<div class="my-mx-5">	
+		<div class="mw-red-head">
+			<span wicket:id="confirma"></span>
+		</div>
+		<div class="mw-div mw-div-red">		
+			<span wicket:id="exMsg" class="control-label-md"></span>
 			<div class="d-flex justify-content-end">
 				<button wicket:id="btn-confirma" type="submit" class="btn btn-success my-mx-5">Confirmar</button>
- 				<button wicket:id="btn-cancelar" type="submit" class="btn btn-danger my-mx-5">Cancelar</button>
+					<button wicket:id="btn-cancelar" type="submit" class="btn btn-danger my-mx-5">Cancelar</button>
 			</div>
-	</wicket:panel>
-</body>
-</html>
+		</div>
+	</div>
+</wicket:panel>

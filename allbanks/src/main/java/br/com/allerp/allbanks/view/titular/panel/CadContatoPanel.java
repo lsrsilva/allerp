@@ -1,7 +1,6 @@
 package br.com.allerp.allbanks.view.titular.panel;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.Form;
@@ -16,6 +15,7 @@ import br.com.allerp.allbanks.entity.conta.Titular;
 import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.conta.ContaService;
 import br.com.allerp.allbanks.service.conta.ContatoService;
+import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.Util;
 
 public class CadContatoPanel extends Util<Contato> {
@@ -26,6 +26,9 @@ public class CadContatoPanel extends Util<Contato> {
 	private ContatoService contatoService;
 	@SpringBean(name = "contaService")
 	private ContaService contaService;
+	
+	@SpringBean(name="titularService")
+	private TitularService titularService;
 
 	private Contato contatoAux;
 
@@ -39,31 +42,37 @@ public class CadContatoPanel extends Util<Contato> {
 	public CadContatoPanel(String id, final Contato contato, final Titular titular, final ModalWindow modal) {
 		super(id);
 
-		final Form<Contato> formContato = new Form<Contato>("formContato");
+		CompoundPropertyModel<Contato> mdContato = new CompoundPropertyModel<Contato>(contato);
+		final Form<Contato> formContato = new Form<Contato>("formContato", mdContato);
 		TextField<String> nomeTitular = new TextField<String>("titular", new PropertyModel<String>(this, "nomeTitu"));
 		TextField<Integer> numConta = new TextField<Integer>("numConta", new PropertyModel<Integer>(this, "nuConta"));
 
-		formContato.add(nomeTitular, numConta);
-
 		contatoAux = contato;
-		formContato.add(new AjaxLink<Contato>("salvar") {
+		formContato.add(new AjaxButton("salvar") {
 
 			private static final long serialVersionUID = -3000003489718453819L;
 
 			@Override
-			public void onClick(AjaxRequestTarget target) {
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				try {
 					Conta ctContato = contaService.verifExisteConta(nomeTitu, nuConta);
-					contatoService.saveOrUpdate(contatoAux, ctContato, titular);
+					if(!titularService.existeContato(titular, ctContato)) {						
+						contatoService.saveOrUpdate(contatoAux, ctContato, titular);
+					}
 				} catch (FeedbackException e) {
 					e.printStackTrace();
 				}
-				atualizaAoModificar(target, contatoAux);
-
 				contatoAux = new Contato();
 				formContato.clearInput();
+				formContato.modelChanged();
+				formContato.setModelObject(contatoAux);
 
 				target.add(formContato);
+			}
+			
+			@Override
+			protected void onAfterSubmit(AjaxRequestTarget target, Form<?> form) {
+				atualizaAoModificar(target, contatoAux);
 			}
 
 		}, new AjaxButton("cancelar") {
@@ -76,16 +85,10 @@ public class CadContatoPanel extends Util<Contato> {
 			}
 
 		});
+
+		formContato.add(nomeTitular, numConta);
 		add(formContato);
 
-	}
-
-	public Integer getNuConta() {
-		return nuConta;
-	}
-
-	public void setNuConta(Integer nuConta) {
-		this.nuConta = nuConta;
 	}
 
 	public String getNomeTitu() {
@@ -94,6 +97,14 @@ public class CadContatoPanel extends Util<Contato> {
 
 	public void setNomeTitu(String nomeTitu) {
 		this.nomeTitu = nomeTitu;
+	}
+
+	public Integer getNuConta() {
+		return nuConta;
+	}
+
+	public void setNuConta(Integer nuConta) {
+		this.nuConta = nuConta;
 	}
 
 }

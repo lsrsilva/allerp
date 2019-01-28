@@ -141,12 +141,13 @@ public class ContaService extends GenericService<Conta> {
 	 * @return A conta caso exista.
 	 * @throws FeedbackException
 	 */
-	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit) throws FeedbackException {
+	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit, Integer codAg) throws FeedbackException {
 
 		Conta conta;
 		search = new Search(Conta.class);
 
-		filter = Filter.and(Filter.equal("numConta", numConta), Filter.ilike("titular.cpfCnpj", cpfCnpjTit));
+		filter = Filter.and(Filter.equal("numConta", numConta), Filter.ilike("titular.cpfCnpj", cpfCnpjTit),
+				Filter.equal("agencia.codAg", codAg));
 		search.addFilter(filter);
 		conta = contaDao.searchUnique(search);
 
@@ -156,7 +157,7 @@ public class ContaService extends GenericService<Conta> {
 
 		return conta;
 	}
-	
+
 	/**
 	 * Verifica se uma conta existe para um titular.
 	 * 
@@ -170,12 +171,12 @@ public class ContaService extends GenericService<Conta> {
 		Conta conta;
 		search = new Search(Conta.class);
 
-		filter = Filter.and(Filter.equal("numConta", numConta), Filter.like("titular.nome", nomeTitular));
+		filter = Filter.and(Filter.ilike("titular.nome", nomeTitular), Filter.equal("numConta", numConta));
 		search.addFilter(filter);
 		conta = contaDao.searchUnique(search);
 
 		if (conta == null) {
-			throw new FeedbackException("Conta inexistente.");
+			throw new FeedbackException("Conta para transferência inexistente.");
 		}
 
 		return conta;

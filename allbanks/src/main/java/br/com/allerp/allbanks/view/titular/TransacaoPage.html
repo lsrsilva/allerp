@@ -14,32 +14,33 @@
 		<div class="forms">
 			<form wicket:id="formDep" class="col-md-5 col-sm-6 my-mx-5" style="margin-left: 12%;">
 				<div>
-					<label wicket:for="valDep" colass="control-label">Valor do
-						depósito:</label> <input wicket:id="valDep" class="form-control dinheiro input-right"
-						type="text">
+					<label wicket:for="valDep" colass="control-label">Valor do depósito:</label>
+					<input wicket:id="valDep" class="form-control dinheiro input-right" type="text">
 				</div>
 				<div class="d-flex justify-content-end">
-					<button wicket:id="depositar" class="btn btn-success"
-						style="margin: 5px 0;">Depositar</button>
+					<button wicket:id="depositar" class="btn btn-success" style="margin: 5px 0;">Depositar</button>
 				</div>
 			</form>
 	
 			<form wicket:id="formSaque" class="col-md-5 my-mx-5">
 				<div>
-					<label wicket:for="valSaque" class="control-label">Valor do
-						saque:</label> <input wicket:id="valSaque" class="form-control dinheiro input-right"
-						type="text">
+					<label wicket:for="valSaque" class="control-label">Valor do saque:</label>
+					<input wicket:id="valSaque" class="form-control dinheiro input-right" type="text">
 				</div>
 				<div class="d-flex justify-content-end">
-					<button wicket:id="sacar" class="btn btn-success"
-						style="margin: 5px 0;">Sacar</button>
+					<button wicket:id="sacar" class="btn btn-success" style="margin: 5px 0;">Sacar</button>
 				</div>
 			</form>
 	
 		</div>
 		<div>
 			<form wicket:id="formTransf">
-		
+				
+				<div class="col-md-6">
+					<label wicket:for="dropContatos" class="control-label-md">Contatos para transferência</label><br>
+					<select wicket:id="dropContatos" class="form-control custom-select"></select>
+				</div>
+				
 				<div class="row my-mx-5">
 					<div class="col-md-6">
 						<label wicket:for="cpfCnpjBenef">CPF / CNPJ do beneficiário.</label>

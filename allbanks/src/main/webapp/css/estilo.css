@@ -201,6 +201,7 @@ form .input-right {
 
 .mw-div-red{
 	border: 1px solid #fcbdbd;
+	border-radius: 0 0 15px 15px;
 }
 
 .mw-head{
@@ -209,6 +210,15 @@ form .input-right {
 	font-size: 25px;
 	border-radius: 15px 15px 0 0;
 	background-color: #e6fd93;
+	margin: 0;
+}
+
+.mw-red-head{
+	text-align: center;
+	color: #8f8f8f;
+	font-size: 25px;
+	border-radius: 15px 15px 0 0;
+	background-color: #fcbdbd;
 	margin: 0;
 }
 /* ================================================== */

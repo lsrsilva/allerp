@@ -12,6 +12,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.ContaService;
+import br.com.allerp.allbanks.view.panel.FeedbacksPanel;
 
 public class LoginPage extends SecuredBasePage {
 
@@ -33,10 +34,14 @@ public class LoginPage extends SecuredBasePage {
 
 		final TextField<String> userAccess = new TextField<String>("userAccess");
 		userAccess.setRequired(true);
-		userAccess.setLabel(Model.of("Usuário"));
+		userAccess.setLabel(Model.of("Username"));
 		final PasswordTextField senha = new PasswordTextField("psw");
 		senha.setRequired(true);
 		senha.setLabel(Model.of("Senha"));
+		
+		final FeedbacksPanel feedback = new FeedbacksPanel("feedback");
+		feedback.setOutputMarkupPlaceholderTag(true);
+		feedback.setVisible(false);
 
 		form.add(userAccess);
 		form.add(senha);
@@ -47,14 +52,24 @@ public class LoginPage extends SecuredBasePage {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if (userService.autentica(userAccess.getValue(), senha.getValue())) {
+				if (userService.existeUser(userAccess.getValue(), senha.getValue())) {
 					setResponsePage(DashboardPage.class);
-				} 
+				} else {
+					feedback.error("Usuário ou senha incorretos!");;
+					feedback.setVisible(true);
+					target.add(feedback);
+				}
+			}
+			
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+				feedback.setVisible(true);
+				target.add(feedback);
 			}
 
 		});
 
-		add(form);
+		add(form, feedback);
 	}
 
 	@Override

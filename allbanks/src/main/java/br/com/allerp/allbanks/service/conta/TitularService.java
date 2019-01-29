@@ -12,6 +12,7 @@ import br.com.allerp.allbanks.dao.conta.TitularDao;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.conta.Titular;
+import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.GenericService;
 
 @Service
@@ -49,19 +50,23 @@ public class TitularService extends GenericService<Titular> {
 	 * Verifica se o titular já possui a conta em sua lista de contatos
 	 * 
 	 * @param ctContato conta a ser verificada
+	 * @throws FeedbackException
 	 */
-	public boolean existeContato(Titular titular, Conta ctContato) {
+	public boolean existeContato(Titular titular, Conta ctContato) throws FeedbackException {
 
 		search = new Search(Contato.class);
+
+		System.out.println("Titular: " + titular.getCodigo());
+		System.out.println("Conta contato: " + ctContato.getNumConta());
 
 		filter = Filter.and(Filter.equal("titular.codigo", titular.getCodigo()),
 				Filter.equal("ctContato.numConta", ctContato.getNumConta()));
 
 		search.addFilter(filter);
 
-		Contato contatos = contatoService.searchUnique(search);
+		Contato contato = contatoService.searchUnique(search);
 
-		if (contatos == null) {
+		if (contato == null) {
 			return false;
 		}
 		return true;

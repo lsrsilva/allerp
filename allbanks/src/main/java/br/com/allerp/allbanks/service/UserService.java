@@ -20,12 +20,35 @@ public class UserService extends GenericService<User> {
 	private Search search;
 	private Filter filter;
 
+	public String saveOrUpdates(User user) {
+
+		if (user.getEmail() == null) {
+			return "O campo E-mail deve ser preenchido.";
+		}
+
+		if (user.getUserAccess() == null) {
+			return "O campo Acesso deve ser preenchido.";
+		}
+
+		if (user.getPerfil() == null) {
+			return "O campo Perfil deve ser preenchido.";
+		}
+
+		if (user.getPsw() == null) {
+			return "O campo Senha deve ser preenchido.";
+		}
+
+		super.saveOrUpdate(user);
+
+		return "Usuário " + user.getUserAccess() + " salvo com sucesso!";
+	}
+
 	public void setUserDao(UserDao userDao) {
 		super.setDao(userDao);
 		this.userDao = userDao;
 	}
 
-	public boolean autentica(String username, String psw) {
+	public boolean existeUser(String username, String psw) {
 		if (username != null && psw != null) {
 			User user = userDao.findUser(username);
 			if (user != null) {
@@ -33,7 +56,6 @@ public class UserService extends GenericService<User> {
 					AllbanksSession.get().setUser(user);
 					return true;
 				}
-
 			}
 		}
 
@@ -49,11 +71,10 @@ public class UserService extends GenericService<User> {
 	public List<User> search(String acesso, Perfis perfil) {
 		search = new Search(User.class);
 
-		filter = (Filter.and(Filter.ilike("userAccess", "%" + acesso + "%"),
-				Filter.equal("perfil", perfil)));
+		filter = (Filter.and(Filter.ilike("userAccess", "%" + acesso + "%"), Filter.equal("perfil", perfil)));
 
 		search.addFilter(filter);
-		
+
 		return userDao.search(search);
 	}
 }

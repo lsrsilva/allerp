@@ -1,7 +1,6 @@
 package br.com.allerp.allbanks.entity.conta;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,8 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
@@ -28,7 +27,7 @@ public class Conta extends GenericEntity {
 
 	private static final long serialVersionUID = 1750152236850386281L;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "id_ag", referencedColumnName = "codigo", nullable = false)
 	@ForeignKey(name = "FK_AG_CT")
 	private Agencia agencia;
@@ -49,15 +48,18 @@ public class Conta extends GenericEntity {
 
 	private ExtratoBancario extrato;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "banco_cod", referencedColumnName = "codigo", nullable = false)
 	@ForeignKey(name = "FK_CT_BC")
 	private Banco banco;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "tit_cod", referencedColumnName = "tit_cod")
 	@ForeignKey(name = "FK_CT_TIT")
 	private Titular titular;
+
+	@OneToOne(mappedBy = "ctContato", cascade = CascadeType.REMOVE)
+	private Contato contato;
 
 	@Override
 	public boolean equals(Object conta) {

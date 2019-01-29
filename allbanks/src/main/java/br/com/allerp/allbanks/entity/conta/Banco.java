@@ -25,7 +25,7 @@ public class Banco extends GenericEntity {
 	@ForeignKey(name = "FK_BC_COD", inverseName = "FK_CONTA")
 	private List<Conta> conta;
 
-	@OneToMany(mappedBy = "banco")
+	@OneToMany(mappedBy = "banco", cascade=CascadeType.REMOVE)
 	private List<Agencia> agencia;
 
 	@Column(name = "cod_compensacao", nullable = false, unique = true, length = 5)

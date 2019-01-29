@@ -62,6 +62,7 @@ public class CadFuncPanel extends Util<Funcionario> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				target.appendJavaScript("mostraTabCad('funcCad')");
 				atualizaAoModificar(target, funcAux);
 
 				funcAux = new Funcionario();

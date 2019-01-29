@@ -29,7 +29,7 @@ public class TransacaoConfAddContatoPanel extends Util<Conta> {
 	private void lblAddContato(String id, final Contato contato, final Titular titular, final Conta contaCt, final ModalWindow modal) {
 		add(new Label("lblConfirma", Model
 				.of("Adicionar a conta de " + contaCt.getTitular().getNome() + " em sua lista de contatos?")));
-		add(new AjaxLink<Object>("confirma") {
+		add(new AjaxLink<Conta>("confirma") {
 
 			private static final long serialVersionUID = 8378657139492580114L;
 
@@ -39,6 +39,7 @@ public class TransacaoConfAddContatoPanel extends Util<Conta> {
 				contato.setTitular(titular);
 				contatoService.merge(contato);
 				modal.close(target);
+				atualizaAoModificar(target, contaCt);
 			}
 
 		});

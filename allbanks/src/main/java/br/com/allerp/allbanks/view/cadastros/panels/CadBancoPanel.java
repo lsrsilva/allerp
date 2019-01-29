@@ -37,6 +37,7 @@ public class CadBancoPanel extends Util<Banco> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				target.appendJavaScript("mostraTabCad('bancoCad');");
 				atualizaAoModificar(target, bancoAux);
 
 				bancoAux = new Banco();

@@ -23,12 +23,12 @@ public class Agencia extends GenericEntity {
 	@Column(nullable = false, unique = true, length = 65)
 	private Integer codAg;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_banco", referencedColumnName = "codigo")
 	@ForeignKey(name = "FK_BC_AG")
 	private Banco banco;
 	
-	@OneToMany(mappedBy = "agencia")
+	@OneToMany(mappedBy = "agencia", cascade= {CascadeType.REMOVE})
 	private List<Conta> conta;
 	/*
 	 * @OneToOne(cascade = CascadeType.ALL)

@@ -17,7 +17,7 @@ public class ExcluirPanel<T> extends Util<T> {
 	
 	public ExcluirPanel(String id, final T object, String titulo, String message) {
 		super(id);
-		add(new Label("confirma", "Excluir " + titulo + "!"));
+		add(new Label("confirma", "Exclusão de " + titulo + "!"));
 
 		add(new Label("exMsg", message));
 

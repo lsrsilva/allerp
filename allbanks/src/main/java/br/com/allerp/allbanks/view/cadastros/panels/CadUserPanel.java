@@ -37,6 +37,7 @@ public class CadUserPanel extends Util<User> {
 		final Form<User> formCadUs = new Form<User>("formCadUs", modelCadUs);
 
 		TextField<String> userAccess = new TextField<String>("userAccess");
+		userAccess.setRequired(true);
 		DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis) {
 
 			private static final long serialVersionUID = 7194271655576226917L;
@@ -49,8 +50,11 @@ public class CadUserPanel extends Util<User> {
 				return super.isDisabled(object, index, selected);
 			}
 		};
+		perfil.setRequired(true);
 		EmailTextField email = new EmailTextField("email");
+		email.setRequired(true);
 		PasswordTextField psw = new PasswordTextField("psw");
+		psw.setRequired(true);
 
 		userAux = user;
 		formCadUs.add(new AjaxButton("salvar") {
@@ -59,6 +63,7 @@ public class CadUserPanel extends Util<User> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				target.appendJavaScript("mostraTabCad('userCad');");
 				atualizaAoModificar(target, userAux);
 
 				userAux = new User();

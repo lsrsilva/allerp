@@ -15,6 +15,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.string.AppendingStringBuffer;
 
 import br.com.allerp.allbanks.entity.conta.Contato;
+import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.service.conta.ContatoService;
 import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.DashboardPage;
@@ -38,7 +39,7 @@ public class ContatosPage extends DashboardPage {
 	private List<Contato> contatos;
 
 	public ContatosPage() {
-		if (!getUserPerfil("Titular")) {
+		if (!getUserPerfil(Perfis.TITULAR.toString())) {
 			setResponsePage(DashboardPage.class);
 		}
 
@@ -141,7 +142,7 @@ public class ContatosPage extends DashboardPage {
 						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
 						// agencia.getCodigo() + "?", excModal, divAg, target);
 						ExcluirPanel<Contato> excPanel = new ExcluirPanel<Contato>(excMd.getContentId(), contato,
-								"contato", "Excluir o contato " + contato.getCtContato().getTitular().getNome() + "?") {
+								"contato", "Remover o " + contato.getCtContato().getTitular().getNome() + " de sua lista de contatos?") {
 
 							private static final long serialVersionUID = -2564309581427741392L;
 

@@ -1,10 +1,10 @@
 package br.com.allerp.allbanks.entity.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
@@ -35,7 +35,7 @@ public class User extends GenericEntity {
 	@Enumerated(EnumType.ORDINAL)
 	private Perfis perfil;
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(mappedBy="user", cascade=CascadeType.REMOVE)
 	private Titular titular;
 
 	public String getEmail() {

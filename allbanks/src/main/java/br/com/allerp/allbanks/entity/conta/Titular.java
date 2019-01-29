@@ -28,11 +28,11 @@ public class Titular extends Pessoa {
 
 	private static final long serialVersionUID = -8605819128606661027L;
 
-	@OneToMany(mappedBy = "titular")
+	@OneToMany(mappedBy = "titular", cascade = CascadeType.REMOVE)
 	@Column(nullable = false)
 	private List<Conta> contas;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_user", nullable = false, unique = true)
 	@ForeignKey(name = "FK_ID_USER")
 	private User user;
@@ -43,7 +43,7 @@ public class Titular extends Pessoa {
 	@Column(length = 16)
 	private String celular;
 
-	@Column(length = 14)
+	@Column(length = 14, unique = true)
 	private String cpfCnpj;
 
 	@Column
@@ -64,7 +64,7 @@ public class Titular extends Pessoa {
 	@Column(nullable = false)
 	private String tipoPessoa;
 
-	@OneToMany(mappedBy = "titular")
+	@OneToMany(mappedBy = "titular", cascade=CascadeType.REMOVE)
 	private List<Contato> contato;
 
 	public String getTipoPessoa() {

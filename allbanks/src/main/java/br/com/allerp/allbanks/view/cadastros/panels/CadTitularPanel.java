@@ -85,6 +85,7 @@ public class CadTitularPanel extends Util<Titular> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				target.appendJavaScript("mostraTabCad('titularCad')");
 				atualizaAoModificar(target, titularAux);
 
 				titularAux = new Titular();

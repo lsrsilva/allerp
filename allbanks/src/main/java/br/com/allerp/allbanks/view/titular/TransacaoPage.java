@@ -24,6 +24,7 @@ import com.ibm.icu.text.DecimalFormat;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.conta.Titular;
+import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.conta.ContaService;
 import br.com.allerp.allbanks.service.conta.ContatoService;
@@ -63,11 +64,12 @@ public class TransacaoPage extends DashboardPage {
 
 	public TransacaoPage() {
 		setTitle("Transações");
-		if (!getUserPerfil("Titular")) {
+		if (!getUserPerfil(Perfis.TITULAR.toString())) {
 			setResponsePage(DashboardPage.class);
 			return;
 		}
 
+		titular = getSessao().getUser().getTitular();
 		contatos = contatoService.searchContatos(getSessao().getUser().getTitular());
 		decFormt = new DecimalFormat("R$ #,##0.00");
 
@@ -82,8 +84,6 @@ public class TransacaoPage extends DashboardPage {
 	}
 
 	public Label lbSaldo() {
-
-		titular = getSessao().getUser().getTitular();
 		List<Conta> contas = titular.getContas();
 		conta = new Conta();
 
@@ -261,7 +261,16 @@ public class TransacaoPage extends DashboardPage {
 					temContato = titularService.existeContato(titular, ctBenef);
 
 					TransacaoConfAddContatoPanel addContato = new TransacaoConfAddContatoPanel(
-							addContatoModal.getContentId(), contato, titular, ctBenef, addContatoModal);
+							addContatoModal.getContentId(), contato, titular, ctBenef, addContatoModal) {
+
+						private static final long serialVersionUID = 3937560906630258053L;
+
+						public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
+							contatos = contatoService.searchContatos(getSessao().getUser().getTitular());
+							dropContatos.setChoices(contatos);
+							target.add(dropContatos);
+						};
+					};
 					addContatoModal.setContent(addContato);
 					if (!temContato) {
 						addContatoModal.show(target);
@@ -273,7 +282,6 @@ public class TransacaoPage extends DashboardPage {
 				}
 
 			}
-
 		});
 
 		formTransf.add(cpfCnpjBenefi, agCtBenef, numCtBenef, valorTransf, dropContatos);

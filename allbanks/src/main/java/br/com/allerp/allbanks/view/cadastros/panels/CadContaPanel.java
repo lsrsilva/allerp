@@ -30,8 +30,10 @@ import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.entity.user.User;
+import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;
+import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.Util;
 
 public class CadContaPanel extends Util<Conta> {
@@ -44,6 +46,10 @@ public class CadContaPanel extends Util<Conta> {
 	private AgenciaService agenciaService;
 	@SpringBean(name = "bancoService")
 	private BancoService bancoService;
+	@SpringBean(name = "titularService")
+	private TitularService titularService;
+	@SpringBean(name = "userService")
+	private UserService userService;
 
 	private List<Agencia> agencias = agenciaService.findAll();
 	private List<Banco> bancos = bancoService.findAll();
@@ -61,7 +67,7 @@ public class CadContaPanel extends Util<Conta> {
 		this(id, new Conta(), new Titular(), new User(), modal);
 	}
 
-	public CadContaPanel(String id, Conta conta, Titular titular, User titUser, ModalWindow modal) {
+	public CadContaPanel(String id, Conta conta, final Titular titular, User titUser, ModalWindow modal) {
 		super(id);
 
 		// CadTitularPanel cadTit = new CadTitularPanel("cadTit");
@@ -142,8 +148,12 @@ public class CadContaPanel extends Util<Conta> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-
-				ctAux.getTitular().getUser().setUserAccess(numConta.getValue());
+				target.appendJavaScript("mostraTabCad('contaCad');");
+				
+				titular.getUser().setUserAccess(numConta.getValue());
+				userService.saveOrUpdate(titular.getUser());
+				titularService.saveOrUpdate(titular);
+				
 				atualizaAoModificar(target, ctAux);
 
 				ctAux = new Conta();

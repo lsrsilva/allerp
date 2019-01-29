@@ -53,6 +53,7 @@ public class CadAgPanel extends Util<Agencia> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				target.appendJavaScript("mostraTabCad('agCad');");
 				atualizaAoModificar(target, agAux);
 
 				agAux = new Agencia();

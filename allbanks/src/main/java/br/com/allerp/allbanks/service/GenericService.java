@@ -1,6 +1,7 @@
 package br.com.allerp.allbanks.service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import br.com.allerp.allbanks.dao.GenericDao;
 public class GenericService<Entity> {
 
 	private GenericDao<Entity, Long> dao;
+	
+	private List<String> mensagens = new ArrayList<String>();
 
 	public void setDao(GenericDao<Entity, Long> dao) {
 		this.dao = dao;
@@ -52,6 +55,14 @@ public class GenericService<Entity> {
 	@Transactional
 	public void merge(Entity entity) {
 		dao.merge(entity);
+	}
+
+	public List<String> getMensagens() {
+		return mensagens;
+	}
+
+	public void setMensagens(List<String> mensagens) {
+		this.mensagens = mensagens;
 	}
 
 }

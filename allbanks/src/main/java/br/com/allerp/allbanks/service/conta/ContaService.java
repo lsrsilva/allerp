@@ -176,7 +176,7 @@ public class ContaService extends GenericService<Conta> {
 		conta = contaDao.searchUnique(search);
 
 		if (conta == null) {
-			throw new FeedbackException("Conta para transferência inexistente.");
+			throw new FeedbackException("Conta inexistente.");
 		}
 
 		return conta;

@@ -26,6 +26,7 @@ import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.request.resource.ContentDisposition;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
+import org.apache.wicket.util.string.AppendingStringBuffer;
 
 import br.com.allerp.allbanks.entity.colaborador.Funcionario;
 import br.com.allerp.allbanks.entity.conta.Agencia;
@@ -105,7 +106,7 @@ public class CadastrosPage extends DashboardPage {
 
 	public CadastrosPage() {
 
-		if (!getSessao().getUser().getPerfil().toString().equals("Gerente")) {
+		if (!getUserPerfil(Perfis.GERENTE.toString())) {
 			setResponsePage(DashboardPage.class);
 			return;
 		}
@@ -114,7 +115,7 @@ public class CadastrosPage extends DashboardPage {
 
 		cadMdUser = new ModalWindow("cadMdUser");
 		cadMdUser.setResizable(false);
-		cadMdUser.setInitialHeight(214);
+		cadMdUser.setInitialHeight(264);
 		cadMdFunc = new ModalWindow("cadMdFunc");
 		cadMdFunc.setResizable(false);
 		cadMdAg = new ModalWindow("cadMdAg");
@@ -125,19 +126,37 @@ public class CadastrosPage extends DashboardPage {
 		cadMdCt.setResizable(false);
 		cadMdTit = new ModalWindow("cadMdTit");
 		cadMdTit.setResizable(false);
-		excModal = new ModalWindow("excModal");
+		excModal = new ModalWindow("excModal") {
+
+			private static final long serialVersionUID = -8597477177518818635L;
+
+			@Override
+			protected AppendingStringBuffer postProcessSettings(AppendingStringBuffer settings) {
+				appendAssignment(settings, "settings.minWidth", 380);
+				appendAssignment(settings, "settings.minHeight", 122);
+				appendAssignment(settings, "settings.width", 380);
+				appendAssignment(settings, "settings.height", 122);
+
+				return settings;
+			}
+		};
 		excModal.setResizable(false);
 
 		divUser = new WebMarkupContainer("divUser");
 		divUser.setOutputMarkupId(true);
+
 		divFunc = new WebMarkupContainer("divFunc");
 		divFunc.setOutputMarkupId(true);
+
 		divAg = new WebMarkupContainer("divAg");
 		divAg.setOutputMarkupId(true);
+
 		divBc = new WebMarkupContainer("divBc");
 		divBc.setOutputMarkupId(true);
+
 		divCt = new WebMarkupContainer("divCt");
 		divCt.setOutputMarkupId(true);
+
 		divTit = new WebMarkupContainer("divTit");
 		divTit.setOutputMarkupId(true);
 
@@ -190,7 +209,7 @@ public class CadastrosPage extends DashboardPage {
 						listUser = userService.search(user.getUserAccess(), user.getPerfil());
 					}
 				}
-
+				target.appendJavaScript("mostraTabCad('userCad');");
 				target.add(divUser, searchUser);
 			}
 
@@ -279,7 +298,7 @@ public class CadastrosPage extends DashboardPage {
 						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
 						// agencia.getCodigo() + "?", excModal, divAg, target);
 						ExcluirPanel<User> excPanel = new ExcluirPanel<User>(excModal.getContentId(), user, "usuário",
-								"Excluir o usuário" + user.getUserAccess() + "?") {
+								"Excluir o usuário " + user.getUserAccess() + "?") {
 
 							private static final long serialVersionUID = -2564309581427741392L;
 
@@ -301,8 +320,6 @@ public class CadastrosPage extends DashboardPage {
 
 			}
 		};
-
-		lvUser.getReuseItems();
 
 		final GeradorRelatorio<User> relUser = new GeradorRelatorio<User>();
 		final HashMap<String, Object> usParam = new HashMap<String, Object>();
@@ -375,6 +392,7 @@ public class CadastrosPage extends DashboardPage {
 					}
 					listFunc = funcService.search(func.getNome(), func.getCpf(), func.getFuncao());
 				}
+				target.appendJavaScript("mostraTabCad('funcCad');");
 				target.add(divFunc);
 			}
 
@@ -462,7 +480,7 @@ public class CadastrosPage extends DashboardPage {
 						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
 						// agencia.getCodigo() + "?", excModal, divAg, target);
 						ExcluirPanel<Funcionario> excPanel = new ExcluirPanel<Funcionario>(excModal.getContentId(),
-								func, "funcionário", "Excluir o cadastro do funcionário" + func.getNome() + "?") {
+								func, "funcionário", "Excluir o cadastro do funcionário " + func.getNome() + "?") {
 
 							private static final long serialVersionUID = -2564309581427741392L;
 
@@ -470,7 +488,6 @@ public class CadastrosPage extends DashboardPage {
 							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario object) {
 								excModal.close(target);
 								listFunc = funcService.findAll();
-
 								target.add(divAg);
 							}
 
@@ -516,9 +533,11 @@ public class CadastrosPage extends DashboardPage {
 						|| banco.getCodCompensacao().equals("")) {
 					if (nome.getValue().equals("") && codCompensacao.getValue().equals("")) {
 						listBc = bancoService.findAll();
+					} else {
+						listBc = bancoService.search(banco.getCodCompensacao(), banco.getNome());
 					}
-					listBc = bancoService.search(banco.getCodCompensacao(), banco.getNome());
 				}
+				target.appendJavaScript("mostraTabCad('bancoCad');");
 				target.add(divBc);
 			}
 
@@ -676,7 +695,7 @@ public class CadastrosPage extends DashboardPage {
 								agencia.getBanco().getNome());
 					}
 				}
-
+				target.appendJavaScript("mostraTabCad('agCad');");
 				target.add(divAg, searchAg);
 			}
 
@@ -765,7 +784,7 @@ public class CadastrosPage extends DashboardPage {
 						// util.addExcPanel("excluir", agencia, "agência", "Exluir a Agência" +
 						// agencia.getCodigo() + "?", excModal, divAg, target);
 						ExcluirPanel<Agencia> excPanel = new ExcluirPanel<Agencia>(excModal.getContentId(), agencia,
-								"agência", "Excluir a agência" + agencia.getCodAg() + "?") {
+								"agência", "Excluir a agência " + agencia.getCodAg() + "?") {
 
 							private static final long serialVersionUID = -2564309581427741392L;
 
@@ -837,7 +856,7 @@ public class CadastrosPage extends DashboardPage {
 								conta.getStatus(), conta.getTipoConta());
 					}
 				}
-
+				target.appendJavaScript("mostraTabCad('contaCad');");
 				target.add(divCt, searchCt);
 			}
 
@@ -910,8 +929,6 @@ public class CadastrosPage extends DashboardPage {
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
-								userService.saveOrUpdate(object.getTitular().getUser());
-								titularService.saveOrUpdate(object.getTitular());
 								contaService.saveOrUpdate(object);
 								cadMdCt.close(target);
 								target.add(divCt);
@@ -993,7 +1010,7 @@ public class CadastrosPage extends DashboardPage {
 						listTit = titularService.search(titular.getCpfCnpj(), titular.getNome());
 					}
 				}
-
+				target.appendJavaScript("mostraTabCad('titularCad');");
 				target.add(divTit, searchTit);
 			}
 
@@ -1087,6 +1104,12 @@ public class CadastrosPage extends DashboardPage {
 
 		divTit.add(lvTit);
 		add(divTit, cadMdTit);
+	}
+
+	private void appendAssignment(final AppendingStringBuffer buffer, final CharSequence key, final int value) {
+		buffer.append(key).append("=");
+		buffer.append(value);
+		buffer.append(";\n");
 	}
 
 }

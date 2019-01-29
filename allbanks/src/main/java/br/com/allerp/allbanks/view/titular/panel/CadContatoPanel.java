@@ -60,7 +60,7 @@ public class CadContatoPanel extends Util<Contato> {
 						contatoService.saveOrUpdate(contatoAux, ctContato, titular);
 					}
 				} catch (FeedbackException e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
 				contatoAux = new Contato();
 				formContato.clearInput();

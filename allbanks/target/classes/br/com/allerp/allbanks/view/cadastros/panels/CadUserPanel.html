@@ -5,34 +5,40 @@
 </head>
 <body>
 	<wicket:panel>
-		<form wicket:id="formCadUs">
-			
-			<div class="form-row my-mx-5">
-				<div class=" col-md-6">
-					<label wicket:for="userAccess" class="control-label-md">Acesso</label>
-					<input wicket:id="userAccess" class="form-control" type="text"/>
-				</div>
-				<div class=" col-md-6">
-					<label wicket:for="perfil" class="control-label-md">Perfis</label>
-					<select wicket:id="perfil" class="form-control custom-select"></select>
-				</div>
-				<div class=" col-md-6">
-					<label wicket:for="email" class="control-label-md">E-mail</label>
-					<input wicket:id="email" class="form-control" type="email"
-						placeholder="example@example.com" />
-				</div>
-				<div class=" col-md-6">
-					<label wicket:for="psw" class="control-label-md">Senha</label>
-					<input wicket:id="psw" class="form-control" type="password"/>
-				</div>
+		<div class="my-mx-5">
+			<div class="mw-head">
+				<span>Cadastro de usuário</span>
 			</div>
-			
-			<div class="form-group d-flex justify-content-end">
-				<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
- 				<a wicket:id="btnCanc" class="btn btn-danger my-mx-5">Cancelar</a>
+			<div class="mw-div" >
+				<form wicket:id="formCadUs">
+					<div class="form-row my-mx-5">
+						<div class=" col-md-6">
+							<label wicket:for="userAccess" class="control-label-md">Acesso</label>
+							<input wicket:id="userAccess" class="form-control" type="text"/>
+						</div>
+						<div class=" col-md-6">
+							<label wicket:for="perfil" class="control-label-md">Perfis</label>
+							<select wicket:id="perfil" class="form-control custom-select"></select>
+						</div>
+						<div class=" col-md-6">
+							<label wicket:for="email" class="control-label-md">E-mail</label>
+							<input wicket:id="email" class="form-control" type="email"
+								placeholder="example@example.com" />
+						</div>
+						<div class=" col-md-6">
+							<label wicket:for="psw" class="control-label-md">Senha</label>
+							<input wicket:id="psw" class="form-control" type="password"/>
+						</div>
+					</div>
+					
+					<div class="form-group d-flex justify-content-end">
+						<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+		 				<a wicket:id="btnCanc" class="btn btn-danger my-mx-5">Cancelar</a>
+					</div>
+					
+				</form>
 			</div>
-			
-		</form>
+		</div>
 	</wicket:panel>
 </body>
 </html>

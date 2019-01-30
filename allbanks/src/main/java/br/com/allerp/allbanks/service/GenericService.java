@@ -22,8 +22,12 @@ public class GenericService<Entity> {
 		this.dao = dao;
 	}
 
-	public void saveOrUpdate(Entity entity) {
+	public String saveOrUpdate(Entity entity) {
+		if(entity == null) {
+			throw new NullPointerException("Entidade nula");
+		}
 		dao.saveOrUpdate(entity);
+		return "Salvo com sucesso!";
 	}
 
 	public List<Entity> findAll() {

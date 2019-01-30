@@ -118,6 +118,8 @@ public class CadastrosPage extends DashboardPage {
 		cadMdUser.setInitialHeight(264);
 		cadMdFunc = new ModalWindow("cadMdFunc");
 		cadMdFunc.setResizable(false);
+		cadMdFunc.setInitialHeight(327);
+		cadMdFunc.setInitialWidth(1450);
 		cadMdAg = new ModalWindow("cadMdAg");
 		cadMdAg.setResizable(false);
 		cadMdBc = new ModalWindow("cadMdBc");

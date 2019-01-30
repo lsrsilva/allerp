@@ -39,11 +39,10 @@ public class CadFuncPanel extends Util<Funcionario> {
 
 			@Override
 			protected String getIconStyle() {
-				return "cursor: pointer; border: none; margin-top: 15px;";
+				return "cursor: pointer; border: none;";
 			}
 
 		};
-		datePicker.setShowOnFieldClick(true);
 		datePicker.setAutoHide(true);
 		dtNasc.setMarkupId("dtNasc");
 		dtNasc.add(datePicker);

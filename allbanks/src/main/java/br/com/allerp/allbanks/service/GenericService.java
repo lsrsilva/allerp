@@ -16,18 +16,17 @@ public class GenericService<Entity> {
 
 	private GenericDao<Entity, Long> dao;
 	
-	private List<String> mensagens = new ArrayList<String>();
+	protected ArrayList<String> mensagens = new ArrayList<String>();
 
 	public void setDao(GenericDao<Entity, Long> dao) {
 		this.dao = dao;
 	}
 
-	public String saveOrUpdate(Entity entity) {
-		if(entity == null) {
-			throw new NullPointerException("Entidade nula");
-		}
+	public void saveOrUpdate(Entity entity) {
+//		if(entity == null) {
+//			throw new NullPointerException("Entidade nula");
+//		}
 		dao.saveOrUpdate(entity);
-		return "Salvo com sucesso!";
 	}
 
 	public List<Entity> findAll() {
@@ -61,11 +60,11 @@ public class GenericService<Entity> {
 		dao.merge(entity);
 	}
 
-	public List<String> getMensagens() {
+	public ArrayList<String> getMensagens() {
 		return mensagens;
 	}
 
-	public void setMensagens(List<String> mensagens) {
+	public void setMensagens(ArrayList<String> mensagens) {
 		this.mensagens = mensagens;
 	}
 

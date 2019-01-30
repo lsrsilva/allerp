@@ -5,6 +5,8 @@
 </head>
 <body>
 	<wicket:panel>
+		<div wicket:id="userNotificacao"></div>
+	
 		<div class="my-mx-5">
 			<div class="mw-head">
 				<span>Cadastro de usuário</span>
@@ -13,20 +15,20 @@
 				<form wicket:id="formCadUs">
 					<div class="form-row my-mx-5">
 						<div class=" col-md-6">
-							<label wicket:for="userAccess" class="control-label-md">Acesso</label>
+							<label wicket:for="userAccess" class="control-label-md">Acesso <span class="obrigatorio">*</span></label>
 							<input wicket:id="userAccess" class="form-control" type="text"/>
 						</div>
 						<div class=" col-md-6">
-							<label wicket:for="perfil" class="control-label-md">Perfis</label>
+							<label wicket:for="perfil" class="control-label-md">Perfis <span class="obrigatorio">*</span></label>
 							<select wicket:id="perfil" class="form-control custom-select"></select>
 						</div>
 						<div class=" col-md-6">
-							<label wicket:for="email" class="control-label-md">E-mail</label>
+							<label wicket:for="email" class="control-label-md">E-mail <span class="obrigatorio">*</span></label>
 							<input wicket:id="email" class="form-control" type="email"
 								placeholder="example@example.com" />
 						</div>
 						<div class=" col-md-6">
-							<label wicket:for="psw" class="control-label-md">Senha</label>
+							<label wicket:for="psw" class="control-label-md">Senha <span class="obrigatorio">*</span></label>
 							<input wicket:id="psw" class="form-control" type="password"/>
 						</div>
 					</div>

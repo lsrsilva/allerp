@@ -52,6 +52,7 @@ import br.com.allerp.allbanks.view.cadastros.panels.CadFuncPanel;
 import br.com.allerp.allbanks.view.cadastros.panels.CadTitularPanel;
 import br.com.allerp.allbanks.view.cadastros.panels.CadUserPanel;
 import br.com.allerp.allbanks.view.cadastros.panels.ExcluirPanel;
+import br.com.allerp.allbanks.view.panel.NotificacaoPanel;
 
 public class CadastrosPage extends DashboardPage {
 
@@ -102,6 +103,8 @@ public class CadastrosPage extends DashboardPage {
 	private WebMarkupContainer divCt;
 	private WebMarkupContainer divTit;
 
+	private NotificacaoPanel feedback;
+
 	// ----------------------------------------------------------------------//
 
 	public CadastrosPage() {
@@ -116,18 +119,39 @@ public class CadastrosPage extends DashboardPage {
 		cadMdUser = new ModalWindow("cadMdUser");
 		cadMdUser.setResizable(false);
 		cadMdUser.setInitialHeight(264);
+
 		cadMdFunc = new ModalWindow("cadMdFunc");
 		cadMdFunc.setResizable(false);
 		cadMdFunc.setInitialHeight(327);
 		cadMdFunc.setInitialWidth(1450);
+
 		cadMdAg = new ModalWindow("cadMdAg");
 		cadMdAg.setResizable(false);
+		cadMdAg.setInitialHeight(179);
+
 		cadMdBc = new ModalWindow("cadMdBc");
 		cadMdBc.setResizable(false);
-		cadMdCt = new ModalWindow("cadMdCt");
+		cadMdBc.setInitialHeight(179);
+
+		cadMdCt = new ModalWindow("cadMdCt") {
+
+			private static final long serialVersionUID = -3715864176875914229L;
+
+			@Override
+			protected AppendingStringBuffer postProcessSettings(AppendingStringBuffer settings) {
+				appendAssignment(settings, "settings.minWidth", 1450);
+				appendAssignment(settings, "settings.minHeight", 545);
+				appendAssignment(settings, "settings.width", 1450);
+				appendAssignment(settings, "settings.height", 545);
+
+				return settings;
+			}
+		};
 		cadMdCt.setResizable(false);
+
 		cadMdTit = new ModalWindow("cadMdTit");
 		cadMdTit.setResizable(false);
+
 		excModal = new ModalWindow("excModal") {
 
 			private static final long serialVersionUID = -8597477177518818635L;
@@ -162,6 +186,8 @@ public class CadastrosPage extends DashboardPage {
 		divTit = new WebMarkupContainer("divTit");
 		divTit.setOutputMarkupId(true);
 
+		feedback = new NotificacaoPanel("feedback");
+
 		listAg = agenciaService.findAll();
 		listUser = userService.findAll();
 		listFunc = funcService.findAll();
@@ -176,7 +202,7 @@ public class CadastrosPage extends DashboardPage {
 		listViewConta();
 		listViewTitular();
 
-		add(excModal);
+		add(excModal, feedback);
 	}
 
 	private void listViewUser() {
@@ -230,11 +256,11 @@ public class CadastrosPage extends DashboardPage {
 					private static final long serialVersionUID = -7337021053411693916L;
 
 					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, User object) {
-						userService.saveOrUpdate(object);
+					public void atualizaAoModificar(AjaxRequestTarget target, User user) {
+
+						userService.saveOrUpdate(user);
+
 						listUser = userService.findAll();
-						// divUser.setVisible(true);
-						divUser.setVisibilityAllowed(true);
 						target.add(divUser);
 						cadMdUser.close(target);
 					}
@@ -278,8 +304,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, User object) {
-								userService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, User user) {
+
+								userService.saveOrUpdate(user);
+
 								target.add(divUser);
 								cadMdUser.close(target);
 							}
@@ -305,7 +333,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, User object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, User user) {
 								excModal.close(target);
 								listUser = userService.findAll();
 								target.add(divUser);
@@ -413,8 +441,10 @@ public class CadastrosPage extends DashboardPage {
 					private static final long serialVersionUID = -1866501526720516765L;
 
 					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, Funcionario object) {
-						funcService.saveOrUpdate(object);
+					public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
+
+						funcService.saveOrUpdate(funcionario);
+
 						listFunc = funcService.findAll();
 
 						target.add(divFunc);
@@ -460,8 +490,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario object) {
-								funcService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
+
+								funcService.saveOrUpdate(funcionario);
+
 								cadMdFunc.close(target);
 								target.add(divFunc);
 							}
@@ -487,7 +519,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
 								excModal.close(target);
 								listFunc = funcService.findAll();
 								target.add(divAg);
@@ -558,8 +590,10 @@ public class CadastrosPage extends DashboardPage {
 					private static final long serialVersionUID = 6411274232083887033L;
 
 					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
-						bancoService.saveOrUpdate(object);
+					public void atualizaAoModificar(AjaxRequestTarget target, Banco banco) {
+
+						bancoService.saveOrUpdate(banco);
+
 						listBc = bancoService.findAll();
 						target.add(divBc, divAg);
 						cadMdBc.close(target);
@@ -604,8 +638,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
-								bancoService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, Banco banco) {
+
+								bancoService.saveOrUpdate(banco);
+
 								cadMdBc.close(target);
 								target.add(divBc);
 							}
@@ -631,7 +667,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Banco object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, Banco banco) {
 								excModal.close(target);
 								listBc = bancoService.findAll();
 								target.add(divBc);
@@ -716,9 +752,10 @@ public class CadastrosPage extends DashboardPage {
 					private static final long serialVersionUID = -1866501526720516765L;
 
 					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, Agencia object) {
+					public void atualizaAoModificar(AjaxRequestTarget target, Agencia agencia) {
 
-						agenciaService.saveOrUpdate(object);
+						agenciaService.saveOrUpdate(agencia);
+
 						listAg = agenciaService.findAll();
 
 						cadMdAg.close(target);
@@ -764,8 +801,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Agencia object) {
-								agenciaService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, Agencia agencia) {
+
+								agenciaService.saveOrUpdate(agencia);
+
 								cadMdAg.close(target);
 								target.add(divAg);
 							}
@@ -791,7 +830,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Agencia object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, Agencia agencia) {
 								excModal.close(target);
 								listAg = agenciaService.findAll();
 								target.add(divAg);
@@ -877,8 +916,10 @@ public class CadastrosPage extends DashboardPage {
 					private static final long serialVersionUID = -1866501526720516765L;
 
 					@Override
-					public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
-						contaService.saveOrUpdate(object);
+					public void atualizaAoModificar(AjaxRequestTarget target, Conta conta) {
+
+						contaService.saveOrUpdate(conta);
+
 						listTit = titularService.findAll();
 						listCt = contaService.findAll();
 
@@ -930,8 +971,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
-								contaService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, Conta conta) {
+
+								contaService.saveOrUpdate(conta);
+
 								cadMdCt.close(target);
 								target.add(divCt);
 							}
@@ -957,7 +1000,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Conta object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, Conta conta) {
 								excModal.close(target);
 								listTit = titularService.findAll();
 								listCt = contaService.findAll();
@@ -1053,8 +1096,10 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Titular object) {
-								titularService.saveOrUpdate(object);
+							public void atualizaAoModificar(AjaxRequestTarget target, Titular titular) {
+
+								titularService.saveOrUpdate(titular);
+
 								cadMdTit.close(target);
 								target.add(divTit);
 							}
@@ -1080,7 +1125,7 @@ public class CadastrosPage extends DashboardPage {
 							private static final long serialVersionUID = -2564309581427741392L;
 
 							@Override
-							public void atualizaAoModificar(AjaxRequestTarget target, Titular object) {
+							public void atualizaAoModificar(AjaxRequestTarget target, Titular titular) {
 								excModal.close(target);
 								listTit = titularService.findAll();
 								target.add(divTit);
@@ -1106,12 +1151,6 @@ public class CadastrosPage extends DashboardPage {
 
 		divTit.add(lvTit);
 		add(divTit, cadMdTit);
-	}
-
-	private void appendAssignment(final AppendingStringBuffer buffer, final CharSequence key, final int value) {
-		buffer.append(key).append("=");
-		buffer.append(value);
-		buffer.append(";\n");
 	}
 
 }

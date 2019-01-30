@@ -20,35 +20,69 @@ public class UserService extends GenericService<User> {
 	private Search search;
 	private Filter filter;
 
-	public String saveOrUpdates(User user) {
-
-		if (user.getEmail() == null) {
-			return "O campo E-mail deve ser preenchido.";
-		}
-
-		if (user.getUserAccess() == null) {
-			return "O campo Acesso deve ser preenchido.";
-		}
-
-		if (user.getPerfil() == null) {
-			return "O campo Perfil deve ser preenchido.";
-		}
-
-		if (user.getPsw() == null) {
-			return "O campo Senha deve ser preenchido.";
-		}
-
-		super.saveOrUpdate(user);
-
-		return "Usuário " + user.getUserAccess() + " salvo com sucesso!";
-	}
-
+	private List<User> usersExistentes;
+	
 	public void setUserDao(UserDao userDao) {
 		super.setDao(userDao);
 		this.userDao = userDao;
 	}
+	
+	public void saveOrUpdate(User user) {
+
+		if (user.getEmail() == null || user.getEmail().equals("")
+				&& user.getUserAccess() == null || user.getUserAccess().equals("")
+				&& user.getPsw() == null || user.getPsw().equals("")
+				&& user.getPerfil() == null) {
+			mensagens.add("Favor preencher os campos obrigatórios.");
+			return;
+		}
+
+		if (user.getEmail() == null) {
+			mensagens.add("O campo E-mail deve ser preenchido.");
+			return;
+		}
+
+		if (user.getUserAccess() == null) {
+			mensagens.add("O campo Acesso deve ser preenchido.");
+			return;
+		}
+
+		if (user.getPerfil() == null) {
+			mensagens.add("O campo Perfil deve ser preenchido.");
+			return;
+		}
+
+		if (user.getPsw() == null) {
+			mensagens.add("O campo Senha deve ser preenchido.");
+			return;
+		}
+
+		if (existeUser(user)) {
+			mensagens.add("Já existe um usuário " + user.getUserAccess());
+			return;
+		}
+
+		super.saveOrUpdate(user);
+		mensagens.add("Usuário " + user.getUserAccess() + " salvo com sucesso!");
+	}
+
+	public boolean existeUser(User user) {
+
+		usersExistentes = userDao.findAll();
+		for (User u : usersExistentes) {
+			if (u.getUserAccess().equals(user.getUserAccess())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean existeUser(String username, String psw) {
+		if(username.equals("") || username == null && psw.equals("") || psw == null) {
+			mensagens.add("Favor preencher os campos Username e Senha.");
+			return false;
+		}
+		
 		if (username != null && psw != null) {
 			User user = userDao.findUser(username);
 			if (user != null) {
@@ -58,7 +92,7 @@ public class UserService extends GenericService<User> {
 				}
 			}
 		}
-
+		mensagens.add("Usuário ou senha inválidos!");
 		return false;
 	}
 

@@ -1,5 +1,7 @@
 <wicket:extend>
 	
+	<div wicket:id="feedback" class="feedback some"></div>
+	
 	<div class="div-main">
 		<div class="div-header">
 			<h2 class="text-center"><img class="icon" alt="empregado" src="icons/folder.png">Cadastros</h2>
@@ -82,7 +84,7 @@
 						</div>
 						<div class="col-md-3 my-mx-5">
 							<label wicket:for="cpf" class="control-label">CPF do funcionário</label>
-							<input wicket:id="cpf" class="form-control my-mx-5 somenteNumero cpf" type="text" placeholder="Pesquisar por CPF">
+							<input wicket:id="cpf" class="form-control my-mx-5 somenteNumero cpf" type="text" onkeypress="somenteNumero('somenteNumero')" placeholder="Pesquisar por CPF">
 						</div>
 						
 						<div class="col-md-3 my-mx-5">

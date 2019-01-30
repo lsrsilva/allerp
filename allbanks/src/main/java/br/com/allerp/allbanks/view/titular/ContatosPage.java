@@ -173,10 +173,4 @@ public class ContatosPage extends DashboardPage {
 		add(divLvContatos, new PagingNavigator("paginator", listContatos));
 	}
 
-	private void appendAssignment(final AppendingStringBuffer buffer, final CharSequence key, final int value) {
-		buffer.append(key).append("=");
-		buffer.append(value);
-		buffer.append(";\n");
-	}
-
 }

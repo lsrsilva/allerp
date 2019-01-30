@@ -5,6 +5,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.util.string.AppendingStringBuffer;
 
 import br.com.allerp.allbanks.view.cadastros.CadastrosPage;
 import br.com.allerp.allbanks.view.titular.ContatosPage;
@@ -70,6 +71,12 @@ public class DashboardPage extends SecuredBasePage {
 	private void titular() {
 		transacao.setVisible(true);
 		contatos.setVisible(true);
+	}
+	
+	protected void appendAssignment(final AppendingStringBuffer buffer, final CharSequence key, final int value) {
+		buffer.append(key).append("=");
+		buffer.append(value);
+		buffer.append(";\n");
 	}
 
 }

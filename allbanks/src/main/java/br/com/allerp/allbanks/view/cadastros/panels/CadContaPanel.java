@@ -14,7 +14,6 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
@@ -30,6 +29,7 @@ import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.entity.user.User;
+import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;
@@ -127,6 +127,13 @@ public class CadContaPanel extends Util<Conta> {
 					divPf.setVisible(true);
 					divPj.setVisible(false);
 				}
+				target.appendJavaScript("$(\".cpf\").mask(\"999.999.999-99\");");
+				target.appendJavaScript("$(\".cnpj\").mask(\"99.999.999/9999-99\");");
+				target.appendJavaScript("$(\".CEP\").mask(\"99.999-999\");");
+				target.appendJavaScript("$(\".data\").mask(\"99/99/99\");");
+				target.appendJavaScript("$(\".telefone\").mask(\"(999) 9999-9999\");");
+				target.appendJavaScript("$(\".celular\").mask(\"(999) 99999-9999\");");
+				target.appendJavaScript("somenteNumero('somenteNumero');");
 				target.add(divTitCt);
 			}
 		});
@@ -149,11 +156,12 @@ public class CadContaPanel extends Util<Conta> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				target.appendJavaScript("mostraTabCad('contaCad');");
-				
+
 				titular.getUser().setUserAccess(numConta.getValue());
+
 				userService.saveOrUpdate(titular.getUser());
 				titularService.saveOrUpdate(titular);
-				
+
 				atualizaAoModificar(target, ctAux);
 
 				ctAux = new Conta();
@@ -183,7 +191,7 @@ public class CadContaPanel extends Util<Conta> {
 
 			@Override
 			protected String getIconStyle() {
-				return "cursor: pointer; border: none;";
+				return "cursor: pointer; border: none; margin-bottom: 3px;";
 			}
 
 		};
@@ -221,7 +229,7 @@ public class CadContaPanel extends Util<Conta> {
 		TextField<String> bairro = Util.textField("titular.endereco.bairro");
 		bairro.setRequired(true);
 		TextField<String> complemento = Util.textField("titular.endereco.complemento");
-		NumberTextField<Integer> num = Util.numberTextField("titular.endereco.num");
+		TextField<Integer> num = Util.textField("titular.endereco.num");
 		num.setRequired(true);
 		TextField<String> pais = Util.textField("titular.endereco.pais");
 		pais.setRequired(true);

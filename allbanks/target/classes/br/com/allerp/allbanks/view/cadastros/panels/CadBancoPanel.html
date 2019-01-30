@@ -1,23 +1,30 @@
 <wicket:panel>
-	<form wicket:id="formCadBc" class="form-horizontal">
-		
-		<div class="form-row my-mx-5">
-			<div class=" col-md-6">
-				<label wicket:for="codCompensacao" class="control-label-md">Código de Compensação</label>
-				<input wicket:id="codCompensacao" class="form-control somenteNumero" type="text" maxlength="5"/>
-			</div>
-			<div class=" col-md-6">
-				<label wicket:for="nome" class="control-label-md">Nome do Banco</label>
-				<input wicket:id="nome" class="form-control" type="text" />
-			</div>
+	<div class="my-mx-5">
+		<div class="mw-head">
+			<span>Cadastro de Banco</span>
 		</div>
-		
-		<div class="d-flex justify-content-end">
-			<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
-				<a wicket:id="btnCanc" class="btn btn-danger my-mx-5">Cancelar</a>
+		<div class="mw-div">
+			<form wicket:id="formCadBc" class="form-horizontal">
+				
+				<div class="form-row my-mx-5">
+					<div class=" col-md-6">
+						<label wicket:for="codCompensacao" class="control-label-md">Código de Compensação <span class="obrigatorio">*</span></label>
+						<input wicket:id="codCompensacao" class="form-control somenteNumero" type="text" maxlength="5"/>
+					</div>
+					<div class=" col-md-6">
+						<label wicket:for="nome" class="control-label-md">Nome do Banco <span class="obrigatorio">*</span></label>
+						<input wicket:id="nome" class="form-control" type="text" />
+					</div>
+				</div>
+				
+				<div class="d-flex justify-content-end">
+					<button wicket:id="salvar" type="submit" class="btn btn-success my-mx-5">Cadastrar</button>
+						<a wicket:id="btnCanc" class="btn btn-danger my-mx-5">Cancelar</a>
+				</div>
+				
+			</form>
 		</div>
-		
-	</form>
+	</div>
 	
 	<script type="text/javascript" src="js/jqueryfunc.js"></script>
 </wicket:panel>

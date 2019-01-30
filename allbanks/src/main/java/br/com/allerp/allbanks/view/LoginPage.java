@@ -6,13 +6,12 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.ContaService;
-import br.com.allerp.allbanks.view.panel.FeedbacksPanel;
+import br.com.allerp.allbanks.view.panel.NotificacaoPanel;
 
 public class LoginPage extends SecuredBasePage {
 
@@ -33,15 +32,11 @@ public class LoginPage extends SecuredBasePage {
 		final Form<?> form = new Form<>("formLogin", userModel);
 
 		final TextField<String> userAccess = new TextField<String>("userAccess");
-		userAccess.setRequired(true);
-		userAccess.setLabel(Model.of("Username"));
+		//userAccess.setRequired(true);
 		final PasswordTextField senha = new PasswordTextField("psw");
-		senha.setRequired(true);
-		senha.setLabel(Model.of("Senha"));
-		
-		final FeedbacksPanel feedback = new FeedbacksPanel("feedback");
-		feedback.setOutputMarkupPlaceholderTag(true);
-		feedback.setVisible(false);
+		senha.setRequired(false);
+
+		final NotificacaoPanel feedback = new NotificacaoPanel("feedback");
 
 		form.add(userAccess);
 		form.add(senha);
@@ -52,19 +47,27 @@ public class LoginPage extends SecuredBasePage {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				
 				if (userService.existeUser(userAccess.getValue(), senha.getValue())) {
 					setResponsePage(DashboardPage.class);
 				} else {
-					feedback.error("Usuário ou senha incorretos!");;
-					feedback.setVisible(true);
-					target.add(feedback);
+					for (String mensagem : userService.getMensagens()) {
+						error(mensagem);
+					}
+					feedback.refresh(target);
+					userService.getMensagens().clear();
 				}
 			}
 			
 			@Override
 			protected void onError(AjaxRequestTarget target, Form<?> form) {
-				feedback.setVisible(true);
-				target.add(feedback);
+				if(!userService.existeUser(userAccess.getValue(), senha.getValue())) {
+					for (String mensagem : userService.getMensagens()) {
+						error(mensagem);
+					}
+				}
+				feedback.refresh(target);
+				userService.getMensagens().clear();
 			}
 
 		});

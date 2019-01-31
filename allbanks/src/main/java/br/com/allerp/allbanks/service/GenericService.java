@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.googlecode.genericdao.search.Search;
 
 import br.com.allerp.allbanks.dao.GenericDao;
+import br.com.allerp.allbanks.entity.user.User;
 
 @Service
 public class GenericService<Entity> {
@@ -23,9 +24,9 @@ public class GenericService<Entity> {
 	}
 
 	public void saveOrUpdate(Entity entity) {
-//		if(entity == null) {
-//			throw new NullPointerException("Entidade nula");
-//		}
+		if(entity == null) {
+			throw new NullPointerException("Entidade nula");
+		}
 		dao.saveOrUpdate(entity);
 	}
 

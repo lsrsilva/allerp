@@ -55,6 +55,9 @@ public class Funcionario extends PessoaFisica {
 	}
 
 	public Float getSalario() {
+		if(salario == null) {
+			return new Float("0");
+		}
 		return salario;
 	}
 
@@ -63,6 +66,9 @@ public class Funcionario extends PessoaFisica {
 	}
 
 	public String getFormacao() {
+		if(formacao == null) {
+			return "";
+		}
 		return formacao;
 	}
 
@@ -71,6 +77,9 @@ public class Funcionario extends PessoaFisica {
 	}
 
 	public String getFuncao() {
+		if(funcao == null) {
+			return "";
+		}
 		return funcao;
 	}
 

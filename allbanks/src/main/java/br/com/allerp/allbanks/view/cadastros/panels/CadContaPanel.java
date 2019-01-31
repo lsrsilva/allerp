@@ -29,7 +29,6 @@ import br.com.allerp.allbanks.entity.enums.Contas;
 import br.com.allerp.allbanks.entity.enums.Perfis;
 import br.com.allerp.allbanks.entity.enums.Status;
 import br.com.allerp.allbanks.entity.user.User;
-import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;

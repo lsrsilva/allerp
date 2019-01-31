@@ -39,6 +39,9 @@ public class User extends GenericEntity {
 	private Titular titular;
 
 	public String getEmail() {
+		if(email == null) {
+			return "";
+		}
 		return email;
 	}
 
@@ -47,6 +50,9 @@ public class User extends GenericEntity {
 	}
 
 	public String getPsw() {
+		if(psw == null) {
+			return "";
+		}
 		return psw;
 	}
 
@@ -55,6 +61,9 @@ public class User extends GenericEntity {
 	}
 
 	public String getUserAccess() {
+		if(userAccess == null) {
+			return "";
+		}
 		return userAccess;
 	}
 

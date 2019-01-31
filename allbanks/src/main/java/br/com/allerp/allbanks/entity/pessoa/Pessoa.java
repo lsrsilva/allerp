@@ -19,6 +19,9 @@ public abstract class Pessoa extends GenericEntity {
 	private String telefone;
 
 	public String getTelefone() {
+		if(telefone == null) {
+			return "";
+		}
 		return telefone;
 	}
 	

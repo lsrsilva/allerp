@@ -21,49 +21,46 @@ public class UserService extends GenericService<User> {
 	private Filter filter;
 
 	private List<User> usersExistentes;
-	
+
 	public void setUserDao(UserDao userDao) {
 		super.setDao(userDao);
 		this.userDao = userDao;
 	}
-	
-	public void saveOrUpdate(User user) {
 
-		if (user.getEmail() == null || user.getEmail().equals("")
-				&& user.getUserAccess() == null || user.getUserAccess().equals("")
-				&& user.getPsw() == null || user.getPsw().equals("")
+	public boolean camposSaoValidos(User user) {
+
+		if (existeUser(user)) {
+			mensagens.add("Já existe um usuário " + user.getUserAccess());
+		}
+
+		if (user.getEmail().equals("") && user.getUserAccess().equals("") && user.getPsw().equals("")
 				&& user.getPerfil() == null) {
 			mensagens.add("Favor preencher os campos obrigatórios.");
-			return;
+			return false;
 		}
-
-		if (user.getEmail() == null) {
+		
+		if (user.getEmail().equals("")) {
 			mensagens.add("O campo E-mail deve ser preenchido.");
-			return;
 		}
 
-		if (user.getUserAccess() == null) {
+		if (user.getUserAccess().equals("")) {
 			mensagens.add("O campo Acesso deve ser preenchido.");
-			return;
 		}
 
 		if (user.getPerfil() == null) {
 			mensagens.add("O campo Perfil deve ser preenchido.");
-			return;
 		}
 
-		if (user.getPsw() == null) {
+		if (user.getPsw().equals("")) {
 			mensagens.add("O campo Senha deve ser preenchido.");
-			return;
 		}
 
-		if (existeUser(user)) {
-			mensagens.add("Já existe um usuário " + user.getUserAccess());
-			return;
+		if (mensagens.size() > 0) {
+			return false;
 		}
 
-		super.saveOrUpdate(user);
 		mensagens.add("Usuário " + user.getUserAccess() + " salvo com sucesso!");
+		return true;
 	}
 
 	public boolean existeUser(User user) {
@@ -78,11 +75,11 @@ public class UserService extends GenericService<User> {
 	}
 
 	public boolean existeUser(String username, String psw) {
-		if(username.equals("") || username == null && psw.equals("") || psw == null) {
+		if (username.equals("") || username == null && psw.equals("") || psw == null) {
 			mensagens.add("Favor preencher os campos Username e Senha.");
 			return false;
 		}
-		
+
 		if (username != null && psw != null) {
 			User user = userDao.findUser(username);
 			if (user != null) {

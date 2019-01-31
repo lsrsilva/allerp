@@ -26,26 +26,95 @@ public class CadUserPanel extends Util<User> {
 
 	private User userAux;
 	
-	@SpringBean(name="userService")
+	protected boolean valido;
+
+	@SpringBean(name = "userService")
 	private UserService userService;
 
-	private List<Perfis> perfis = Arrays.asList(Perfis.values());
+	protected List<Perfis> perfis = Arrays.asList(Perfis.values());
+
+	private NotificacaoPanel userNotificacao;
 
 	public CadUserPanel(String id, ModalWindow modal) {
 		this(id, new User(), modal);
 	}
 
-	public CadUserPanel(String id, User user, ModalWindow modal) {
+	public CadUserPanel(String id, User user, final ModalWindow modal) {
 		super(id);
-		
-		final NotificacaoPanel userNotificacao = new NotificacaoPanel("userNotificacao");
 
+		userNotificacao = userNotificacao();
+		
 		CompoundPropertyModel<User> modelCadUs = new CompoundPropertyModel<User>(user);
 
 		final Form<User> formCadUs = new Form<User>("formCadUs", modelCadUs);
 
 		TextField<String> userAccess = new TextField<String>("userAccess");
-		//userAccess.setRequired(true);
+		EmailTextField email = new EmailTextField("email");
+
+		userAux = user;
+		formCadUs.add(new AjaxButton("salvar") {
+
+			private static final long serialVersionUID = -7557597292953590474L;
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				valido = userService.camposSaoValidos(userAux);
+				target.appendJavaScript("mostraTabCad('userCad');");
+
+				if (valido) {
+					for (String mensagem : userService.getMensagens()) {
+						success(mensagem);
+					}
+					userNotificacao.refresh(target);
+
+					atualizaAoModificar(target, userAux);
+
+					userAux = new User();
+					formCadUs.clearInput();
+					formCadUs.modelChanged();
+					formCadUs.setModelObject(userAux);
+
+					userService.getMensagens().clear();
+					modal.close(target);
+					target.add(formCadUs);
+				} else {
+					for (String mensagem : userService.getMensagens()) {
+						userNotificacao.error(mensagem);
+					}
+
+					userNotificacao.refresh(target);
+					userService.getMensagens().clear();
+				}
+			}
+
+			@Override
+			public void onError(AjaxRequestTarget target, Form<?> form) {
+				if (!valido) {
+					for (String mensagem : userService.getMensagens()) {
+						userNotificacao.error(mensagem);
+					}
+
+					userNotificacao.refresh(target);
+					userService.getMensagens().clear();
+				}
+			}
+
+		});
+
+		formCadUs.add(userAccess, email, psw(), dropPerfil(), btnCan("btnCanc", modal));
+
+		add(formCadUs, userNotificacao());
+
+	}
+
+	private NotificacaoPanel userNotificacao() {
+
+		userNotificacao = new NotificacaoPanel("userNotificacao");
+
+		return userNotificacao;
+	}
+	
+	protected DropDownChoice<Perfis> dropPerfil() {
 		DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis) {
 
 			private static final long serialVersionUID = 7194271655576226917L;
@@ -57,59 +126,18 @@ public class CadUserPanel extends Util<User> {
 				}
 				return super.isDisabled(object, index, selected);
 			}
-		};
-		//perfil.setRequired(true);
-		EmailTextField email = new EmailTextField("email");
-		//email.setRequired(true);
-		PasswordTextField psw = new PasswordTextField("psw");
-		psw.setRequired(false);
-
-		userAux = user;
-		formCadUs.add(new AjaxButton("salvar") {
-
-			private static final long serialVersionUID = -7557597292953590474L;
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				target.appendJavaScript("mostraTabCad('userCad');");
-
-				for(String mensagem : userService.getMensagens()){
-					userNotificacao.error(mensagem);
-				}
-				userNotificacao.refresh(target);
-				userService.getMensagens().clear();
-				
-				atualizaAoModificar(target, userAux);
-				
-				userAux = new User();
-				formCadUs.clearInput();
-				formCadUs.modelChanged();
-				formCadUs.setModelObject(userAux);
-				target.add(formCadUs);
-			}
 			
-			@Override
-			public void onError(AjaxRequestTarget target, Form<?> form) {
-				for(String mensagem : userService.getMensagens()){
-					error(mensagem);
-				}
-				
-				userNotificacao.refresh(target);
-			}
-
-		});
-
-		formCadUs.add(userAccess, email, psw, perfil, btnCan("btnCanc", modal));
-
-		add(formCadUs, userNotificacao);
-
+			
+		};
+		
+		return perfil;
 	}
 	
-	private NotificacaoPanel userNotificacao() {
-
-		NotificacaoPanel userNotificacao = new NotificacaoPanel("userNotificacao");
+	protected PasswordTextField psw() {
+		PasswordTextField psw = new PasswordTextField("psw");
+		psw.setRequired(false);
 		
-		return userNotificacao;
+		return psw;
 	}
 
 }

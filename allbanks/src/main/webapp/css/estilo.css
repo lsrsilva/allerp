@@ -1,10 +1,6 @@
 @import
 	url("https://fonts.googleapis.com/css?family=Oxygen|Ubuntu|Mukta");
 
-a:active {
-	text-decoration: none;
-}
-
 body {
 	background-color: #f9f9f9;
 	font-family: 'Ubuntu';
@@ -69,45 +65,55 @@ form .input-right {
 
 /* ================ FEEDBACK =============== */
 
-ul{
-	list-style-type: none;	
+.btn-close{
+	text-align: center;
+	color: red;
+	font-size: 14px;
+	border: none;
+	width: 100%;
+	background-color: white;
+	margin-bottom: 10px;
+	padding: 5px;
+	border-radius: 15px;
+}
+
+.btn-close:hover {
+	text-decoration: underline;
 }
 
 .feedback {
 	position: absolute;
-	display: -ms-flexbox !important;
-	display: flex !important;
-	justify-content: center;
-	-webkit-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
-	-moz-box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
-	box-shadow: 0px 0px 21px 8px rgba(0, 0, 0, 0.17);
-	border-radius: 15px;
-	background-color: white;
-	z-index: 99999;
+	display: block !important;
+	z-index: 9999999;
 }
 
 .feedback-top-right{
 	padding: 10px;
 	margin: 20px 10px;
-	left: 76.5%;
+	border-radius: 15px;
+	background-color:transparent;
+	top: 0;
+	right: 0;
 }
 
 .feedback-ERROR {
-	color: red;
-	opacity: 1;
-	display: block;
+	color: #721c24;
+  	background-color: #f8d7da;
 }
 
 .feedback-SUCCESS {
-	color: green;
+	color: #155724;
+  	background-color: #d4edda;
 }
 
 .feedback-WARNING{
-	color: orange;
+	color: #856404;
+  	background-color: #fff3cd;
 }
 
 .feedback-INFO{
-	color: blue;
+	color: #0c5460;
+  	background-color: #d1ecf1;
 }
 
 /* ========================================== */

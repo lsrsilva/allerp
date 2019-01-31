@@ -8,6 +8,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.feedback.IFeedbackMessageFilter;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -60,6 +61,15 @@ public class NotificacaoPanel extends FeedbackPanel {
 			label.add(levelModifier);
 			listItem.add(levelModifier);
 			listItem.add(label);
+			listItem.add(new Link<Void>("hide") {
+
+				private static final long serialVersionUID = 5090260789373726657L;
+
+				@Override
+				public void onClick() {
+					listItem.get(listItem.getIndex()).setVisible(false);
+				}
+			});
 		}
 	}
 
@@ -74,6 +84,7 @@ public class NotificacaoPanel extends FeedbackPanel {
 		super(id);
 
 		init(id, additionalCSSClass);
+
 	}
 
 	private MessageListView messageListView;
@@ -163,7 +174,7 @@ public class NotificacaoPanel extends FeedbackPanel {
 	 */
 	@Override
 	protected String getCSSClass(FeedbackMessage message) {
-		return "feedback-" + message.getLevelAsString();
+		return "alert feedback-" + message.getLevelAsString();
 	}
 
 }

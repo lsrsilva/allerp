@@ -45,6 +45,9 @@ public class PessoaFisica extends Pessoa {
 	private Titular titular;*/
 
 	public String getCelular() {
+		if(celular == null) {
+			return "";
+		}
 		return celular;
 	}
 
@@ -53,6 +56,9 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public String getCpf() {
+		if(cpf == null) {
+			return "";
+		}
 		return cpf;
 	}
 
@@ -69,6 +75,9 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public String getNome() {
+		if(nome == null) {
+			return "";
+		}
 		return nome;
 	}
 
@@ -77,6 +86,9 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public String getRg() {
+		if(rg == null) {
+			return "";
+		}
 		return rg;
 	}
 
@@ -85,6 +97,9 @@ public class PessoaFisica extends Pessoa {
 	}
 
 	public Character getSexo() {
+		if(sexo == null) {
+			return '\u0000';
+		}
 		return sexo;
 	}
 

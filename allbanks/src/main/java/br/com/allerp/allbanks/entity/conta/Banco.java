@@ -43,6 +43,9 @@ public class Banco extends GenericEntity {
 	}
 
 	public String getCodCompensacao() {
+		if(codCompensacao == null) {
+			return "";
+		}
 		return codCompensacao;
 	}
 
@@ -51,6 +54,9 @@ public class Banco extends GenericEntity {
 	}
 
 	public String getNome() {
+		if(nome == null) {
+			return "";
+		}
 		return nome;
 	}
 

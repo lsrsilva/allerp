@@ -15,12 +15,14 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.request.resource.ContentDisposition;
@@ -257,12 +259,11 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, User user) {
-
-						userService.saveOrUpdate(user);
-
+						if(valido) {
+							userService.saveOrUpdate(user);
+						}
 						listUser = userService.findAll();
 						target.add(divUser);
-						cadMdUser.close(target);
 					}
 				};
 				cadMdUser.setContent(userPanel).setOutputMarkupId(true);
@@ -305,11 +306,34 @@ public class CadastrosPage extends DashboardPage {
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, User user) {
-
-								userService.saveOrUpdate(user);
+								if(userService.existeUser(user)) {
+									userService.saveOrUpdate(user);
+								}
+								feedback.success("Usuário editado com sucesso!");
+								feedback.refresh(target);
 
 								target.add(divUser);
 								cadMdUser.close(target);
+							}
+							
+							@Override
+							protected DropDownChoice<Perfis> dropPerfil() {
+								DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis);
+								
+								perfil.setEnabled(false);
+								
+								return perfil;
+							}
+							
+							@Override
+							protected PasswordTextField psw() {
+								PasswordTextField psw = new PasswordTextField("psw", Model.of(user.getPsw()));
+								psw.setRequired(false);
+								if(user.getPsw() != null && user.getPsw().equals("")) {
+									psw.setModelObject(user.getPsw());
+								}
+								
+								return psw;
 							}
 
 						};
@@ -442,13 +466,11 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
-
-						funcService.saveOrUpdate(funcionario);
-
+						if(valido) {
+							funcService.saveOrUpdate(funcionario);
+						}
 						listFunc = funcService.findAll();
-
 						target.add(divFunc);
-						cadMdFunc.close(target);
 					}
 				};
 				cadMdFunc.setContent(funcPanel).setOutputMarkupId(true);
@@ -596,7 +618,6 @@ public class CadastrosPage extends DashboardPage {
 
 						listBc = bancoService.findAll();
 						target.add(divBc, divAg);
-						cadMdBc.close(target);
 					}
 				};
 

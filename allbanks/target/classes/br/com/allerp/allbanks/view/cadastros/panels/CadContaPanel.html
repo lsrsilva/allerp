@@ -2,6 +2,7 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
+	<div wicket:id="contaNotificacao"></div>
 	<div class="my-mx-5">
 		<div class="mw-head">
 			<span>Cadastro de Conta</span>
@@ -11,19 +12,19 @@
 				
 				<div class="form-row my-mx-5">
 					<div class=" col-md-3">
-						<label wicket:for="agencia" class="control-label-md">Agência da Conta</label>
+						<label wicket:for="agencia" class="control-label-md">Agência da Conta <span class="obrigatorio">*</span></label>
 						<select wicket:id="agencia" class="form-control custom-select"></select>
 					</div>
 					<div class=" col-md-3">
-						<label wicket:for="banco" class="control-label-md">Banco</label>
+						<label wicket:for="banco" class="control-label-md">Banco <span class="obrigatorio">*</span></label>
 						<select wicket:id="banco" class="form-control custom-select"></select>
 					</div>
 					<div class=" col-md-3">
-						<label wicket:for="conta" class="control-label-md">Tipo de Conta</label>
+						<label wicket:for="conta" class="control-label-md">Tipo de Conta <span class="obrigatorio">*</span></label>
 						<select wicket:id="conta" class="form-control custom-select"></select>
 					</div>
 					<div class=" col-md-3">
-						<label wicket:for="numConta" class="control-label-md">Número da Conta</label>
+						<label wicket:for="numConta" class="control-label-md">Número da Conta <span class="obrigatorio">*</span></label>
 						<input wicket:id="numConta" class="form-control" type="text" />
 					</div>
 					<div class="my-mx-5">
@@ -41,7 +42,7 @@
 					<div wicket:id="divPf">
 						<div class="form-row my-mx-5">
 							<div class=" col-md-4">
-								<label wicket:for="titular.nome" class="control-label-md">Nome</label>
+								<label wicket:for="titular.nome" class="control-label-md">Nome <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.nome" class="form-control" type="text"/>
 							</div>
 							<div class="col-md-4">
@@ -49,7 +50,7 @@
 								<input wicket:id="titular.rg" class="form-control" type="text" maxlength="20"/>
 							</div>
 							<div class="col-md-4">
-								<label wicket:for="titular.cpfCnpj" class="control-label-md cpf">CPF</label>
+								<label wicket:for="titular.cpfCnpj" class="control-label-md cpf">CPF <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.cpfCnpj" class="form-control cpf" type="text" maxlength="14"/>
 							</div>
 	                        
@@ -57,7 +58,7 @@
 	                    
 	                    <div class="form-row my-mx-5">
 							<div class="col-md-4">
-								<label wicket:for="titular.dtNasc" class="control-label-md">Data de Nascimento</label>
+								<label wicket:for="titular.dtNasc" class="control-label-md">Data de Nascimento <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.dtNasc" class="form-data data" type="text" />
 							</div>
 							
@@ -66,7 +67,7 @@
 								<input wicket:id="titular.celular" class="form-control celular" type="text"/>
 							</div>
 							<div class="col-md-4">
-								<label wicket:for="titular.telefone" class="control-label-md">Telefone</label>
+								<label wicket:for="titular.telefone" class="control-label-md">Telefone <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.telefone" class="form-control telefone" type="text"/>
 							</div>
 						</div>
@@ -75,21 +76,21 @@
 					
 						<div class="form-row my-mx-5">
 							<div class=" col-md-6">
-								<label wicket:for="titular.nome" class="control-label-md">Razão Social</label>
+								<label wicket:for="titular.nome" class="control-label-md">Razão Social <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.nome" class="form-control" type="text"/>
 							</div>
 							<div class="col-md-6">
-								<label wicket:for="titular.cpfCnpj" class="control-label-md">CNPJ</label>
+								<label wicket:for="titular.cpfCnpj" class="control-label-md">CNPJ <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.cpfCnpj" class="form-control cnpj" onkeypress="somenteNumero('somenteNumero')" type="text" maxlength="20"/>
 							</div>
 						</div>
 						<div class="form-row my-mx-5">
 							<div class="col-md-6">
-								<label wicket:for="titular.ie" class="control-label-md">Inscrição Estadual</label>
+								<label wicket:for="titular.ie" class="control-label-md">Inscrição Estadual <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.ie" class="form-control" type="text"/>
 							</div>
 							<div class="col-md-6">
-								<label wicket:for="titular.telefone" class="control-label-md">Telefone</label>
+								<label wicket:for="titular.telefone" class="control-label-md">Telefone <span class="obrigatorio">*</span></label>
 								<input wicket:id="titular.telefone" class="form-control telefone" type="text"/>
 							</div>
 						</div>

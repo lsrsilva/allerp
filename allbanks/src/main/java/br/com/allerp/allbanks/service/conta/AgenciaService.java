@@ -42,4 +42,46 @@ public class AgenciaService extends GenericService<Agencia> {
 		return agenciaDao.search(search);
 	}
 
+	public boolean camposSaoValido(Agencia agencia) {
+
+		existeAgencia(agencia);
+
+		try {
+			if (agencia.getBanco() == null && agencia.getCodAg() == null) {
+				mensagens.add("Favor preencher os campos obrigatórios.");
+				return false;
+			}
+		} catch (NullPointerException ne) {
+			mensagens.add("Favor preencher os campos obrigatórios.");
+			return false;
+		}
+
+		if (agencia.getBanco() == null) {
+			mensagens.add("O campo Banco é obrigatório.");
+		}
+
+		if (agencia.getCodAg() == 0) {
+			mensagens.add("O campo Código da Agência não pode ser 0.");
+		}
+
+		if (mensagens.size() > 0) {
+			return false;
+		}
+
+		mensagens.add("Agência " + agencia.getCodAg() + " salva com sucesso!");
+		return true;
+	}
+
+	public boolean existeAgencia(Agencia agencia) {
+		List<Agencia> agencias = agenciaDao.findAll();
+
+		for (Agencia ag : agencias) {
+			if (ag.getCodigo() == agencia.getCodigo()) {
+				mensagens.add("Agência " + ag.getCodAg() + " já cadastrada para este banco.");
+				return false;
+			}
+		}
+		return true;
+	}
+
 }

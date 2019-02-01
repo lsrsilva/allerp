@@ -12,7 +12,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import br.com.allerp.allbanks.entity.conta.Conta;
 import br.com.allerp.allbanks.entity.conta.Contato;
 import br.com.allerp.allbanks.entity.conta.Titular;
-import br.com.allerp.allbanks.exceptions.FeedbackException;
 import br.com.allerp.allbanks.service.conta.ContaService;
 import br.com.allerp.allbanks.service.conta.ContatoService;
 import br.com.allerp.allbanks.service.conta.TitularService;
@@ -26,8 +25,8 @@ public class CadContatoPanel extends Util<Contato> {
 	private ContatoService contatoService;
 	@SpringBean(name = "contaService")
 	private ContaService contaService;
-	
-	@SpringBean(name="titularService")
+
+	@SpringBean(name = "titularService")
 	private TitularService titularService;
 
 	private Contato contatoAux;
@@ -54,13 +53,9 @@ public class CadContatoPanel extends Util<Contato> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				try {
-					Conta ctContato = contaService.verifExisteConta(nomeTitu, nuConta);
-					if(!titularService.existeContato(titular, ctContato)) {						
-						contatoService.saveOrUpdate(contatoAux, ctContato, titular);
-					}
-				} catch (FeedbackException e) {
-					System.out.println(e.getMessage());
+				Conta ctContato = contaService.verifExisteConta(nomeTitu, nuConta);
+				if (!titularService.existeContato(titular, ctContato)) {
+					contatoService.saveOrUpdate(contatoAux, ctContato, titular);
 				}
 				contatoAux = new Contato();
 				formContato.clearInput();
@@ -69,7 +64,7 @@ public class CadContatoPanel extends Util<Contato> {
 
 				target.add(formContato);
 			}
-			
+
 			@Override
 			protected void onAfterSubmit(AjaxRequestTarget target, Form<?> form) {
 				atualizaAoModificar(target, contatoAux);

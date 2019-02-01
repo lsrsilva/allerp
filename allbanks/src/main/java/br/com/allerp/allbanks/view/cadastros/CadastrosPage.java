@@ -256,12 +256,10 @@ public class CadastrosPage extends DashboardPage {
 				CadUserPanel userPanel = new CadUserPanel(cadMdUser.getContentId(), cadMdUser) {
 
 					private static final long serialVersionUID = -7337021053411693916L;
-
+					
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, User user) {
-						if(valido) {
-							userService.saveOrUpdate(user);
-						}
+						userService.saveOrUpdate(user);
 						listUser = userService.findAll();
 						target.add(divUser);
 					}
@@ -300,13 +298,13 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						CadUserPanel editForm = new CadUserPanel(cadMdUser.getContentId(), user, cadMdUser) {
+						CadUserPanel editForm = new CadUserPanel(cadMdUser.getContentId(), user, cadMdUser, "Edição ") {
 
 							private static final long serialVersionUID = -2360017131168195435L;
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, User user) {
-								if(userService.existeUser(user)) {
+								if (userService.existeUser(user)) {
 									userService.saveOrUpdate(user);
 								}
 								feedback.success("Usuário editado com sucesso!");
@@ -315,29 +313,28 @@ public class CadastrosPage extends DashboardPage {
 								target.add(divUser);
 								cadMdUser.close(target);
 							}
-							
+
 							@Override
 							protected DropDownChoice<Perfis> dropPerfil() {
 								DropDownChoice<Perfis> perfil = new DropDownChoice<Perfis>("perfil", perfis);
-								
+
 								perfil.setEnabled(false);
-								
+
 								return perfil;
 							}
-							
+
 							@Override
 							protected PasswordTextField psw() {
 								PasswordTextField psw = new PasswordTextField("psw", Model.of(user.getPsw()));
 								psw.setRequired(false);
-								if(user.getPsw() != null && user.getPsw().equals("")) {
+								if (user.getPsw() != null && user.getPsw().equals("")) {
 									psw.setModelObject(user.getPsw());
 								}
-								
+
 								return psw;
 							}
 
 						};
-
 						cadMdUser.setContent(editForm).setOutputMarkupId(true);
 						cadMdUser.show(target);
 					}
@@ -466,7 +463,7 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
-						if(valido) {
+						if (valido) {
 							funcService.saveOrUpdate(funcionario);
 						}
 						listFunc = funcService.findAll();
@@ -613,8 +610,9 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Banco banco) {
-
-						bancoService.saveOrUpdate(banco);
+						if (valido) {
+							bancoService.saveOrUpdate(banco);
+						}
 
 						listBc = bancoService.findAll();
 						target.add(divBc, divAg);
@@ -774,12 +772,11 @@ public class CadastrosPage extends DashboardPage {
 
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Agencia agencia) {
-
-						agenciaService.saveOrUpdate(agencia);
+						if (valido) {
+							agenciaService.saveOrUpdate(agencia);
+						}
 
 						listAg = agenciaService.findAll();
-
-						cadMdAg.close(target);
 						target.add(divAg);
 					}
 				};
@@ -939,7 +936,9 @@ public class CadastrosPage extends DashboardPage {
 					@Override
 					public void atualizaAoModificar(AjaxRequestTarget target, Conta conta) {
 
-						contaService.saveOrUpdate(conta);
+						if (valido) {
+							contaService.saveOrUpdate(conta);
+						}
 
 						listTit = titularService.findAll();
 						listCt = contaService.findAll();
@@ -1022,6 +1021,7 @@ public class CadastrosPage extends DashboardPage {
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, Conta conta) {
+								target.appendJavaScript("mostraTabCad('contaCad');");
 								excModal.close(target);
 								listTit = titularService.findAll();
 								listCt = contaService.findAll();

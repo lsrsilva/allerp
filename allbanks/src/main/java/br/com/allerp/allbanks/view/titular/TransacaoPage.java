@@ -31,6 +31,7 @@ import br.com.allerp.allbanks.service.conta.ContatoService;
 import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.DashboardPage;
 import br.com.allerp.allbanks.view.LoginPage;
+import br.com.allerp.allbanks.view.panel.NotificacaoPanel;
 
 public class TransacaoPage extends DashboardPage {
 
@@ -61,6 +62,8 @@ public class TransacaoPage extends DashboardPage {
 
 	private Label lbSaldo;
 	private ModalWindow addContatoModal;
+	
+	private NotificacaoPanel transNotificacao;
 
 	public TransacaoPage() {
 		setTitle("Transações");
@@ -68,6 +71,8 @@ public class TransacaoPage extends DashboardPage {
 			setResponsePage(DashboardPage.class);
 			return;
 		}
+		
+		transNotificacao = new NotificacaoPanel("transNotificacao");
 
 		titular = getSessao().getUser().getTitular();
 		contatos = contatoService.searchContatos(getSessao().getUser().getTitular());
@@ -79,7 +84,7 @@ public class TransacaoPage extends DashboardPage {
 		addContatoModal.setInitialWidth(450);
 
 		add(lbSaldo());
-		add(formDep(), formSaque(), formTransf(), addContatoModal);
+		add(formDep(), formSaque(), formTransf(), addContatoModal, transNotificacao);
 
 	}
 
@@ -124,9 +129,11 @@ public class TransacaoPage extends DashboardPage {
 					lbSaldo.modelChanged();
 					lbSaldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
 					target.add(lbSaldo, form);
-				} catch (NullPointerException | FeedbackException e) {
-					String message = e.getMessage();
-					System.out.println(message);
+				} catch (FeedbackException fe) {
+					transNotificacao.error(fe.getMessage());
+					transNotificacao.refresh(target);
+				} catch (NullPointerException ne) {
+					ne.printStackTrace();
 				}
 			}
 
@@ -152,8 +159,8 @@ public class TransacaoPage extends DashboardPage {
 					lbSaldo.setDefaultModel(Model.of("Saldo: " + decFormt.format(conta.getSaldo())));
 					target.add(lbSaldo);
 				} catch (NullPointerException | FeedbackException e) {
-					String message = e.getMessage();
-					System.out.println(message);
+					transNotificacao.error(e.getMessage());
+					transNotificacao.refresh(target);
 				}
 			}
 
@@ -249,8 +256,6 @@ public class TransacaoPage extends DashboardPage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 
-				System.out.println("Valor drop: " + dropContatos.get(1));
-
 				try {
 					Conta ctBenef = contaService.verifExisteConta(numContaBenef, cpfCnpjBenef, agBenef);
 
@@ -278,7 +283,8 @@ public class TransacaoPage extends DashboardPage {
 
 					target.add(lbSaldo);
 				} catch (NumberFormatException | FeedbackException fe) {
-					System.out.println(fe.getMessage());
+					transNotificacao.error(fe.getMessage());
+					transNotificacao.refresh(target);
 				}
 
 			}

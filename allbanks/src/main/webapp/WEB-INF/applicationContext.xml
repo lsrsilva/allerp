@@ -105,6 +105,7 @@
 	<bean id="contaService"
 		class="br.com.allerp.allbanks.service.conta.ContaService">
 		<property name="contaDao" ref="contaDao"></property>
+		<property name="titularService" ref="titularService"></property>
 	</bean>
 	
 	<!--======================================= CONTATOS ====================================== -->

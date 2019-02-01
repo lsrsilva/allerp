@@ -35,7 +35,11 @@ public class BancoService extends GenericService<Banco> {
 		}
 
 		if (banco.getCodCompensacao().equals("")) {
-			mensagens.add("O campo Código de Compoensação deve ser preenchido");
+			mensagens.add("O campo Código de Compensação deve ser preenchido.");
+		}
+		
+		if (banco.getCodCompensacao().equals("0")) {
+			mensagens.add("O campo Código de Compensação não deve ser 0.");
 		}
 
 		if (banco.getNome().equals("")) {

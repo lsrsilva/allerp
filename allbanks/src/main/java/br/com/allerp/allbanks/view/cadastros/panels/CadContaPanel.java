@@ -21,6 +21,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import br.com.allerp.allbanks.entity.Endereco;
 import br.com.allerp.allbanks.entity.conta.Agencia;
 import br.com.allerp.allbanks.entity.conta.Banco;
 import br.com.allerp.allbanks.entity.conta.Conta;
@@ -32,8 +33,10 @@ import br.com.allerp.allbanks.entity.user.User;
 import br.com.allerp.allbanks.service.UserService;
 import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;
+import br.com.allerp.allbanks.service.conta.ContaService;
 import br.com.allerp.allbanks.service.conta.TitularService;
 import br.com.allerp.allbanks.view.Util;
+import br.com.allerp.allbanks.view.panel.NotificacaoPanel;
 
 public class CadContaPanel extends Util<Conta> {
 
@@ -49,12 +52,16 @@ public class CadContaPanel extends Util<Conta> {
 	private TitularService titularService;
 	@SpringBean(name = "userService")
 	private UserService userService;
+	@SpringBean(name = "contaService")
+	private ContaService contaService;
 
 	private List<Agencia> agencias = agenciaService.findAll();
 	private List<Banco> bancos = bancoService.findAll();
 	private List<Status> ltStatus = Arrays.asList(Status.values());
 	private List<Contas> contas = Arrays.asList(Contas.values());
 	private final List<String> LIST_PES = Arrays.asList("Pessoa Física", "Pessoa Jurídica");
+
+	protected boolean valido;
 
 	private WebMarkupContainer divPf;
 	private WebMarkupContainer divPj;
@@ -68,7 +75,8 @@ public class CadContaPanel extends Util<Conta> {
 
 	public CadContaPanel(String id, Conta conta, final Titular titular, User titUser, ModalWindow modal) {
 		super(id);
-
+		titular.setEndereco(new Endereco());
+		final NotificacaoPanel contaNotificacao = new NotificacaoPanel("contaNotificacao");
 		// CadTitularPanel cadTit = new CadTitularPanel("cadTit");
 
 		CompoundPropertyModel<Conta> modelCadCt = new CompoundPropertyModel<Conta>(conta);
@@ -139,6 +147,7 @@ public class CadContaPanel extends Util<Conta> {
 
 		EmailTextField email = new EmailTextField("titular.user.email");
 		PasswordTextField psw = new PasswordTextField("titular.user.psw");
+		psw.setRequired(false);
 		// titUser.setUserAccess(numConta.getValue());
 		titUser.setPerfil(Perfis.TITULAR);
 		titular.setUser(titUser);
@@ -155,26 +164,42 @@ public class CadContaPanel extends Util<Conta> {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				target.appendJavaScript("mostraTabCad('contaCad');");
-
 				titular.getUser().setUserAccess(numConta.getValue());
 
-				userService.saveOrUpdate(titular.getUser());
-				titularService.saveOrUpdate(titular);
+				valido = contaService.camposSaoValidos(ctAux);
+				target.appendJavaScript("mostraTabCad('contaCad');");
 
-				atualizaAoModificar(target, ctAux);
+				if (valido) {
+					for (String mensagem : contaService.getMensagens()) {
+						contaNotificacao.success(mensagem);
+					}
+					contaNotificacao.refresh(target);
 
-				ctAux = new Conta();
-				formCadCt.clearInput();
-				formCadCt.modelChanged();
-				formCadCt.setModelObject(ctAux);
-				target.add(formCadCt);
+					userService.saveOrUpdate(titular.getUser());
+					titularService.saveOrUpdate(titular);
+
+					atualizaAoModificar(target, ctAux);
+
+					ctAux = new Conta();
+					formCadCt.clearInput();
+					formCadCt.modelChanged();
+					formCadCt.setModelObject(ctAux);
+					contaService.getMensagens().clear();
+					target.add(formCadCt);
+				} else {
+					for (String mensagem : contaService.getMensagens()) {
+						contaNotificacao.error(mensagem);
+					}
+					contaNotificacao.refresh(target);
+					contaService.getMensagens().clear();
+				}
 			}
 
 		});
 
 		divTitCt.add(radioTipoPes, formPf(), formPj(), divEnd());
 		formCadCt.add(divTitCt);
-		add(formCadCt);
+		add(formCadCt, contaNotificacao);
 
 	}
 
@@ -224,20 +249,13 @@ public class CadContaPanel extends Util<Conta> {
 		WebMarkupContainer divEnd = new WebMarkupContainer("divEnd");
 
 		TextField<String> rua = Util.textField("titular.endereco.rua");
-		rua.setRequired(true);
 		TextField<String> bairro = Util.textField("titular.endereco.bairro");
-		bairro.setRequired(true);
 		TextField<String> complemento = Util.textField("titular.endereco.complemento");
 		TextField<Integer> num = Util.textField("titular.endereco.num");
-		num.setRequired(true);
 		TextField<String> pais = Util.textField("titular.endereco.pais");
-		pais.setRequired(true);
 		TextField<String> uf = Util.textField("titular.endereco.uf");
-		uf.setRequired(true);
 		TextField<String> cidade = Util.textField("titular.endereco.cidade");
-		cidade.setRequired(true);
 		TextField<String> cep = Util.textField("titular.endereco.cep");
-		cep.setRequired(true);
 
 		divEnd.add(rua, bairro, complemento, num, pais, uf, cidade, cep);
 

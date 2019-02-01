@@ -20,6 +20,9 @@ public class ContaService extends GenericService<Conta> {
 	@SpringBean(name = "contaDao")
 	private ContaDao contaDao;
 
+	@SpringBean(name = "titularService")
+	private TitularService titularService;
+
 	private Search search;
 	private Filter filter;
 
@@ -55,6 +58,10 @@ public class ContaService extends GenericService<Conta> {
 		this.contaDao = contaDao;
 	}
 
+	public void setTitularService(TitularService titularService) {
+		this.titularService = titularService;
+	}
+
 	public List<Conta> search(Integer codAg, Integer numConta, Status status, Contas tipoConta) {
 		search = new Search(Conta.class);
 		search.addFetch("agencia");
@@ -69,7 +76,7 @@ public class ContaService extends GenericService<Conta> {
 
 	public void deposita(Conta conta, Double valDep) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
-		if (valDep <= 0) {
+		if (valDep == null || valDep <= 0) {
 			throw new FeedbackException("Valor informado para depósito deve ser maior que 0.");
 		} else if (valDep > LIM_DEPO.doubleValue()) {
 			throw new FeedbackException(
@@ -84,7 +91,7 @@ public class ContaService extends GenericService<Conta> {
 	public void saque(Conta conta, Double valSaque) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 
-		if (valSaque <= 0) {
+		if (valSaque == null || valSaque <= 0) {
 			throw new FeedbackException("Valor informado para saque deve ser maior que 0.");
 		} else if (valSaque > LIM_SAQUE.doubleValue()) {
 			throw new FeedbackException(
@@ -111,7 +118,7 @@ public class ContaService extends GenericService<Conta> {
 
 		if (conta.equals(ctBen)) {
 			throw new FeedbackException("Não é possível transferir para a mesma conta.");
-		} else if (valTransf <= 0) {
+		} else if (valTransf == null || valTransf <= 0) {
 			throw new FeedbackException("Valor informado para transferência deve ser maior que 0.");
 		} else if (valTransf > LIM_DOC.doubleValue()) {
 			throw new FeedbackException(
@@ -141,7 +148,7 @@ public class ContaService extends GenericService<Conta> {
 	 * @return A conta caso exista.
 	 * @throws FeedbackException
 	 */
-	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit, Integer codAg) throws FeedbackException {
+	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit, Integer codAg) {
 
 		Conta conta;
 		search = new Search(Conta.class);
@@ -152,7 +159,7 @@ public class ContaService extends GenericService<Conta> {
 		conta = contaDao.searchUnique(search);
 
 		if (conta == null) {
-			throw new FeedbackException("Conta para transferência inexistente.");
+			mensagens.add("Conta para transferência inexistente.");
 		}
 
 		return conta;
@@ -166,7 +173,7 @@ public class ContaService extends GenericService<Conta> {
 	 * @return A conta caso exista.
 	 * @throws FeedbackException
 	 */
-	public Conta verifExisteConta(String nomeTitular, Integer numConta) throws FeedbackException {
+	public Conta verifExisteConta(String nomeTitular, Integer numConta) {
 
 		Conta conta;
 		search = new Search(Conta.class);
@@ -176,10 +183,74 @@ public class ContaService extends GenericService<Conta> {
 		conta = contaDao.searchUnique(search);
 
 		if (conta == null) {
-			throw new FeedbackException("Conta inexistente.");
+			mensagens.add("Conta inexistente.");
 		}
 
 		return conta;
+	}
+
+	public boolean camposSaoValidos(Conta conta) {
+
+		boolean validTit = titularService.camposSaoValidos(conta.getTitular());
+
+		if(existeConta(conta)) {
+			mensagens.add("Já existe uma conta com o código " + conta.getNumConta() + "!");
+			return false;
+		}
+		
+		try {
+			if (conta.getAgencia() == null && conta.getBanco() == null && conta.getNumConta() == null
+					&& conta.getTipoConta() == null && validTit == false) {
+				mensagens.add("Favor preencher os campos obrigatórios.");
+				return false;
+			}
+		} catch (NullPointerException ne) {
+			mensagens.add("Favor preencher os campos obrigatórios.");
+			return false;
+		}
+
+		if (conta.getAgencia() == null) {
+			mensagens.add("Favor selecionar uma agência.");
+		}
+
+		if (conta.getBanco() == null) {
+			mensagens.add("Favor selecionar um Banco.");
+		}
+
+		if (conta.getTipoConta() == null) {
+			mensagens.add("Favor selecione o tipo da conta.");
+		}
+
+		if (conta.getNumConta() == null || conta.getNumConta().toString().equals("")) {
+			mensagens.add("Campo Número da Conta deve ser preenchido.");
+		} else if (conta.getNumConta() == 0) {
+			mensagens.add("Número para a conta inválido.");
+		}
+		
+		if(!validTit) {
+			mensagens.addAll(titularService.getMensagens());
+			titularService.getMensagens().clear();
+		}
+
+		if (mensagens.size() > 0) {
+			return false;
+		}
+
+		mensagens.add("Conta " + conta.getNumConta() + " salva com sucesso!");
+		return true;
+	}
+
+	public boolean existeConta(Conta conta) {
+		List<Conta> contas = contaDao.findAll();
+
+		for (Conta ct : contas) {
+			if (ct.getNumConta().equals(conta.getNumConta())) {
+				mensagens.add("Conta " + ct.getNumConta() + " já cadastrada!");
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

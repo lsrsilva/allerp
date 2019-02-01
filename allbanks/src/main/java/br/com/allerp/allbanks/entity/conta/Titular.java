@@ -64,11 +64,39 @@ public class Titular extends Pessoa {
 	@Column(nullable = false)
 	private String tipoPessoa;
 
-	@OneToMany(mappedBy = "titular", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "titular", cascade = CascadeType.REMOVE)
 	private List<Contato> contato;
+
+	@Override
+	public boolean equals(Object titular) {
+		if (this == titular) {
+			return true;
+		}
+
+		if (!(titular instanceof Titular)) {
+			return false;
+		}
+
+		Titular titular2 = (Titular) titular;
+		return this.getCodigo() == titular2.getCodigo();
+	}
 
 	public String getTipoPessoa() {
 		return tipoPessoa;
+	}
+
+	public boolean isPf() {
+		if (tipoPessoa.equals("Pessoa Física")) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isPj() {
+		if (tipoPessoa.equals("Pessoa Jurídica")) {
+			return true;
+		}
+		return false;
 	}
 
 	public void setTipoPessoa(String tipoPessoa) {
@@ -152,5 +180,13 @@ public class Titular extends Pessoa {
 
 	public void setContato(List<Contato> contato) {
 		this.contato = contato;
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 }

@@ -41,6 +41,7 @@ public class Agencia extends GenericEntity {
 	 */
 
 	public Integer getCodAg() {
+		
 		return codAg;
 	}
 

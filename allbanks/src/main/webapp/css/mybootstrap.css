@@ -164,6 +164,11 @@ select.form-data:focus::-ms-value {
 	color: white;
 }
 
+.my-nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
 .mynavbar-brand {
 	display: inline-block;
 	margin-right: 1rem;

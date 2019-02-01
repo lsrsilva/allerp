@@ -15,14 +15,20 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.conta.Agencia;
 import br.com.allerp.allbanks.entity.conta.Banco;
+import br.com.allerp.allbanks.service.conta.AgenciaService;
 import br.com.allerp.allbanks.service.conta.BancoService;
 import br.com.allerp.allbanks.view.Util;
+import br.com.allerp.allbanks.view.panel.NotificacaoPanel;
 
 public class CadAgPanel extends Util<Agencia> {
 
 	private static final long serialVersionUID = 5152936004070002278L;
 
 	private Agencia agAux;
+	protected boolean valido;
+	
+	@SpringBean(name="agenciaService")
+	private AgenciaService agenciaService;
 
 	@SpringBean(name = "bancoService")
 	private BancoService bancoService;
@@ -35,7 +41,9 @@ public class CadAgPanel extends Util<Agencia> {
 
 	public CadAgPanel(String id, Agencia agencia, ModalWindow modal) {
 		super(id);
-
+		
+		final NotificacaoPanel agenciaNotificacao = new NotificacaoPanel("agenciaNotificacao");
+		
 		CompoundPropertyModel<Agencia> modelCadAg = new CompoundPropertyModel<Agencia>(agencia);
 
 		final Form<Agencia> formCadAg = new Form<Agencia>("formCadAg", modelCadAg);
@@ -53,20 +61,37 @@ public class CadAgPanel extends Util<Agencia> {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				target.appendJavaScript("mostraTabCad('agCad');");
-				atualizaAoModificar(target, agAux);
-
-				agAux = new Agencia();
-				formCadAg.clearInput();
-				formCadAg.modelChanged();
-				formCadAg.setModelObject(agAux);
-				target.add(formCadAg);
+				valido = agenciaService.camposSaoValido(agAux);
+				
+				if(valido) {
+					target.appendJavaScript("mostraTabCad('agCad');");
+					for(String mensagem : agenciaService.getMensagens()) {
+						success(mensagem);
+					}
+					agenciaNotificacao.refresh(target);
+					
+					atualizaAoModificar(target, agAux);
+	
+					agAux = new Agencia();
+					formCadAg.clearInput();
+					formCadAg.modelChanged();
+					formCadAg.setModelObject(agAux);
+					agenciaService.getMensagens().clear();
+					target.add(formCadAg);
+				} else {
+					for(String mensagem : agenciaService.getMensagens()) {
+						error(mensagem);
+					}
+					
+					agenciaNotificacao.refresh(target);
+					agenciaService.getMensagens().clear();
+				}
 			}
 
 		});
 
 		formCadAg.add(codAg, nomeBanco, btnCan("btnCanc", modal));
-		add(formCadAg);
+		add(formCadAg, agenciaNotificacao);
 
 	}
 

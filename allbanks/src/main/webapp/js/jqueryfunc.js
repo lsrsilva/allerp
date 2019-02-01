@@ -51,14 +51,11 @@ function somenteNumero(clazz) {
 }
 
 function mostraNotificações(componentId, qtdMensagens) {
-	timeout = 100
+	timeout = 100;
 
 	setTimeout("$('div#" + componentId + "').fadeTo('normal', 1)", timeout);
 
 	timeout += 2000;
-
-	var classes = new Array("feedback-ERROR", "feedback-WARNING",
-			"feedback-INFO");
 
 	if ($('div#' + componentId + ' #messages #message').hasClass(
 			"feedback-ERROR")
@@ -68,12 +65,7 @@ function mostraNotificações(componentId, qtdMensagens) {
 					"feedback-INFO")) {
 		$('div#' + componentId).fadeTo('normal');
 	} else {
-		setTimeout("$('div#" + componentId + "').fadeTo('normal', 0)", timeout);
+		setTimeout("$('div#" + componentId + "').fadeOut('normal')", timeout);
 	}
-
-	$('#some').click(function() {
-		$(this).fadeTo('normal', 0);
-		$(this).hide();
-	});
 
 }

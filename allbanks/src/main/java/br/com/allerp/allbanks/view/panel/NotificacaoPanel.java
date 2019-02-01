@@ -157,7 +157,7 @@ public class NotificacaoPanel extends FeedbackPanel {
 			// add the css classes to the notification panel,
 			// including the border css which represents the highest level of feedback
 			add(new AttributeModifier("class", new Model<String>(cssClass + " " + additionalCSSClass
-					+ " notificationpanel_border_" + String.valueOf(highestFeedbackLevel))));
+					/*+ " notificationpanel_border_" + String.valueOf(highestFeedbackLevel)*/)));
 
 			// refresh the panel and call the js function with the panel markup id
 			// and the total count of messages

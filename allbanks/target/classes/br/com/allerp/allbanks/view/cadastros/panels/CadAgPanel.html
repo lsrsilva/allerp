@@ -2,6 +2,7 @@
 <html xmlns:wicket="http://wicket.apache.org">
 <body>
 <wicket:panel>
+	<div wicket:id="agenciaNotificacao"></div>
 	<div class="my-mx-5">
 		<div class="mw-head">
 			<span>Cadastro de Agência</span>
@@ -16,8 +17,8 @@
 					</div>
 					<div class=" col-md-6">
 						<label wicket:for="codAg" class="control-label-md">Agência <span class="obrigatorio">*</span></label>
-						<input wicket:id="codAg" class="form-control somenteNumero" type="text"
-							placeholder="00.000-00" />
+						<input wicket:id="codAg" id="codAg" class="form-control somenteNumero" type="text"
+							placeholder="00.000-00" onkeypress="this.selectionStart = this.value.length; this.selectionEnd = this.value.length;" />
 					</div>
 				</div>
 				

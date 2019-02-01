@@ -27,7 +27,7 @@ public class ContatoService extends GenericService<Contato> {
 		this.contatoDao = contatoDao;
 	}
 
-	public void saveOrUpdate(Contato contato, Conta ctContato, Titular titular) throws FeedbackException {
+	public void saveOrUpdate(Contato contato, Conta ctContato, Titular titular){
 		contato.setCtContato(ctContato);
 		contato.setTitular(titular);
 		contatoDao.merge(contato);

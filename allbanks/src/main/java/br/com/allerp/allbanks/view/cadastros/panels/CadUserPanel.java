@@ -6,12 +6,14 @@ import java.util.List;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import br.com.allerp.allbanks.entity.enums.Perfis;
@@ -36,12 +38,12 @@ public class CadUserPanel extends Util<User> {
 	private NotificacaoPanel userNotificacao;
 
 	public CadUserPanel(String id, ModalWindow modal) {
-		this(id, new User(), modal);
+		this(id, new User(), modal, "Cadastro");
 	}
 
-	public CadUserPanel(String id, User user, final ModalWindow modal) {
+	public CadUserPanel(String id, User user, final ModalWindow modal, String titulo) {
 		super(id);
-
+		add(new Label("tituloCad", Model.of(titulo + "de Usuário.")));
 		userNotificacao = userNotificacao();
 		
 		CompoundPropertyModel<User> modelCadUs = new CompoundPropertyModel<User>(user);
@@ -60,7 +62,7 @@ public class CadUserPanel extends Util<User> {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				valido = userService.camposSaoValidos(userAux);
 				target.appendJavaScript("mostraTabCad('userCad');");
-
+				
 				if (valido) {
 					for (String mensagem : userService.getMensagens()) {
 						success(mensagem);
@@ -86,18 +88,18 @@ public class CadUserPanel extends Util<User> {
 					userService.getMensagens().clear();
 				}
 			}
-
-			@Override
-			public void onError(AjaxRequestTarget target, Form<?> form) {
-				if (!valido) {
-					for (String mensagem : userService.getMensagens()) {
-						userNotificacao.error(mensagem);
-					}
-
-					userNotificacao.refresh(target);
-					userService.getMensagens().clear();
-				}
-			}
+//
+//			@Override
+//			public void onError(AjaxRequestTarget target, Form<?> form) {
+//				if (!valido) {
+//					for (String mensagem : userService.getMensagens()) {
+//						userNotificacao.error(mensagem);
+//					}
+//
+//					userNotificacao.refresh(target);
+//					userService.getMensagens().clear();
+//				}
+//			}
 
 		});
 

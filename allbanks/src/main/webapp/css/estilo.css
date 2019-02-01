@@ -51,7 +51,6 @@ form .input-right {
 }
 
 .label {
-	-ms-flex-align:;
 	align-items: center;
 	-ms-flex-pack: center;
 	justify-content: center;
@@ -352,6 +351,11 @@ form .input-right {
 
 .mg-btn-search {
 	margin-top: 38px;
+}
+
+.mg-aba{
+	margin-rigth: 5px;
+	margin-bottom: 0;
 }
 
 .obrigatorio {

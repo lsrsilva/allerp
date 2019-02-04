@@ -20,8 +20,6 @@ public class UserService extends GenericService<User> {
 	private Search search;
 	private Filter filter;
 
-	private List<User> usersExistentes;
-
 	public void setUserDao(UserDao userDao) {
 		super.setDao(userDao);
 		this.userDao = userDao;
@@ -65,12 +63,16 @@ public class UserService extends GenericService<User> {
 
 	public boolean existeUser(User user) {
 
-		usersExistentes = userDao.findAll();
-		for (User u : usersExistentes) {
-			if (u.getUserAccess().equals(user.getUserAccess())) {
+		User u = userDao.consultaUser(user);
+		
+		if(u != null) {
+			if(u.getCodigo() == user.getCodigo()) {
+				return false;
+			} else if (u.getUserAccess().equals(user.getUserAccess())) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 

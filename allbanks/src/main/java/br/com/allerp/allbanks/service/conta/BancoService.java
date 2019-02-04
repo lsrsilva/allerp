@@ -27,7 +27,9 @@ public class BancoService extends GenericService<Banco> {
 
 	public boolean camposSaoValidos(Banco banco) {
 
-		existeBanco(banco);
+		if(existeBanco(banco)) {
+			
+		}
 
 		if (banco.getCodCompensacao().equals("") && banco.getNome().equals("")) {
 			mensagens.add("Favor preencher os campos obrigatórios.");
@@ -37,7 +39,7 @@ public class BancoService extends GenericService<Banco> {
 		if (banco.getCodCompensacao().equals("")) {
 			mensagens.add("O campo Código de Compensação deve ser preenchido.");
 		}
-		
+
 		if (banco.getCodCompensacao().equals("0")) {
 			mensagens.add("O campo Código de Compensação não deve ser 0.");
 		}
@@ -55,21 +57,25 @@ public class BancoService extends GenericService<Banco> {
 	}
 
 	public boolean existeBanco(Banco banco) {
-		List<Banco> bancos = bancoDao.findAll();
+		Banco bc = bancoDao.consultaBanco(banco);
 
-		for (Banco bc : bancos) {
-			if (bc.getCodCompensacao().equals(banco.getCodCompensacao())) {
-				if(bc.getNome().equals(banco.getNome())) {
-					mensagens.add("Já existe um banco cadastrado com o código " + bc.getCodCompensacao() + " e com o nome " + bc.getNome() + "!");
+		if (bc != null) {
+			if(bc.getCodigo() == banco.getCodigo()) {
+				return false;
+			} else if (bc.getCodCompensacao().equals(banco.getCodCompensacao())) {
+				if (bc.getNome().equals(banco.getNome())) {
+					mensagens.add("Já existe um banco cadastrado com o código " + bc.getCodCompensacao()
+							+ " e com o nome " + bc.getNome() + "!");
 					return true;
 				} else {
 					mensagens.add("Já existe um banco cadastrado com o código " + bc.getCodCompensacao() + "!");
 					return true;
 				}
-			} else if(bc.getNome().equals(banco.getNome())) {
+			} else if (bc.getNome().equals(banco.getNome())) {
 				mensagens.add("Já existe um banco cadastrado com o nome " + bc.getNome() + "!");
 				return true;
 			}
+
 		}
 
 		return false;

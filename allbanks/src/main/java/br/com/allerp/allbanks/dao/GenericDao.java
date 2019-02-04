@@ -23,7 +23,7 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 	private Query query;
 
 	private String hsql;
-	
+
 	public GenericDao() {
 	}
 
@@ -40,12 +40,12 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 		super.setSessionFactory(sessionFactory);
 	}
 
-	@Transactional(isolation = Isolation.SERIALIZABLE)
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public void saveOrUpdate(Entity entity) {
 		super.save(entity);
 	}
-	
-	@Transactional
+
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void merge(Entity entity) {
 		super._merge(entity);
 	}
@@ -57,28 +57,27 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 		return allResults;
 	}
 
-	@Transactional
+	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
 	public void deleteById(Serializable... id) {
 		super.removeById(id);
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(Entity entity) {
 		super.remove(entity);
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(@SuppressWarnings("unchecked") Entity... entities) {
 		super._update(entities);
-
 	}
 
-	@Transactional
+	@Transactional(readOnly = true, isolation = Isolation.SERIALIZABLE, propagation = Propagation.SUPPORTS)
 	public List<Entity> search(Search search) {
 		return super.search(search);
 	}
-	
-	@Transactional
+
+	@Transactional(readOnly = true, isolation = Isolation.SERIALIZABLE, propagation = Propagation.SUPPORTS)
 	public Entity searchUnique(Search search) {
 		return super.searchUnique(search);
 	}
@@ -98,8 +97,8 @@ public class GenericDao<Entity, ID extends Serializable> extends GenericDAOImpl<
 	protected void setSqlQuery(SQLQuery sqlQuery) {
 		this.sqlQuery = sqlQuery;
 	}
-	
-	protected Query getqlQuery() {
+
+	protected Query getQuery() {
 		return query;
 	}
 

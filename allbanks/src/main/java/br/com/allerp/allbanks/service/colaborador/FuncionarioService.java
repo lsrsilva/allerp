@@ -2,6 +2,9 @@ package br.com.allerp.allbanks.service.colaborador;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
 
@@ -21,9 +24,9 @@ public class FuncionarioService extends GenericService<Funcionario> {
 	}
 
 	public boolean camposSaoValidos(Funcionario func) {
-		
+
 		if (existeFunc(func)) {
-			mensagens.add("Funcionário já cadastrado.");
+			mensagens.add("Funcionário com cpf" + func.getCpf() + " já cadastrado.");
 		}
 
 		if (func.getCelular().equals("") && func.getNome().equals("") && func.getCpf().equals("")
@@ -69,7 +72,7 @@ public class FuncionarioService extends GenericService<Funcionario> {
 		if (func.getTelefone().equals("")) {
 			mensagens.add("Campo telefone é obrigatório.");
 		}
-		
+
 		if (mensagens.size() > 0) {
 			return false;
 		}
@@ -78,14 +81,19 @@ public class FuncionarioService extends GenericService<Funcionario> {
 		return true;
 	}
 
-	public boolean existeFunc(Funcionario func) {
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public boolean existeFunc(Funcionario funcionario) {
 
-		List<Funcionario> funcExistentes = funcDao.findAll();
-		for (Funcionario f : funcExistentes) {
-			if (f.getCpf().equals(func.getCpf())) {
+		Funcionario func = funcDao.consultaFuncionario(funcionario);
+
+		if (func != null) {
+			if (func.getCodigo() == funcionario.getCodigo()) {
+				return false;
+			} else if (func.getCpf().equals(funcionario.getCpf())) {
 				return true;
 			}
 		}
+
 		return false;
 	}
 

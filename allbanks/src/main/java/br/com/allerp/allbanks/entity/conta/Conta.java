@@ -28,7 +28,7 @@ public class Conta extends GenericEntity {
 	private static final long serialVersionUID = 1750152236850386281L;
 
 	@ManyToOne(cascade = { CascadeType.REFRESH })
-	@JoinColumn(name = "id_ag", referencedColumnName = "codigo", nullable = false)
+	@JoinColumn(name = "idAg", referencedColumnName = "codigo", nullable = false)
 	@ForeignKey(name = "FK_AG_CT")
 	private Agencia agencia;
 

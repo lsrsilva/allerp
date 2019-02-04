@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.genericdao.search.Filter;
 import com.googlecode.genericdao.search.Search;
@@ -62,6 +65,7 @@ public class ContaService extends GenericService<Conta> {
 		this.titularService = titularService;
 	}
 
+	@Transactional(readOnly = true, isolation = Isolation.SERIALIZABLE, propagation = Propagation.SUPPORTS)
 	public List<Conta> search(Integer codAg, Integer numConta, Status status, Contas tipoConta) {
 		search = new Search(Conta.class);
 		search.addFetch("agencia");
@@ -74,6 +78,7 @@ public class ContaService extends GenericService<Conta> {
 		return contaDao.search(search);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void deposita(Conta conta, Double valDep) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 		if (valDep == null || valDep <= 0) {
@@ -84,10 +89,11 @@ public class ContaService extends GenericService<Conta> {
 		} else {
 			saldo = saldo.add(new BigDecimal(valDep));
 			conta.setSaldo(saldo);
-			contaDao.merge(conta);
+			merge(conta);
 		}
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void saque(Conta conta, Double valSaque) throws FeedbackException {
 		saldo = contaDao.consultaSaldo(conta.getNumConta());
 
@@ -101,7 +107,7 @@ public class ContaService extends GenericService<Conta> {
 		} else {
 			saldo = saldo.subtract(new BigDecimal(valSaque));
 			conta.setSaldo(saldo);
-			contaDao.merge(conta);
+			merge(conta);
 		}
 
 	}
@@ -135,11 +141,6 @@ public class ContaService extends GenericService<Conta> {
 
 	}
 
-	public BigDecimal getCtSaldo(Conta conta) {
-		saldo = contaDao.consultaSaldo(conta.getNumConta());
-		return saldo;
-	}
-
 	/**
 	 * Verifica se uma conta existe para um titular.
 	 * 
@@ -148,6 +149,7 @@ public class ContaService extends GenericService<Conta> {
 	 * @return A conta caso exista.
 	 * @throws FeedbackException
 	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public Conta verifExisteConta(Integer numConta, String cpfCnpjTit, Integer codAg) {
 
 		Conta conta;
@@ -173,6 +175,7 @@ public class ContaService extends GenericService<Conta> {
 	 * @return A conta caso exista.
 	 * @throws FeedbackException
 	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public Conta verifExisteConta(String nomeTitular, Integer numConta) {
 
 		Conta conta;
@@ -193,11 +196,11 @@ public class ContaService extends GenericService<Conta> {
 
 		boolean validTit = titularService.camposSaoValidos(conta.getTitular());
 
-		if(existeConta(conta)) {
+		if (existeConta(conta)) {
 			mensagens.add("Já existe uma conta com o código " + conta.getNumConta() + "!");
 			return false;
 		}
-		
+
 		try {
 			if (conta.getAgencia() == null && conta.getBanco() == null && conta.getNumConta() == null
 					&& conta.getTipoConta() == null && validTit == false) {
@@ -226,8 +229,8 @@ public class ContaService extends GenericService<Conta> {
 		} else if (conta.getNumConta() == 0) {
 			mensagens.add("Número para a conta inválido.");
 		}
-		
-		if(!validTit) {
+
+		if (!validTit) {
 			mensagens.addAll(titularService.getMensagens());
 			titularService.getMensagens().clear();
 		}
@@ -240,11 +243,15 @@ public class ContaService extends GenericService<Conta> {
 		return true;
 	}
 
+	@Transactional(readOnly = true, isolation = Isolation.SERIALIZABLE, propagation = Propagation.SUPPORTS)
 	public boolean existeConta(Conta conta) {
-		List<Conta> contas = contaDao.findAll();
 
-		for (Conta ct : contas) {
-			if (ct.getNumConta().equals(conta.getNumConta())) {
+		Conta ct = contaDao.consultaConta(conta);
+
+		if (ct != null) {
+			if (ct.getCodigo() == conta.getCodigo()) {
+				return false;
+			} else if (ct.getNumConta().equals(conta.getNumConta())) {
 				mensagens.add("Conta " + ct.getNumConta() + " já cadastrada!");
 				return true;
 			}

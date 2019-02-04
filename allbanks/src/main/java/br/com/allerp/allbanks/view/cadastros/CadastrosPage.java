@@ -304,9 +304,7 @@ public class CadastrosPage extends DashboardPage {
 
 							@Override
 							public void atualizaAoModificar(AjaxRequestTarget target, User user) {
-								if (userService.existeUser(user)) {
-									userService.saveOrUpdate(user);
-								}
+								userService.saveOrUpdate(user);
 								feedback.success("Usuário editado com sucesso!");
 								feedback.refresh(target);
 
@@ -512,9 +510,11 @@ public class CadastrosPage extends DashboardPage {
 							public void atualizaAoModificar(AjaxRequestTarget target, Funcionario funcionario) {
 
 								funcService.saveOrUpdate(funcionario);
+								feedback.success("Funcionário editado com sucesso!");
+								feedback.refresh(target);
 
-								cadMdFunc.close(target);
 								target.add(divFunc);
+								cadMdFunc.close(target);
 							}
 
 						};
